@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import model.board.BoardVO;
 import model.proposal.board.ProBoardDAO;
 import model.proposal.board.ProBoardVO;
 
@@ -20,10 +19,12 @@ public class ProUpdatePostingController implements Controller{
 		int boardNo=Integer.parseInt(request.getParameter("boardNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		BoardVO vo=new ProBoardVO();
+		String secret=request.getParameter("secret");
+		ProBoardVO vo=new ProBoardVO();
 		vo.setBoardNo(boardNo);
 		vo.setTitle(title);
 		vo.setContent(content);
+		vo.setSecret(secret);
 		ProBoardDAO.getInstance().updatePosting(vo);
 		String path="redirect:DispatcherServlet?command=proShowContentNotHit&boardNo="+vo.getBoardNo();
 		return path;

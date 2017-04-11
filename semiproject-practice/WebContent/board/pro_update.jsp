@@ -33,6 +33,8 @@
 		var f = document.update_form;
 		f.reset();
 	}
+	$(document).ready(function(){
+		if(
 </script>
 </head>
 <body>
@@ -53,6 +55,7 @@
 										<td colspan="4">제&nbsp;&nbsp;&nbsp;목 | 
 											<c:forEach begin="0" end="7">&nbsp;</c:forEach>
 											<input type="text" name="title" value=${requestScope.bvo.title } size="71">
+											<input type="checkbox" name="secret" value="Y">비밀글
 										</td>
 									</tr>
 									<tr>

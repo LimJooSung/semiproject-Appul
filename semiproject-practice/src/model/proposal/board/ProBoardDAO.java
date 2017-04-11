@@ -218,15 +218,16 @@ public class ProBoardDAO {
 	 * @param vo
 	 * @throws SQLException
 	 */
-	public void updatePosting(BoardVO vo) throws SQLException{
+	public void updatePosting(ProBoardVO vo) throws SQLException{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try{
 			con=getConnection();
-			pstmt=con.prepareStatement("update proposal_board set title=?,content=? where PROPOSAL_BOARD_NO=?");
+			pstmt=con.prepareStatement("update proposal_board set title=?,content=? secret=? where PROPOSAL_BOARD_NO=?");
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
-			pstmt.setInt(3, vo.getBoardNo());	
+			pstmt.setString(3, vo.getSecret());
+			pstmt.setInt(4, vo.getBoardNo());	
 			pstmt.executeUpdate();			
 		}finally{
 			closeAll(pstmt,con);
@@ -345,7 +346,7 @@ public class ProBoardDAO {
 	         con = getConnection();
 	           StringBuilder sql = new StringBuilder();
 	           sql.append("select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(");
-	            sql.append("select row_number() over(order by to_number(proposal_board_no) asc) rnum, proposal_board_no, title, id,secret, ");
+	            sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,secret, ");
 	            sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	            sql.append("from proposal_board where title like ? or content like ?");
 	            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
