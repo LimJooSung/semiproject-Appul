@@ -4,7 +4,7 @@ import model.board.BoardVO;
 import model.member.MemberVO;
 
 public class ProBoardVO extends BoardVO {
-	private boolean hidden;
+	private String secret;
 
 	public ProBoardVO() {
 		super();
@@ -15,14 +15,15 @@ public class ProBoardVO extends BoardVO {
 		super(boardNo, title, content, timePosted, hits, attachedFile, member);
 	}
 	
-	public boolean isHidden() {
-		return hidden;
+
+	public String getSecret() {
+		return secret;
 	}
-	public void setHidden(boolean hidden) {
-		this.hidden = hidden;
+	public void setSecret(String secret) {
+		this.secret = secret;
 	}
 	@Override
 	public String toString() {
-		return super.toString() + "ProBoardVO [hidden=" + hidden + "]";
+		return super.toString() + "ProBoardVO [secret=" + secret + "]";
 	}
 }

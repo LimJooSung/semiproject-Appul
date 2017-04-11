@@ -25,7 +25,7 @@ public class ProPostingListController implements Controller {
 		ArrayList<BoardVO> list=ProBoardDAO.getInstance().getPostingList(pagingBean);
 		ListVO listVO=new ListVO(list,pagingBean);
 		request.setAttribute("lvo", listVO);
-		return "board/pro_list.jsp";
+		return "board/pro_board.jsp";
 
 	}
 

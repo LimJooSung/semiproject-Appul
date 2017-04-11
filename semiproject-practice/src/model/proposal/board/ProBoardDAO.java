@@ -50,11 +50,11 @@ public class ProBoardDAO {
 		try{
 			con=getConnection(); 
 			StringBuilder sql = new StringBuilder();
-	         sql.append("select pb.proposal_board_no, pb.title, pb.id, pb.hit, pb.time_posted, m.mem_name from(");
-	         sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id, ");
+	         sql.append("select b.proposal_board_no, b.title, b.id, b.hit, b.time_posted, m.mem_name,b.secret from(");
+	         sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,secret, ");
 	         sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	         sql.append("from proposal_board");
-	         sql.append(") pb, member m where pb.id = m.id and rnum between ? and ?");
+	         sql.append(") b, member m where b.id = m.id and rnum between ? and ?");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, pagingBean.getStartRowNumber());
 			pstmt.setInt(2, pagingBean.getEndRowNumber());
@@ -62,11 +62,12 @@ public class ProBoardDAO {
 			//목록에서 게시물 content는 필요없으므로 null로 setting
 			//select no,title,time_posted,hits,id,name
 			while(rs.next()){		
-				BoardVO bvo=new ProBoardVO();
+				ProBoardVO bvo=new ProBoardVO();
 				bvo.setBoardNo(rs.getInt(1));
 				bvo.setTitle(rs.getString(2));
 				bvo.setTimePosted(rs.getString(5));
 				bvo.setHits(rs.getInt(4));
+				bvo.setSecret(rs.getString(7));
 				MemberVO mvo=new MemberVO();
 				mvo.setId(rs.getString(3));
 				mvo.setName(rs.getString(6));
@@ -79,7 +80,6 @@ public class ProBoardDAO {
 		}
 		return list;
 	}
-	
 	/**
 	 * 전체 게시물 수를 조회하는 메서드(페이징 처리를 위해 사용)
 	 * @return
@@ -110,8 +110,8 @@ public class ProBoardDAO {
      * @return
      * @throws SQLException
      */
-	public BoardVO getPostingByNo(int no) throws SQLException{
-		BoardVO bvo=null;
+	public ProBoardVO getPostingByNo(int no) throws SQLException{
+		ProBoardVO bvo=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -119,7 +119,7 @@ public class ProBoardDAO {
 			con=getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql.append("select b.title,to_char(b.time_posted,'YYYY.MM.DD  HH24:MI:SS') as time_posted");
-			sql.append(",b.content,b.hit,b.id,m.MEM_NAME");
+			sql.append(",b.content,b.hit,b.id,m.MEM_NAME,b.secret");
 			sql.append(" from proposal_board b,member m");
 			sql.append(" where b.id=m.id and b.PROPOSAL_BOARD_NO=?");		
 			pstmt=con.prepareStatement(sql.toString());
@@ -133,6 +133,7 @@ public class ProBoardDAO {
 				bvo.setContent(rs.getString("content"));				
 				bvo.setHits(rs.getInt("hit"));
 				bvo.setTimePosted(rs.getString("time_posted"));
+				bvo.setSecret(rs.getString("secret"));
 				MemberVO mvo=new MemberVO();
 				mvo.setId(rs.getString("id"));
 				mvo.setName(rs.getString("MEM_NAME"));
@@ -169,7 +170,7 @@ public class ProBoardDAO {
 	 * @param vo
 	 * @throws SQLException
 	 */
-	public void posting(BoardVO vo) throws SQLException{
+	public void posting(ProBoardVO vo) throws SQLException{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -177,12 +178,13 @@ public class ProBoardDAO {
 			con=getConnection();
 			//insert into board_login_inst(no,title,content,id,time_posted) values(board_login_inst_seq.nextval,?,?,?,sysdate)
 			StringBuilder sql=new StringBuilder();
-			sql.append("insert into proposal_board(PROPOSAL_BOARD_NO,title,content,id,time_posted)");
-			sql.append(" values(proposal_board_seq.nextval,?,?,?,sysdate)");			
+			sql.append("insert into proposal_board(PROPOSAL_BOARD_NO,title,content,id,time_posted,secret)");
+			sql.append(" values(proposal_board_seq.nextval,?,?,?,sysdate,?)");			
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getMember().getId());
+			pstmt.setString(4, vo.getSecret());
 			pstmt.executeUpdate();			
 			pstmt.close();
 			pstmt=con.prepareStatement("select proposal_board_seq.currval from dual");
@@ -230,6 +232,187 @@ public class ProBoardDAO {
 			closeAll(pstmt,con);
 		}
 	}
+	/**
+	 * 검색된 게시물 수를 조회하는 메서드
+	 * @param type
+	 * @param searchTxt
+	 * @return
+	 * @throws SQLException
+	 */
+	public int getTotalSearchedContent(String type, String searchTxt) throws SQLException {
+		 Connection con = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      int totalContent = 0;
+	      StringBuilder sql = new StringBuilder();
+	      try {
+	         con=getConnection(); // SELECT count(*) FROM inst_board WHERE title LIKE '%연습%'
+	         if (type.equals("title")) {
+	            sql.append("select count(*) from(");
+	               sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id, ");
+	               sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
+	               sql.append("from proposal_board where title like ?");
+	               sql.append(") ib, member m where ib.id = m.id");
+	            pstmt = con.prepareStatement(sql.toString());
+	            pstmt.setString(1, "%" + searchTxt + "%");
+	            rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	               totalContent = rs.getInt(1);
+	            }
+	         } else if (type.equals("titleAndContent")) {
+	            sql.append("select count(*) from(");
+	               sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id, ");
+	               sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
+	               sql.append("from proposal_board where title like ? or content like ?");
+	               sql.append(") ib, member m where ib.id = m.id");
+	            pstmt = con.prepareStatement(sql.toString());
+	            pstmt.setString(1, "%" + searchTxt + "%");
+	            pstmt.setString(2, "%" + searchTxt + "%");
+	            rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	               totalContent = rs.getInt(1);
+	            }
+	         } else if (type.equals("writer")) {
+	            sql.append("select count(*) from(");
+	            sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, ib.proposal_board_no, ib.title, ib.content, ib.id, ");
+	            sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
+	            sql.append("from proposal_board ib, member m where ib.id = m.id and m.mem_name like ?");
+	            sql.append(") tb");
+	            pstmt = con.prepareStatement(sql.toString());
+	            pstmt.setString(1, "%" + searchTxt + "%");
+	            rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	               totalContent = rs.getInt(1);
+	            }
+	         }
+	      } finally {
+	         closeAll(rs, pstmt, con);
+	      }
+	      return totalContent;
+	}
+	/**
+	 * 제목으로 검색
+	 * @param pagingBean
+	 * @param searchTxt
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<BoardVO> getSearchedProPostingListByTitle(PagingBean pagingBean, String searchTxt) throws SQLException {
+		 Connection con = null;                                                   // 컨트롤러에서! 총게시물수, 현재페이지번호
+	      PreparedStatement pstmt = null;                                       // getTotalCount
+	      ResultSet rs = null;
+	      ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+	      try {
+	         con = getConnection();
+	         String sql="select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from("
+	         		+ "select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,hit,secret, to_char("
+	         		+ "time_posted, 'YYYY.MM.DD') as time_posted from proposal_board where title like ?) ib, member m "
+	         		+ "where ib.id = m.id and rnum between ? and ?";
+            pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, "%" + searchTxt + "%");
+	         pstmt.setInt(2, pagingBean.getStartRowNumber());
+	         pstmt.setInt(3, pagingBean.getEndRowNumber());
+	         rs = pstmt.executeQuery();
+	         while (rs.next()) {
+	            ProBoardVO vo = new ProBoardVO();
+	            vo.setBoardNo(rs.getInt("proposal_board_no"));
+	            vo.setTitle(rs.getString("title"));
+	            vo.getMember().setId(rs.getString("id"));
+	            vo.getMember().setName(rs.getString("mem_name"));
+	            vo.setHits(rs.getInt("hit"));
+	            vo.setTimePosted(rs.getString("time_posted"));
+	            vo.setSecret(rs.getString("secret"));
+	            list.add(vo);
+	         }
+	      } finally {
+	         closeAll(rs, pstmt, con);
+	      }
+	      return list;
+	}
+	/**
+	 * 제목과내용으로 검색
+	 * @param pagingBean
+	 * @param searchTxt
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<BoardVO> getSearchedProPostingListByTitleAndContent(PagingBean pagingBean, String searchTxt) throws SQLException {
+		Connection con = null;                                                   // 컨트롤러에서! 총게시물수, 현재페이지번호
+	      PreparedStatement pstmt = null;                                       // getTotalCount
+	      ResultSet rs = null;
+	      ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+	      try {
+	         con = getConnection();
+	           StringBuilder sql = new StringBuilder();
+	           sql.append("select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(");
+	            sql.append("select row_number() over(order by to_number(proposal_board_no) asc) rnum, proposal_board_no, title, id,secret, ");
+	            sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
+	            sql.append("from proposal_board where title like ? or content like ?");
+	            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
+	         pstmt = con.prepareStatement(sql.toString());
+	         pstmt.setString(1, "%" + searchTxt + "%");
+	         pstmt.setString(2, "%" + searchTxt + "%");
+	         pstmt.setInt(3, pagingBean.getStartRowNumber());
+	         pstmt.setInt(4, pagingBean.getEndRowNumber());
+	         rs = pstmt.executeQuery();
+	         while (rs.next()) {
+	        	 ProBoardVO vo = new ProBoardVO();
+	            vo.setBoardNo(rs.getInt("proposal_board_no"));
+	            vo.setTitle(rs.getString("title"));
+	            vo.getMember().setId(rs.getString("id"));
+	            vo.getMember().setName(rs.getString("mem_name"));
+	            vo.setHits(rs.getInt("hit"));
+	            vo.setTimePosted(rs.getString("time_posted"));
+	            vo.setSecret(rs.getString("secret"));
+	            list.add(vo);
+	         }
+	      } finally {
+	         closeAll(rs, pstmt, con);
+	      }
+	      return list;
+	}
+	/**
+	 * 게시자 검색을통한 게시글 수
+	 * @param pagingBean
+	 * @param searchTxt
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<BoardVO> getSearchedProPostingListByWriter(PagingBean pagingBean, String searchTxt) throws SQLException {
+		  Connection con = null;                                                   // 컨트롤러에서! 총게시물수, 현재페이지번호
+	      PreparedStatement pstmt = null;                                       // getTotalCount
+	      ResultSet rs = null;
+	      ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+	      try {
+	         con = getConnection();
+	           StringBuilder sql = new StringBuilder();
+	           sql.append("select tb.rnum, tb.proposal_board_no, tb.title, tb.content, tb.id, tb.hit, tb.time_posted, tb.mem_name,tb.secret from(");
+	            sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, ib.proposal_board_no, ib.title, ib.content, ib.id,ib.secret, ");
+	            sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
+	            sql.append("from proposal_board ib, member m where ib.id = m.id and m.mem_name like ?");
+	            sql.append(") tb where rnum between ? and ?");
+	         pstmt = con.prepareStatement(sql.toString());
+	         pstmt.setString(1, "%" + searchTxt + "%");
+	         pstmt.setInt(2, pagingBean.getStartRowNumber());
+	         pstmt.setInt(3, pagingBean.getEndRowNumber());
+	         rs = pstmt.executeQuery();
+	         while (rs.next()) {
+	        	ProBoardVO vo = new ProBoardVO();
+	            vo.setBoardNo(rs.getInt("proposal_board_no"));
+	            vo.setTitle(rs.getString("title"));
+	            vo.getMember().setId(rs.getString("id"));
+	            vo.getMember().setName(rs.getString("mem_name"));
+	            vo.setHits(rs.getInt("hit"));
+	            vo.setTimePosted(rs.getString("time_posted"));
+	            vo.setSecret(rs.getString("secret"));
+	            list.add(vo);
+	         }
+	      } finally {
+	         closeAll(rs, pstmt, con);
+	      }
+	      return list;
+	}
+
 }
 
 

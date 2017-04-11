@@ -4,7 +4,7 @@ import model.board.BoardVO;
 import model.member.MemberVO;
 
 public class QnABoardVO extends BoardVO {
-	private boolean hidden;
+	private String secret;
 
 	public QnABoardVO() {
 		super();
@@ -15,14 +15,15 @@ public class QnABoardVO extends BoardVO {
 		super(boardNo, title, content, timePosted, hits, attachedFile, member);
 	}
 
-	public boolean isHidden() {
-		return hidden;
+
+	public String getSecret() {
+		return secret;
 	}
-	public void setHidden(boolean hidden) {
-		this.hidden = hidden;
+	public void setSecret(String secret) {
+		this.secret = secret;
 	}
 	@Override
 	public String toString() {
-		return super.toString() + "QnABoardVO [hidden=" + hidden + "]";
+		return super.toString() + "QnABoardVO [secret=" + secret + "]";
 	}
 }

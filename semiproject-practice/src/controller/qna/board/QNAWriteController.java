@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import model.board.BoardVO;
 import model.member.MemberVO;
 import model.qna.board.QnABoardDAO;
 import model.qna.board.QnABoardVO;
@@ -20,10 +19,11 @@ public class QNAWriteController implements Controller {
 		}
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-				
-		BoardVO bvo=new QnABoardVO();
+		String secret =request.getParameter("secret");
+		QnABoardVO bvo=new QnABoardVO();
 		bvo.setTitle(title);
 		bvo.setContent(content);
+		bvo.setSecret(secret);
 		bvo.setMember((MemberVO)session.getAttribute("mvo"));		
 	
 		QnABoardDAO.getInstance().posting(bvo);
