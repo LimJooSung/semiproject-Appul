@@ -48,7 +48,13 @@ public class HandlerMapping { // Singleton Pattern으로 구현
          controller = new LoginController();
       } else if (command.equals("logout")) {
          controller = new LogoutController();
-      } 
+      } else if (command.equals("register")) {
+    	  controller = new RegisterController();
+      } else if (command.equals("idcheck")) {
+    	  controller = new MemberIdCheckController();
+      } else if (command.equals("update")) {
+    	  controller = new UpdateController();
+      }
       else if (command.equals("instList")) {   // 강사 게시판 컨트롤러
          controller = new InstPostingListController();
       } else if (command.equals("instShowContent")) {

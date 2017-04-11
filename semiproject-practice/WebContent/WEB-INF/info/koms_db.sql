@@ -32,19 +32,20 @@ create sequence inst_comment_seq;
 -- create table
 -- member 테이블
 create table member(
-	id					varchar2(100) primary key,
-	password		varchar2(100) not null,
-	mem_name		varchar2(100) not null,
-	birth_date	date,
-	gender			varchar2(100) not null,
-	mem_type		varchar2(100) not null
+   id               varchar2(100) primary key,
+   password      varchar2(100) not null,
+   mem_name      varchar2(100) not null,
+   gender         varchar2(100) not null,
+   birth_date    varchar2(100) not null,
+   mem_type      varchar2(100) not null,
+   mem_number number not null
 )
-insert into member (id, password, mem_name, birth_date, gender, mem_type) 
-values ('java', '1234', '강정호', '1970-01-01', '남', '일반학생');
-insert into member (id, password, mem_name, birth_date, gender, mem_type) 
-values ('spring', '1234', '김가린', '1970-01-01', '여', '일반학생');
-insert into member (id, password, mem_name, birth_date, gender, mem_type) 
-values ('tico', '1234', '서정우', '1970-01-01', '남', '강사');
+insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) 
+values ('java', '1234', '강정호', '남', '1970-01-01', '일반학생', 1);
+insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) 
+values ('spring', '1234', '김가린', '여', '1970-01-01', '일반학생', 1);
+insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) 
+values ('tico', '1234', '서정우', '남', '1970-01-01', '강사', 1);
 
 -- 발표자 선정 테이블
 create table selecting_presenter(

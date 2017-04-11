@@ -9,68 +9,148 @@ import javax.sql.DataSource;
 
 import model.board.DataSourceManager;
 
+
 public class MemberDAO {
-	private static MemberDAO dao = new MemberDAO();	
+	private static MemberDAO dao=new MemberDAO();
 	private DataSource dataSource;
-	private MemberDAO() {
-		dataSource = DataSourceManager.getInstance().getDataSource();
+	private MemberDAO(){
+		dataSource=DataSourceManager.getInstance().getDataSource();
 	}
-	public static MemberDAO getInstance(){
+	public static MemberDAO getInstance(){		
 		return dao;
-	}
-	public Connection getConnection() throws SQLException {
-		return dataSource.getConnection();
-	}
-	public void closeAll(PreparedStatement pstmt, Connection con) throws SQLException {
-		if (pstmt != null)
-			pstmt.close();
-		if (con != null)
-			con.close(); 
-	}
-	public void closeAll(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException {
-		if (rs != null)
-			rs.close();
-		closeAll(pstmt, con);
 	}	
-//	public MemberVO loginCheck(String id, String password) throws SQLException {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		MemberVO vo = null;
-//		try {
-//			con = getConnection();
-//			String sql = "select name from board_member where id=? and password=?";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, id);
-//			pstmt.setString(2, password);
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				vo = new MemberVO(id, password, rs.getString(1));
-//			}
-//		} finally {
-//			closeAll(rs, pstmt, con);
-//		}
-//		return vo;
-//	}
-	public MemberVO login(String id, String password) throws SQLException{
+	public void closeAll(PreparedStatement pstmt,
+			Connection con) throws SQLException{
+		closeAll(null,pstmt,con);
+	}
+	public void closeAll(ResultSet rs,PreparedStatement pstmt,
+			Connection con) throws SQLException{
+		if(rs!=null)
+			rs.close();
+		if(pstmt!=null)
+			pstmt.close();
+		if(con!=null)
+			con.close();
+	}
+	
+	
+	public MemberVO login(String id,String password) throws SQLException{
 		MemberVO vo=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
-		ResultSet rs=null;    
+		ResultSet rs=null;
 		try{
-			con=getConnection();
-			String sql= "select id, mem_name, password, birth_date, gender, mem_type from member where id=? and password=?";
+			con=dataSource.getConnection();
+			String sql="select mem_name from member where id=? and password=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1,id);
+			pstmt.setString(1, id);
 			pstmt.setString(2, password);
 			rs=pstmt.executeQuery();
-			if (rs.next()) {
-				vo = new MemberVO(id, password, rs.getString("mem_name"), rs.getString("birth_date"),
-						rs.getString("gender"), rs.getString("mem_type"));
+			if(rs.next()){
+				vo=new MemberVO(id,null,rs.getString(1));
 			}
 		}finally{
-			closeAll(rs, pstmt, con);
+			closeAll(rs, pstmt,con);
 		}
 		return vo;
 	}
+	
+	public void register(MemberVO vo) throws SQLException{
+		Connection con=null;
+		PreparedStatement pstmt=null;		
+		try{
+			con=dataSource.getConnection();
+			String sql = "insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES (?, ?, ?, ?, ?, ?, member_Seq.nextval)";
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(3, vo.getName());
+			pstmt.setString(4, vo.getGender());
+			pstmt.setString(5, vo.getDateOfBirth());			
+			pstmt.setString(6, vo.getMemberType());
+			pstmt.executeUpdate();								
+		}finally{
+			closeAll(pstmt,con);
+		}
+	}
+	public boolean idcheck(String id) throws SQLException{
+		boolean flag=false;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+
+		try{
+			con=dataSource.getConnection();
+			String sql="select count(*) from member where id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,id);
+			rs=pstmt.executeQuery();
+			if(rs.next()&&(rs.getInt(1)>0)){				
+				flag=false;
+			}else{				
+				flag=true;
+			}
+		}finally{
+			closeAll(rs,pstmt,con);
+		}
+		return flag;
+	}
+	
+	public void update(MemberVO vo) throws SQLException{
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try{
+			con=dataSource.getConnection();
+			String sql=
+				"update member set password=?,mem_name=?,gender=?,birth_date=? ,mem_type=? where id=?";
+			pstmt=con.prepareStatement(sql);			
+			
+			/*System.out.println("password" + vo.getPassword());
+			System.out.println("name" + vo.getName());
+			System.out.println("Date" + vo.getDateOfBirth());
+			System.out.println("Gender" + vo.getGender());
+			System.out.println("MemberType" + vo.getMemberType());
+			System.out.println("id" + vo.getId());*/
+			
+			pstmt.setString(1,vo.getPassword());
+			pstmt.setString(2,vo.getName());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setString(4, vo.getDateOfBirth());	
+			pstmt.setString(5, vo.getMemberType());
+			pstmt.setString(6,vo.getId());
+			pstmt.executeUpdate();			
+		}finally{
+			closeAll(pstmt,con);
+		}
+	}
+	
+	public void delete(String id) throws SQLException{
+		System.out.println("탈퇴할 사람 아이디 " +  id);
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try{
+			con=dataSource.getConnection();
+			String sql="delete from member where id=?";
+			pstmt=con.prepareStatement(sql);			
+			pstmt.setString(1,id);
+			pstmt.executeUpdate();			
+		}finally{
+			closeAll(pstmt,con);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
