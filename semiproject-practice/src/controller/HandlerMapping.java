@@ -12,6 +12,10 @@ import controller.inst.board.InstShowContentNotHitController;
 import controller.inst.board.InstUpdatePostingController;
 import controller.inst.board.InstUpdateViewController;
 import controller.inst.board.InstWritePostingController;
+import controller.proposal.board.ProCommentDeleteController;
+import controller.proposal.board.ProCommentUpdateController;
+import controller.proposal.board.ProCommentUpdateViewController;
+import controller.proposal.board.ProCommentWriteController;
 import controller.proposal.board.ProDeletePostingController;
 import controller.proposal.board.ProPostingListController;
 import controller.proposal.board.ProSearchController;
@@ -28,6 +32,10 @@ import controller.qna.board.QNAShowContentNoHitController;
 import controller.qna.board.QNAUpdatePostingController;
 import controller.qna.board.QNAUpdatePostingViewController;
 import controller.qna.board.QNAWriteController;
+import controller.qna.board.QnACommentDeleteController;
+import controller.qna.board.QnACommentUpdateController;
+import controller.qna.board.QnACommentUpdateViewController;
+import controller.qna.board.QnACommentWriteController;
 
 public class HandlerMapping { // Singleton Pattern으로 구현
 	private static HandlerMapping instance = new HandlerMapping();
@@ -100,13 +108,13 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 		} else if (command.equals("proSearch")) {
 			controller = new ProSearchController();
 		} else if (command.equals("proCommentWrite")) {
-			controller = new InstCommentWriteController();
+			controller = new ProCommentWriteController();
 		} else if (command.equals("proCommentDelete")) {
-			controller = new InstCommentDeleteController();
+			controller = new ProCommentDeleteController();
 		} else if (command.equals("proCommentUpdateView")) {
-			controller = new InstCommentUpdateViewController();
+			controller = new ProCommentUpdateViewController();
 		} else if (command.equals("proCommentUpdateAction")) {
-			controller = new InstCommentUpdateController();
+			controller = new ProCommentUpdateController();
 		}
 
 		else if (command.equals("QNAboardlist")) { // QnA 게시판 컨트롤러
@@ -126,13 +134,13 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 		} else if (command.equals("QNAsearch")) {
 			controller = new QNASearchController();
 		} else if (command.equals("QnACommentWrite")) {
-			controller = new InstCommentWriteController();
+			controller = new QnACommentWriteController();
 		} else if (command.equals("QnACommentDelete")) {
-			controller = new InstCommentDeleteController();
+			controller = new QnACommentDeleteController();
 		} else if (command.equals("QnACommentUpdateView")) {
-			controller = new InstCommentUpdateViewController();
+			controller = new QnACommentUpdateViewController();
 		} else if (command.equals("QnACommentUpdateAction")) {
-			controller = new InstCommentUpdateController();
+			controller = new QnACommentUpdateController();
 		}
 		return controller;
 	}

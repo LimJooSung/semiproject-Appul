@@ -16,6 +16,7 @@ public class InstCommentWriteController implements Controller {
 		if (session == null || session.getAttribute("mvo") == null) {
 			return "redirect:login.jsp";
 		}
+		System.out.println("이곳은 write컨트롤러 입니다");
 		int boardNo = Integer.parseInt(request.getParameter("comment_board"));
 		String id = request.getParameter("comment_id");
 		String content = request.getParameter("comment_content");

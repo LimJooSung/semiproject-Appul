@@ -1,5 +1,7 @@
 package controller.inst.board;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import model.board.BoardVO;
 import model.inst.board.InstBoardDAO;
+import model.inst.board.InstCommentDAO;
+import model.inst.board.InstCommentVO;
 
 public class InstShowContentController implements Controller {
 
@@ -22,6 +26,8 @@ public class InstShowContentController implements Controller {
 		// 개별 게시물 조회  
 		BoardVO vo = InstBoardDAO.getInstance().getInstPostingByNo(boardNo);	
 		request.setAttribute("bvo", vo);
+		ArrayList<InstCommentVO> cvo =InstCommentDAO.getInstance().getInstPostingCommentList(vo.getBoardNo());
+		request.setAttribute("cvo", cvo);
 		return "board/inst_show_content.jsp";
 	}
 }
