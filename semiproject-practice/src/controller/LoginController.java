@@ -18,6 +18,6 @@ public class LoginController implements Controller {
 			session.setAttribute("mvo", mvo);			
 		}
 		System.out.println(mvo.toString());
-		return "redirect:login_result.jsp";
+		return "redirect:member/login_result.jsp";
 	}
 }

@@ -20,11 +20,11 @@ public class MemberVO {
 		super();
 		this.id = id;
    }
-   public MemberVO(String id, String password, String name) {
+   public MemberVO(String id, String name, String memberType) {
 		super();
 		this.id = id;
-		this.password = password;
 		this.name = name;
+		this.memberType = memberType;
 	}
    public MemberVO(String id, String password, String name, String gender, String dateOfBirth, String memberType) {
       super();
