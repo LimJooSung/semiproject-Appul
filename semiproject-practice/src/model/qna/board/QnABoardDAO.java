@@ -58,12 +58,10 @@ public class QnABoardDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT b.qna_board_no, b.title, b.time_posted, b.hit, b.id, m.mem_name,b.secret FROM(");
-			sql.append(
-					"SELECT row_number() over(order by to_number(qna_board_no) desc) as rnum, qna_board_no, title, hit, secret,");
+			sql.append("SELECT row_number() over(order by to_number(qna_board_no) desc) as rnum, qna_board_no, title, hit, secret,");
 			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, id FROM ");
 			sql.append("qna_board ");
 			sql.append(") b, member m where b.id=m.id and rnum between ? and ? ");
-			sql.append(" order by qna_board_no desc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, pagingBean.getStartRowNumber());
 			pstmt.setInt(2, pagingBean.getEndRowNumber());
