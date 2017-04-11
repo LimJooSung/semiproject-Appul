@@ -1,18 +1,18 @@
-package model.qna.board;
+package model.inst.board;
 
 import model.member.MemberVO;
 
-public class QnACommentVO {
+public class InstCommentVO {
 	private int boardNo;
 	private int commentNo;
 	private MemberVO member = new MemberVO();
 	private String timePosted;
 	private int parent;
 	private String content;
-	public QnACommentVO() {
+	public InstCommentVO() {
 		super();
 	}
-	public QnACommentVO(int boardNo, int commentNo, MemberVO member, String timePosted, int parent, String content) {
+	public InstCommentVO(int boardNo, int commentNo, MemberVO member, String timePosted, int parent, String content) {
 		super();
 		this.boardNo = boardNo;
 		this.commentNo = commentNo;

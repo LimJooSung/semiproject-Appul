@@ -1,4 +1,4 @@
-package model.qna.board;
+package model.inst.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,15 +10,15 @@ import javax.sql.DataSource;
 
 import model.board.DataSourceManager;
 
-public class QnACommentDAO {
-	private static QnACommentDAO dao = new QnACommentDAO();
+public class InstCommentDAO {
+	private static InstCommentDAO dao = new InstCommentDAO();
 	private DataSource dataSource;
 
-	private QnACommentDAO() {
+	private InstCommentDAO() {
 		dataSource = DataSourceManager.getInstance().getDataSource();
 	}
 
-	public static QnACommentDAO getInstance() {
+	public static InstCommentDAO getInstance() {
 		return dao;
 	}
 
@@ -39,8 +39,8 @@ public class QnACommentDAO {
 		closeAll(pstmt, con);
 	}
 
-	public ArrayList<QnACommentVO> getQnAPostingCommentList(int boardNo) throws SQLException {
-		ArrayList<QnACommentVO> cvo = new ArrayList<QnACommentVO>();
+	public ArrayList<InstCommentVO> getInstPostingCommentList(int boardNo) throws SQLException {
+		ArrayList<InstCommentVO> cvo = new ArrayList<InstCommentVO>();
 		int no = boardNo;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -49,14 +49,14 @@ public class QnACommentDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					"select qna_comment_no, qna_board_no, id, name, time_posted, content, parent from qna_comment where qna_board_no = ?");
+					"select inst_comment_no,inst_board_no,id,name,time_posted,content,parent from inst_comment where inst_board_no = ?");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				QnACommentVO vo = new QnACommentVO();
-				vo.setCommentNo(rs.getInt("qna_comment_no"));
-				vo.setBoardNo(rs.getInt("qna_board_no"));
+				InstCommentVO vo = new InstCommentVO();
+				vo.setCommentNo(rs.getInt("inst_comment_no"));
+				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("name"));
 				vo.setTimePosted(rs.getString("time_posted"));
@@ -71,7 +71,7 @@ public class QnACommentDAO {
 		return cvo;
 	}
 
-	public void postingQnAComment(QnACommentVO vo) throws SQLException {
+	public void postingInstComment(InstCommentVO vo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -79,8 +79,8 @@ public class QnACommentDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					"insert into qna_comment(qna_comment_no, qna_board_no, id, name, time_posted, content, parent) ");
-			sql.append("values(qna_comment_seq.nextval, ?, ?, ?, sysdate, ?, ?)");
+					"insert into inst_comment(inst_comment_no, inst_board_no, id, name, time_posted, content, parent) ");
+			sql.append("values(inst_comment_seq.nextval, ?, ?, ?, sysdate, ?, ?)");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, vo.getBoardNo());
 			pstmt.setString(2, vo.getMember().getId());
@@ -93,12 +93,12 @@ public class QnACommentDAO {
 		}
 	}
 
-	public void deletingQnAComment(int commentNo) throws SQLException {
+	public void deletingInstComment(int commentNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = getConnection();
-			String sql = "delete from qna_comment where qna_comment_no=?";
+			String sql = "delete from inst_comment where inst_comment_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, commentNo);
 			pstmt.executeUpdate();
@@ -107,23 +107,23 @@ public class QnACommentDAO {
 		}
 	}
 
-	public QnACommentVO getQnAPostingCommentByNo(int commentNo) throws SQLException {
-		QnACommentVO cvo = null;
+	public InstCommentVO getInstPostingCommentByNo(int commentNo) throws SQLException {
+		InstCommentVO cvo = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select qna_comment_no, qna_board_no, id, name, time_posted, content, parent from ");
-			sql.append("qna_comment where qna_comment_no = ?");
+			sql.append("select inst_comment_no, inst_board_no, id, name, time_posted, content, parent from ");
+			sql.append("inst_comment where inst_comment_no = ?");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, commentNo);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				cvo = new QnACommentVO();
-				cvo.setCommentNo(rs.getInt("qna_comment_no"));
-				cvo.setBoardNo(rs.getInt("qna_board_no"));
+				cvo = new InstCommentVO();
+				cvo.setCommentNo(rs.getInt("inst_comment_no"));
+				cvo.setBoardNo(rs.getInt("inst_board_no"));
 				cvo.getMember().setId(rs.getString("id"));
 				cvo.getMember().setName(rs.getString("name"));
 				cvo.setTimePosted(rs.getString("time_posted"));
@@ -136,12 +136,12 @@ public class QnACommentDAO {
 		return cvo;
 	}
 
-	public void updatePostingComment(QnACommentVO cvo) throws SQLException {
+	public void updatePostingComment(InstCommentVO cvo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = getConnection();
-			String sql = "update qna_comment set content=?, time_posted=sysdate where qna_comment_no=?";
+			String sql = "update inst_comment set content=?, time_posted=sysdate where inst_comment_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, cvo.getContent());
 			pstmt.setInt(2, cvo.getCommentNo());

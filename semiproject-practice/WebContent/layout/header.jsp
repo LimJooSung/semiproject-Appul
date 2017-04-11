@@ -6,6 +6,9 @@
 		$("#logoutBtn").click(function() {
 			return confirm("정말 로그아웃 하시겠습니까?");
 		});	// click
+		$("#updateBtn").click(function() {
+			return confirm("회원 정보를 수정 하시겠습니까?");
+		});	// click
 	});	// ready
 </script>
 <nav class="navbar navbar-inverse">
@@ -37,6 +40,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>${sessionScope.mvo.name}<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
+						<li><a href="DispatcherServlet?command=updateView" id="updateBtn">회원정보수정<span class="glyphicons glyphicons-log-out"></span></a></li>
 						<li><a href="DispatcherServlet?command=logout" id="logoutBtn">로그아웃<span class="glyphicons glyphicons-log-out"></span></a></li>
 					</ul>
 				</li>
