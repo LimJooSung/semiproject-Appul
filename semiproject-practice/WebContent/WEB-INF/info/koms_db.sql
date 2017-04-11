@@ -86,7 +86,7 @@ create table free_board(
    time_posted         date,
    file_name            varchar2(100) not null,
    hit                  number default(0),
-   hidden               char(1),      -- 'Y' or 'N'으로 쓸 예정(?)
+    secret                     char(1) default('N'),      -- 'Y' or 'N'으로 쓸 예정(?)
    constraint fk_id_free_board foreign key(id) references member(id)
 )
 
@@ -110,7 +110,7 @@ create table proposal_board(
    time_posted               date,
    file_name                  varchar2(100),
    hit                        number default(0),
-   hidden                     char(1),      -- 'Y' or 'N'으로 쓸 예정(?)
+    secret               char(1) default('n'),    -- 'Y' or 'N'으로 쓸 예정(?)
    constraint fk_id_proposal_board foreign key(id) references member(id)
 )
 
@@ -134,7 +134,7 @@ create table qna_board(
    time_posted         date,
    file_name            varchar2(100),
    hit                  number default(0),
-   hidden               char(1),      -- 'Y' or 'N'으로 쓸 예정(?)
+    secret               char(1) default('n'),      -- 'Y' or 'N'으로 쓸 예정(?)
    constraint fk_id_qna_board foreign key(id) references member(id)
 )
 
@@ -227,23 +227,11 @@ select ib.rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ib.hit, ib.time_p
 			from inst_board where id like '%강정호%'
 			) ib, member m where ib.id = m.id and rnum between 1 and 20
 			
-select count(*) from(
-	select row_number() over(order by to_number(inst_board_no) desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id,
-	ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name
-	from inst_board ib, member m where ib.id = m.id and m.mem_name like '%강정호%'
-) tb 
-
-select tb.rnum, tb.inst_board_no, tb.title, tb.content, tb.id, tb.hit, tb.time_posted, tb.mem_name from(
-	select row_number() over(order by to_number(inst_board_no) desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id,
-	ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name
-	from inst_board ib, member m where ib.id = m.id and m.mem_name like '%강정호%'
-) tb where rnum between 1 and 20
-			
 select ib.rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ib.hit, ib.time_posted, m.mem_name from(
-			select row_number() over(order by to_number(inst_board_no) desc) rnum, ti.inst_board_no, ti.title, ti.content, ti.id,
-			ti.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
-			from inst_board ti, member m where ti.id = m.id and m.mem_name like '%강정호%'
-			) ib where rnum between 0 and 10
+			select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, content, id,
+			hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
+			from inst_board where mem_name like '%강정호%'
+			) ib, member m where ib.id = m.id and rnum between 1 and 20
 
 select * from inst_board
 
@@ -255,11 +243,51 @@ select * from inst_board
 
 select * from qna_board
 
-select count(*) from(
-				select row_number() over(order by to_number(inst_board_no) desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id, 
-				ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name
-				from inst_board ib, member m where ib.id = m.id and m.mem_name like '%강정호%'
-			) tb
-			
-			select * from inst_board where id='tico'
-			
+select count(*) from
+( select row_number() over(order by to_number
+(proposal_board_no) desc) rnum, proposal_board_no, 
+title, id, hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted
+from proposal_board where title like '%1%') ib, member m where ib.id = m.id
+select *from proposal_board
+
+
+
+
+select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(
+select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,
+hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted from proposal_board where title like ?) ib, member m where ib.id = m.id and rnum between ? and ?
+
+
+
+
+	           select tb.rnum, tb.proposal_board_no, tb.title, tb.content, tb.id, tb.hit, tb.time_posted, tb.mem_name,tb.secret from(
+	           select row_number() over(order by to_number(proposal_board_no) desc) rnum, ib.proposal_board_no, ib.title, ib.content, ib.id,ib.secret,
+	           ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name 
+	           from proposal_board ib, member m where ib.id = m.id and m.mem_name like '%1%'
+	            ) tb where rnum between 1 and 20
+	            
+	            
+	            select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(
+	            select row_number() over(order by to_number(proposal_board_no) asc) rnum, proposal_board_no, title, id,secret,
+	            hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted
+	            from proposal_board where title like '%임%' or content like '%1%'
+	            ) ib, member m where ib.id = m.id and rnum between 1 and 20 
+
+	            create table qna_board(
+   qna_board_no      varchar2(100) primary key,
+   id                     varchar2(100) not null,
+   title                  varchar2(100) not null,
+   content               clob,
+   time_posted         date,
+   file_name            varchar2(100),
+   hit                  number default(0),
+    secret               char(1) default('n'),      -- 'Y' or 'N'으로 쓸 예정(?)
+   constraint fk_id_qna_board foreign key(id) references member(id)
+)
+
+select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(
+select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id,hit,secret, to_char(
+				time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like '%1%') ib, member m
+					where ib.id = m.id and rnum between 1 and 20
+
+
