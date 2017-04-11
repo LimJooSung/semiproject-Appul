@@ -48,36 +48,36 @@
 						<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form">
 							<input type="hidden" name="command" value="proWrite">
 							<table class="table">
-								<tbody>
-									<tr> 
-										<td colspan="4">제&nbsp;&nbsp;&nbsp;목 | 
-											<c:forEach begin="0" end="7">&nbsp;</c:forEach>
-											<input type="text" name="title" size="71">
-										</td>
-									</tr>
-									<tr>
-										<td>작성자 | 
-											<c:forEach begin="0" end="7">&nbsp;</c:forEach>
-											${sessionScope.mvo.name}
-										</td>
-										<td></td>
-										<td>
-											<span class="glyphicons glyphicons-file-plus"></span><input type="file">
-											<input type="checkbox">비밀글</td>
-									</tr>
-									<tr>
-										<td colspan="4" align="center">&nbsp;&nbsp; 
-											<textarea cols="70" rows="15" name="content"></textarea>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="4" align="center">
-											<a href="#"><img src="${pageContext.request.contextPath}/img/write_btn.jpg" alt="글입력" onclick="content_submit()"></a>
-											<a href="#"><img class="action" src="${pageContext.request.contextPath}/img/cancel.gif" onclick="cancel()"></a>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+						<tbody>
+							<tr> 
+								<td colspan="4">제&nbsp;&nbsp;&nbsp;목 | 
+									<c:forEach begin="0" end="7">&nbsp;</c:forEach>
+									<input type="text" name="title" size="71">
+										<input type="checkbox" name="secret" value="Y">비밀글
+								</td>
+							</tr>
+							<tr>
+								<td>작성자 | 
+									<c:forEach begin="0" end="7">&nbsp;</c:forEach>
+									${sessionScope.mvo.name}
+								</td>
+								<td></td>
+								<td colspan="2">
+									<span class="glyphicons glyphicons-file-plus"></span><input type="file">
+							</tr>
+							<tr>
+								<td colspan="4" align="center">&nbsp;&nbsp; 
+									<textarea cols="70" rows="15" name="content"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" align="center">
+									<a href="#"><img src="${pageContext.request.contextPath}/img/write_btn.jpg" alt="글입력" onclick="content_submit()"></a>
+									<a href="#"><img class="action" src="${pageContext.request.contextPath}/img/cancel.gif" onclick="cancel()"></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 						</form>
 					</div>
 				</div>

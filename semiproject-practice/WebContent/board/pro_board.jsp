@@ -19,20 +19,18 @@
 function writeList(){
 	location.href="${pageContext.request.contextPath}/board/pro_write.jsp";
 }
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#searchBtn").click(function() {
-			var searchTxt = document.getElementById("searchTxt").value;
-			if (searchTxt == "") {
-				alert("검색어를 입력하세요.");
-				return;
-			} else {
-				var type = document.getElementById("search").value;
-				location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type=" + type + "&searchTxt=" + searchTxt;
-			}
-		});
+$(document).ready(function() {
+	$("#searchBtn").click(function() {
+		var searchTxt = document.getElementById("searchTxt").value;
+		if (searchTxt == "") {
+			alert("검색어를 입력하세요.");
+			return;
+		} else {
+			var type = document.getElementById("search").value;
+			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type=" + type + "&searchTxt=" + searchTxt;
+		}
 	});
+});
 </script>
 </head>
 <body>
@@ -56,12 +54,35 @@ function writeList(){
 							</thead>
 							<tbody>
 								<c:forEach var="bvo" items="${requestScope.lvo.list}">
-									<tr>
-										<td  align="center">${bvo.boardNo }</td>
-										<td  align="center">
-											<a href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
-											 ${bvo.title }</a>
-											</td>
+								<tr>
+										
+										<td align="center">${bvo.boardNo }</td>
+										<td align="center">
+										<c:choose>
+												<c:when test="${bvo.secret =='Y'}">
+													<c:choose>
+														<c:when
+															test="${bvo.member.id == sessionScope.mvo.id||sessionScope.mvo.memberType=='강사'}">
+															<a href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
+																<img src="${pageContext.request.contextPath}/img/lock.jpg"
+																width="18" height="18" />
+																${bvo.title}</a>
+														</c:when>
+														
+											<c:otherwise>
+											<img src="${pageContext.request.contextPath}/img/lock.jpg"
+																width="18" height="18" />
+											 ${bvo.title}												
+											
+											 </c:otherwise>
+											
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<a href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
+														${bvo.title}</a>
+												</c:otherwise>
+											</c:choose></td>
 										<td  align="center">${bvo.member.name }</td>
 										<td  align="center">${bvo.timePosted }</td>
 										<td  align="center">${bvo.hits }</td>

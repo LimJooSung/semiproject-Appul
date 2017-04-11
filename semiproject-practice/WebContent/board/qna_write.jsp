@@ -53,6 +53,7 @@
 								<td colspan="4">제&nbsp;&nbsp;&nbsp;목 | 
 									<c:forEach begin="0" end="7">&nbsp;</c:forEach>
 									<input type="text" name="title" size="71">
+										<input type="checkbox" name="secret" value="Y">비밀글
 								</td>
 							</tr>
 							<tr>
@@ -61,9 +62,8 @@
 									${sessionScope.mvo.name}
 								</td>
 								<td></td>
-								<td>
+								<td colspan="2">
 									<span class="glyphicons glyphicons-file-plus"></span><input type="file">
-									<input type="checkbox">비밀글</td>
 							</tr>
 							<tr>
 								<td colspan="4" align="center">&nbsp;&nbsp; 

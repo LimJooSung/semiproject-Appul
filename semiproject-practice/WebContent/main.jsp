@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,12 +7,16 @@
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/mystyle.css">
 <!-- Custom styles for this template -->
 <link href="sticky-footer.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<jsp:include page="/layout/header.jsp" />
@@ -31,22 +35,49 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="pvo" items="${requestScope.pvo.list}" begin="0" end="5">
+								<c:forEach var="pvo" items="${requestScope.pvo.list}" begin="0"
+									end="5">
 									<tr>
-										<td  align="center">
-											<a href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${pvo.boardNo }">
-											 ${pvo.title }</a>
+										<td align="center">
+											<%-- <a href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${pvo.boardNo }">
+											 ${pvo.title }</a> --%> <c:choose>
+												<c:when test="${pvo.secret =='Y'}">
+													<c:choose>
+														<c:when
+															test="${pvo.member.id == sessionScope.mvo.id||sessionScope.mvo.memberType=='강사'}">
+															<a
+																href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${pvo.boardNo }">
+																<img src="${pageContext.request.contextPath}/img/lock.jpg"
+																width="18" height="18" />
+																${pvo.title} 
+																
+															</a>
+														</c:when>
+														<c:otherwise>
+											  <img src="${pageContext.request.contextPath}/img/lock.jpg" width="18" height="18" />
+											 ${pvo.title}
+											 </c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${pvo.boardNo }">
+														${pvo.title}</a>
+												</c:otherwise>
+											</c:choose>
 										</td>
-										<td  align="center">${pvo.member.name }</td>
-										<td  align="center">${pvo.timePosted }</td>
+
+										<td align="center">${pvo.member.name }</td>
+										<td align="center">${pvo.timePosted }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 					<div class="panel-footer" align="center">
-						<a class="btn btn-default" href="DispatcherServlet?command=proList" role="button">게시판으로 이동
-							&raquo;</a>
+						<a class="btn btn-default"
+							href="DispatcherServlet?command=proList" role="button">게시판으로
+							이동 &raquo;</a>
 					</div>
 				</div>
 			</div>
@@ -63,22 +94,47 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="qvo" items="${requestScope.qvo.list}" begin="0" end="5">
+								<c:forEach var="qvo" items="${requestScope.qvo.list}" begin="0"
+									end="5">
 									<tr>
-										<td  align="center">
-											<a href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${qvo.boardNo }">
-											 ${qvo.title }</a>
+										<td align="center">
+											<%-- <a href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${qvo.boardNo }">
+											 ${qvo.title }</a> --%> <c:choose>
+												<c:when test="${qvo.secret =='Y'}">
+													<c:choose>
+														<c:when
+															test="${qvo.member.id == sessionScope.mvo.id||sessionScope.mvo.memberType=='강사'}">
+															<a
+																href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${qvo.boardNo }">
+																<img src="${pageContext.request.contextPath}/img/lock.jpg"
+																width="18" height="18" />
+																${qvo.title} 
+															</a>
+														</c:when>
+														<c:otherwise>
+											 <img src="${pageContext.request.contextPath}/img/lock.jpg" width="18" height="18" />
+											 ${qvo.title}
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${qvo.boardNo }">
+														${qvo.title}</a>
+												</c:otherwise>
+											</c:choose>
 										</td>
-										<td  align="center">${qvo.member.name }</td>
-										<td  align="center">${qvo.timePosted }</td>
+										<td align="center">${qvo.member.name }</td>
+										<td align="center">${qvo.timePosted }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 					<div class="panel-footer" align="center">
-						<a class="btn btn-default" href="DispatcherServlet?command=QNAboardlist" role="button">게시판으로 이동
-							&raquo;</a>
+						<a class="btn btn-default"
+							href="DispatcherServlet?command=QNAboardlist" role="button">게시판으로
+							이동 &raquo;</a>
 					</div>
 				</div>
 			</div>
@@ -95,27 +151,28 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="ivo" items="${requestScope.ivo.list}" begin="0" end="5">
+								<c:forEach var="ivo" items="${requestScope.ivo.list}" begin="0"
+									end="5">
 									<tr>
-										<td  align="center">
-											<a href="${pageContext.request.contextPath}/DispatcherServlet?command=instShowContent&boardNo=${ivo.boardNo }">
-											 ${ivo.title }</a>
-										</td>
-										<td  align="center">${ivo.member.name }</td>
-										<td  align="center">${ivo.timePosted }</td>
+										<td align="center"><a
+											href="${pageContext.request.contextPath}/DispatcherServlet?command=instShowContent&boardNo=${ivo.boardNo }">
+												${ivo.title }</a></td>
+										<td align="center">${ivo.member.name }</td>
+										<td align="center">${ivo.timePosted }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 					<div class="panel-footer" align="center">
-						<a class="btn btn-default" href="DispatcherServlet?command=instList" role="button">게시판으로 이동
-							&raquo;</a>
+						<a class="btn btn-default"
+							href="DispatcherServlet?command=instList" role="button">게시판으로
+							이동 &raquo;</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 	<div class="container">
 		<div class="row"></div>

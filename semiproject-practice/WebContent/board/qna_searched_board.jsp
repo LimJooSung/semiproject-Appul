@@ -4,33 +4,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>QNA_board</title>
+<title>Bootstrap Example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/mystyle.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-function writeList(){
-	location.href="${pageContext.request.contextPath}/board/pro_write.jsp";
-}
-$(document).ready(function() {
-	$("#searchBtn").click(function() {
-		var searchTxt = document.getElementById("searchTxt").value;
-		if (searchTxt == "") {
-			alert("검색어를 입력하세요.");
-			return;
-		} else {
-			var type = document.getElementById("search").value;
-			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=QNAsearch&type=" + type + "&searchTxt=" + searchTxt;
-		}
+	$(document).ready(function() {
+		$("#searchBtn").click(function() {
+			var searchTxt = document.getElementById("searchTxt").value;
+			if (searchTxt == "") {
+				alert("검색어를 입력하세요.");
+				return;
+			} else {
+				var type = document.getElementById("search").value;
+				location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=QNAsearch&type=" + type + "&searchTxt=" + searchTxt;
+			}
+		});
+		$("#fa").click(function() {
+			alert($("#search").serialize());
+		});
 	});
-});
 </script>
 </head>
 <body>
@@ -53,7 +50,7 @@ $(document).ready(function() {
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="bvo" items="${requestScope.lvo.list}">
+							<c:forEach var="bvo" items="${requestScope.lvo.list}">
 									<tr>
 										<td align="center">${bvo.boardNo }</td>
 										<td align="center"><c:choose>
@@ -87,7 +84,6 @@ $(document).ready(function() {
 								</c:forEach>
 							</tbody>
 						</table>
-
 					</div>
 					<p class="paging">
 						<%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
@@ -99,8 +95,7 @@ $(document).ready(function() {
 				   	    hint)   startPageOfPageGroup-1 하면 됨 		 
 	 -->
 						<c:if test="${pb.previousPageGroup}">
-							<a
-								href="DispatcherServlet?command=QNAboardlist&pageNo=${pb.startPageOfPageGroup-1}">
+							<a href="DispatcherServlet?command=instSearch&pageNo=${pb.startPageOfPageGroup-1}">
 								<!-- <img src="img/left_arrow_btn.gif"> --> ◀&nbsp;
 							</a>
 						</c:if>
@@ -111,11 +106,10 @@ $(document).ready(function() {
 				      jstl choose 를 이용  
 				      예) <a href="DispatcherServlet?command=list&pageNo=...">				   
 	 -->
-						<c:forEach var="i" begin="${pb.startPageOfPageGroup}"
-							end="${pb.endPageOfPageGroup}">
+						<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 							<c:choose>
 								<c:when test="${pb.nowPage!=i}">
-									<a href="DispatcherServlet?command=QNAboardlist&pageNo=${i}">${i}</a>
+									<a href="DispatcherServlet?command=instSearch&pageNo=${i}&type=${requestScope.type}&searchTxt=${requestScope.searchTxt}">${i}</a>
 								</c:when>
 								<c:otherwise>
 								${i}
@@ -130,26 +124,29 @@ $(document).ready(function() {
 				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
 	 -->
 						<c:if test="${pb.nextPageGroup}">
-							<a
-								href="DispatcherServlet?command=QNAboardlist&pageNo=${pb.endPageOfPageGroup+1}">
+							<a href="DispatcherServlet?command=instSearch&pageNo=${pb.endPageOfPageGroup+1}">
 								▶<!-- <img src="img/right_arrow_btn.gif"> -->
 							</a>
 						</c:if>
 					</p>
-					<div align="right">
-						<a href="${pageContext.request.contextPath}/board/qna_write.jsp"><img
-							src="${pageContext.request.contextPath}/img/write_btn.jpg"
-							border="0"></a>
-						<c:forEach begin="0" end="5">&nbsp;</c:forEach>
-					</div>
-					<br>
+					<!-- 강사인 경우에만 쓸 수 있게 -->
+					<c:if test="${sessionScope.mvo.memberType == '강사' }">
+						<div align="right">
+							<a href="${pageContext.request.contextPath}/board/inst_write_board.jsp"><img src="${pageContext.request.contextPath}/img/write_btn.jpg" border="0"></a>
+							<c:forEach begin="0" end="5">&nbsp;</c:forEach>
+						</div><br>
+					</c:if>
 					<div class="panel-footer" align="center">
-						<select id="search">
+						<select id="search" name="type">
 							<option value="title">제목</option>
 							<option value="titleAndContent">제목+내용</option>
 							<option value="writer">작성자</option>
-						</select> <input type="text" id="searchTxt" placeholder="Search" size="30">
+						</select>
+						<input type="text" id="searchTxt" placeholder="Search" size="30" >
 						<button type="button" id="searchBtn" class="btn btn-default">검색</button>
+						
+						<%-- <a href="${pageContext.request.contextPath}/board/modify.jsp"><img src="${pageContext.request.contextPath}/img/modify_btn.jpg" border="0"></a>
+						<a href="${pageContext.request.contextPath}/board/delete.jsp"><img src="${pageContext.request.contextPath}/img/delete_btn.jpg" border="0"></a> --%>
 					</div>
 				</div>
 			</div>

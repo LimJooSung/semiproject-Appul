@@ -8,6 +8,7 @@ import controller.Controller;
 import model.board.BoardVO;
 import model.member.MemberVO;
 import model.proposal.board.ProBoardDAO;
+import model.proposal.board.ProBoardVO;
 
 public class ProWriteController implements Controller {
 
@@ -20,7 +21,7 @@ public class ProWriteController implements Controller {
 	      String title = request.getParameter("title");
 	      String content = request.getParameter("content");
 	            
-	      BoardVO bvo=new BoardVO();
+	      BoardVO bvo=new ProBoardVO();
 	      bvo.setTitle(title);
 	      bvo.setContent(content);
 	      bvo.setMember((MemberVO)session.getAttribute("mvo"));      
