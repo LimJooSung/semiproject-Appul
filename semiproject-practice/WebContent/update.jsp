@@ -1,5 +1,7 @@
+<%@page import="model.member.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html lang="en">
   <head >
@@ -81,7 +83,7 @@
            $.ajax({
               type:"post",
               url:"${pageContext.request.contextPath}/DispatcherServlet?command=idcheck&id=" + id,
-              data:$("#form-signup").serialize(),
+              data:$("#form-update").serialize(),
               success:function(data){
             	 
            
@@ -100,7 +102,7 @@
      var xhr;
      var checkFlag;//중복확인하여 사용가능여부를 true,false 로 저장 
      //회원가입전 인증여부를 확인한다
-     var f=document.form-signup;
+     var f=document.form-update;
      function checkForm(){
       
       if(!f.password.value){
@@ -140,6 +142,10 @@
     	}
       
      } 
+     
+     function checkQuit() {
+    	    window.open("member/game.jsp", "_blank", "toolbar=yes,resizable=yes,top=300,left=300,width=300,height=200");
+    	}
      
 </script>
 
@@ -243,20 +249,22 @@ table.type03 {
   </head>
 
   <body style="font-weight:bold;">
-
+<% MemberVO vo=(MemberVO)session.getAttribute("mvo"); 
+	if(vo!=null){
+%>
     <div class="container">
 	
-	<form name="form-signup" class="form-signup" method="post" action="${pageContext.request.contextPath}/DispatcherServlet" onsubmit="return checkForm()">
+	<form name="form-update" class="form-update" method="post" action="${pageContext.request.contextPath}/DispatcherServlet" onsubmit="return checkForm()">
 	<font size="5" color="#F6358A">KOMS</font>
-	<input type="hidden" name="command" value="register">
-    <h2 class="form-signup-heading">Please Sign Up</h2>
+	<input type="hidden" name="command" value="update">
+    <h2 class="form-signup-heading">회원 정보 수정</h2>
 
     <table class="type02">
         <tr>
             <th scope="row"> ID</th>
             <td width="450">
                 
-                    <input type="text" name="id" id="id" class="form-control" required="required" onkeyup="startAjax()">
+                    <input type="text" name="id" id="id" class="form-control" required="required" onkeyup="startAjax()" value="<%=vo.getId() %>" readonly>
                     <span id="checkResult"></span>
  
                     <input type="hidden" name="command" value="idcheck">	
@@ -269,7 +277,7 @@ table.type03 {
             <td>
                
                     <font> Password1</font>
-                    <input type="password" name="password" id="password" class="form-control" required="required">
+                    <input type="password" name="password" id="password" class="form-control" required="required" value="<%=vo.getPassword() %>">
                     <br />
                     <font> Password2</font>
                     <input type="password" name="chpass" id="chpass" class="form-control">
@@ -283,14 +291,14 @@ table.type03 {
         <tr>
             <th scope="row">Name</th>
             <td>
-                <input type="text" name="name" id="name" class="form-control" required="required">
+                <input type="text" name="name" id="name" class="form-control" required="required" value="<%=vo.getName() %>">
             </td>
         </tr>
        
         <tr>
             <th scope="row">Date of birth</th>
             <td>
-                   <input type="text" name="dateOfBirth" id="dateOfBirth" class="form-control" required="required"> ex)1999year Sep 9th = 19990909
+                   <input type="text" name="dateOfBirth" id="dateOfBirth" class="form-control" required="required" value="<%=vo.getDateOfBirth() %>"> ex)1999year Sep 9th = 19990909
             </td> 
         </tr>
        
@@ -299,7 +307,8 @@ table.type03 {
         <tr>
             <th scope="row">Gender</th>
             <td>
-                <input type="radio" name="gender" id="gender" value="Female"> Female
+            <input type="text" name="gender" id="gender" class="form-control"  value="<%=vo.getGender() %>" readonly>           
+                <input type="radio" name="gender" id="gender" value="Female" > Female
                 <input type="radio" name="gender" id="gender" value="Male"> Male
             </td>
         </tr>
@@ -307,7 +316,8 @@ table.type03 {
         <tr>
             <th scope="row">Types of students</th>
             <td>
-                <input type="radio" name="memberType" id="memberType" value="IT student"> IT student
+            <input type="text" name="memberType" id="memberType" class="form-control"  value="<%=vo.getMemberType() %>" readonly>
+                 <input type="radio" name="memberType" id="memberType" value="IT student"> IT student
                 <input type="radio" name="memberType" id="memberType" value="None IT student"> None IT student
             </td>
         </tr>
@@ -317,15 +327,21 @@ table.type03 {
  
     
     <table class="type03">
-       <tr><td> <input type="submit"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" onClick="checkPassword()" value="Submit"> </td>
-        <td><input type="reset"  class="btn btn-lg btn-primary btn-block"  style="width: 100px; height: 50px;" value="Reset" onClick="javascript:document.form-signup.reset()"> </td>
+       <tr><td> <input type="submit"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" onClick="checkPassword()" value="Update"> </td>
+        <td><input type="reset"  class="btn btn-lg btn-primary btn-block"  style="width: 100px; height: 50px;" value="Reset" onClick="javascript:document.form-update.reset()"> </td>
+        <td> <input type="button"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" onClick="checkQuit()" value="탈퇴"> </td>
         <td><a href="login.jsp" type="button"  class="btn btn-lg btn-primary btn-block"  onClick="alert('Main page')" style="width: 100px; height: 50px;">Cancel</a> </td></tr>
     </table>
     
 
  </form>
 </div> <!-- /container -->
-
+<%}else{ %>
+		<script type="text/javascript">
+			alert("로그인하세요!");
+			location.href="${pageContext.request.contextPath}/login.jsp";
+		</script>
+<%} %>
     
 
 
