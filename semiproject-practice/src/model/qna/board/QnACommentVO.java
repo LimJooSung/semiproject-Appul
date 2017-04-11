@@ -2,17 +2,17 @@ package model.qna.board;
 
 import model.member.MemberVO;
 
-public class ProCommentVO {
+public class QnACommentVO {
 	private int boardNo;
 	private int commentNo;
 	private MemberVO member = new MemberVO();
 	private String timePosted;
 	private int parent;
 	private String content;
-	public ProCommentVO() {
+	public QnACommentVO() {
 		super();
 	}
-	public ProCommentVO(int boardNo, int commentNo, MemberVO member, String timePosted, int parent, String content) {
+	public QnACommentVO(int boardNo, int commentNo, MemberVO member, String timePosted, int parent, String content) {
 		super();
 		this.boardNo = boardNo;
 		this.commentNo = commentNo;

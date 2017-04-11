@@ -10,15 +10,15 @@ import javax.sql.DataSource;
 
 import model.board.DataSourceManager;
 
-public class ProCommentDAO {
-	private static ProCommentDAO dao = new ProCommentDAO();
+public class QnACommentDAO {
+	private static QnACommentDAO dao = new QnACommentDAO();
 	private DataSource dataSource;
 
-	private ProCommentDAO() {
+	private QnACommentDAO() {
 		dataSource = DataSourceManager.getInstance().getDataSource();
 	}
 
-	public static ProCommentDAO getInstance() {
+	public static QnACommentDAO getInstance() {
 		return dao;
 	}
 
@@ -39,8 +39,8 @@ public class ProCommentDAO {
 		closeAll(pstmt, con);
 	}
 
-	public ArrayList<ProCommentVO> getProPostingCommentList(int boardNo) throws SQLException {
-		ArrayList<ProCommentVO> cvo = new ArrayList<ProCommentVO>();
+	public ArrayList<QnACommentVO> getQnAPostingCommentList(int boardNo) throws SQLException {
+		ArrayList<QnACommentVO> cvo = new ArrayList<QnACommentVO>();
 		int no = boardNo;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -49,14 +49,14 @@ public class ProCommentDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					"select proposal_comment_no, proposal_board_no,id,name,time_posted,content,parent from proposal_comment where proposal_board_no = ?");
+					"select qna_comment_no, qna_board_no, id, name, time_posted, content, parent from qna_comment where qna_board_no = ?");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				ProCommentVO vo = new ProCommentVO();
-				vo.setCommentNo(rs.getInt("proposal_comment_no"));
-				vo.setBoardNo(rs.getInt("proposal_board_no"));
+				QnACommentVO vo = new QnACommentVO();
+				vo.setCommentNo(rs.getInt("qna_comment_no"));
+				vo.setBoardNo(rs.getInt("qna_board_no"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("name"));
 				vo.setTimePosted(rs.getString("time_posted"));
@@ -71,7 +71,7 @@ public class ProCommentDAO {
 		return cvo;
 	}
 
-	public void postingProComment(ProCommentVO vo) throws SQLException {
+	public void postingQnAComment(QnACommentVO vo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -79,8 +79,8 @@ public class ProCommentDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					"insert into proposal_comment(proposal_comment_no, proposal_board_no, id, name, time_posted, content, parent) ");
-			sql.append("values(proposal_comment_seq.nextval, ?, ?, ?, sysdate, ?, ?)");
+					"insert into qna_comment(qna_comment_no, qna_board_no, id, name, time_posted, content, parent) ");
+			sql.append("values(qna_comment_seq.nextval, ?, ?, ?, sysdate, ?, ?)");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, vo.getBoardNo());
 			pstmt.setString(2, vo.getMember().getId());
@@ -93,12 +93,12 @@ public class ProCommentDAO {
 		}
 	}
 
-	public void deletingProComment(int commentNo) throws SQLException {
+	public void deletingQnAComment(int commentNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = getConnection();
-			String sql = "delete from proposal_comment where proposal_comment_no=?";
+			String sql = "delete from qna_comment where qna_comment_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, commentNo);
 			pstmt.executeUpdate();
@@ -107,23 +107,23 @@ public class ProCommentDAO {
 		}
 	}
 
-	public ProCommentVO getProPostingCommentByNo(int commentNo) throws SQLException {
-		ProCommentVO cvo = null;
+	public QnACommentVO getQnAPostingCommentByNo(int commentNo) throws SQLException {
+		QnACommentVO cvo = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select proposal_comment_no, proposal_board_no, id, name, time_posted, content, parent from ");
-			sql.append("proposal_comment where proposal_comment_no = ?");
+			sql.append("select qna_comment_no, qna_board_no, id, name, time_posted, content, parent from ");
+			sql.append("qna_comment where qna_comment_no = ?");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, commentNo);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				cvo = new ProCommentVO();
-				cvo.setCommentNo(rs.getInt("proposal_comment_no"));
-				cvo.setBoardNo(rs.getInt("proposal_board_no"));
+				cvo = new QnACommentVO();
+				cvo.setCommentNo(rs.getInt("qna_comment_no"));
+				cvo.setBoardNo(rs.getInt("qna_board_no"));
 				cvo.getMember().setId(rs.getString("id"));
 				cvo.getMember().setName(rs.getString("name"));
 				cvo.setTimePosted(rs.getString("time_posted"));
@@ -136,12 +136,12 @@ public class ProCommentDAO {
 		return cvo;
 	}
 
-	public void updatePostingComment(ProCommentVO cvo) throws SQLException {
+	public void updatePostingComment(QnACommentVO cvo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = getConnection();
-			String sql = "update proposal_comment set content=?, time_posted=sysdate where proposal_comment_no=?";
+			String sql = "update qna_comment set content=?, time_posted=sysdate where qna_comment_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, cvo.getContent());
 			pstmt.setInt(2, cvo.getCommentNo());
