@@ -223,7 +223,7 @@ public class ProBoardDAO {
 		PreparedStatement pstmt=null;
 		try{
 			con=getConnection();
-			pstmt=con.prepareStatement("update proposal_board set title=?,content=? secret=? where PROPOSAL_BOARD_NO=?");
+			pstmt=con.prepareStatement("update proposal_board set title=?,content=?,secret=? where PROPOSAL_BOARD_NO=?");
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getSecret());
