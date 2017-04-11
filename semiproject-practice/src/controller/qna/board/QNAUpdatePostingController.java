@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.Controller;
-import model.board.BoardVO;
 import model.qna.board.QnABoardDAO;
 import model.qna.board.QnABoardVO;
 
@@ -20,10 +19,12 @@ public class QNAUpdatePostingController implements Controller {
 		int no = Integer.parseInt(request.getParameter("boardNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String secret=request.getParameter("secret");
 		QnABoardVO vo = new QnABoardVO();
 		vo.setBoardNo(no);
 		vo.setTitle(title);
 		vo.setContent(content);
+		vo.setSecret(secret);
 		QnABoardDAO.getInstance().updatePosting(vo);
 		String path = "redirect:DispatcherServlet?command=QNAshowContentNotHit&boardNo=" + vo.getBoardNo();
 		return path;
