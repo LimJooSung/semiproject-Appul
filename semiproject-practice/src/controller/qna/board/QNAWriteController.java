@@ -27,7 +27,7 @@ public class QNAWriteController implements Controller {
 		bvo.setMember((MemberVO)session.getAttribute("mvo"));		
 	
 		QnABoardDAO.getInstance().posting(bvo);
-		String path="redirect:DispatcherServlet?command=QNAshowContentNotHit&boardNo="+bvo.getBoardNo();
+		String path="redirect:DispatcherServlet?command=qnashowContentNotHit&boardNo="+bvo.getBoardNo();
 		return path;
 	}
 }

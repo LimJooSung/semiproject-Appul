@@ -64,7 +64,7 @@
             alert("등록할까요?");
             httpRequest = getXMLHttpRequest();
             httpRequest.onreadystatechange = checkFunc;
-            httpRequest.open("POST", "DispatcherServlet?command=QNACommentWrite", true);    
+            httpRequest.open("POST", "DispatcherServlet?command=qnaCommentWrite", true);    
             httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8'); 
             httpRequest.send(param);
         }
@@ -89,7 +89,7 @@
     }
     function cmUpdate(commentNo){
     	window.name="parentForm";
-     	window.open("${pageContext.request.contextPath}/DispatcherServlet?command=QNACommentUpdateView&commentNo="+commentNo,
+     	window.open("${pageContext.request.contextPath}/DispatcherServlet?command=qnaCommentUpdateView&commentNo="+commentNo,
     			"updateForm", "width=570, height=350, resize=no, scrollbars = no"); 
      }
     
@@ -98,7 +98,7 @@
     	var param = "commentNo=" +commentNo;//아이디 붙여얗는데 아직 안붙임;
     	httpRequest = getXMLHttpRequest();
     	httpRequest.onreadystatechange = checkFunc;
-    	httpRequest.open("POST", "DispatcherServlet?command=QNACommentDelete", true);    
+    	httpRequest.open("POST", "DispatcherServlet?command=qnaCommentDelete", true);    
         httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8'); 
         httpRequest.send(param);
     }  
@@ -200,17 +200,17 @@
 					<div class="panel-footer" align="right">
 						<c:if test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
 							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAupdatePostingView&boardNo=${requestScope.bvo.boardNo }"><img
+								href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaupdatePostingView&boardNo=${requestScope.bvo.boardNo }"><img
 								src="${pageContext.request.contextPath}/img/modify_btn.jpg"
 								border="0"></a>
 							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAdeletePosting&boardNo=${requestScope.bvo.boardNo }"
+								href="${pageContext.request.contextPath}/DispatcherServlet?command=qnadeletePosting&boardNo=${requestScope.bvo.boardNo }"
 								id="deleteBtn"><img
 								src="${pageContext.request.contextPath}/img/delete_btn.jpg"
 								border="0"></a>
 						</c:if>
 						<a
-							href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAboardlist"><img
+							href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist"><img
 							src="${pageContext.request.contextPath}/img/list_btn.jpg"
 							border="0"></a>
 					</div>

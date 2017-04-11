@@ -26,7 +26,7 @@ public class InstCommentWriteController implements Controller {
 		vo.setContent(content);
 		vo.setMember((MemberVO) session.getAttribute("mvo"));
 		InstCommentDAO.getInstance().postingInstComment(vo);
-		String path = "redirect:DispatcherServlet?command=instShowContentNotHit&boardNo=" + vo.getBoardNo();
+		String path = "redirect:DispatcherServlet?command=proShowContentNotHit&boardNo=" + vo.getBoardNo();
 		return path;
 	}
 }

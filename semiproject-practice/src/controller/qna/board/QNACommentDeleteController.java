@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import model.qna.board.QnACommentDAO;
 
-public class QnACommentDeleteController implements Controller {
+public class QNACommentDeleteController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -17,6 +17,6 @@ public class QnACommentDeleteController implements Controller {
 		}
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));
 		QnACommentDAO.getInstance().deletingQnAComment(commentNo);
-		return "redirect:DispatcherServlet?command=QnAShowContentNotHit&boardNo=1";
+		return "redirect:DispatcherServlet?command=qnaShowContentNotHit&boardNo=1";
 	}
 }

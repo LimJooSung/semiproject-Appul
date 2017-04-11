@@ -12,6 +12,6 @@ public class QNADeletePostingController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int no = Integer.parseInt(request.getParameter("boardNo"));
 		QnABoardDAO.getInstance().deletePosting(no);
-		return "redirect:DispatcherServlet?command=QNAboardlist&pageNo=1";
+		return "redirect:DispatcherServlet?command=qnaboardlist&pageNo=1";
 	}
 }

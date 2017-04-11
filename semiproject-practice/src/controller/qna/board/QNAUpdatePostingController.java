@@ -26,7 +26,7 @@ public class QNAUpdatePostingController implements Controller {
 		vo.setContent(content);
 		vo.setSecret(secret);
 		QnABoardDAO.getInstance().updatePosting(vo);
-		String path = "redirect:DispatcherServlet?command=QNAshowContentNotHit&boardNo=" + vo.getBoardNo();
+		String path = "redirect:DispatcherServlet?command=qnashowContentNotHit&boardNo=" + vo.getBoardNo();
 		return path;
 	}
 

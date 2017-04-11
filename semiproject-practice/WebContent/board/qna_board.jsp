@@ -27,7 +27,7 @@ $(document).ready(function() {
 			return;
 		} else {
 			var type = document.getElementById("search").value;
-			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=QNAsearch&type=" + type + "&searchTxt=" + searchTxt;
+			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=qnasearch&type=" + type + "&searchTxt=" + searchTxt;
 		}
 	});
 });
@@ -62,7 +62,7 @@ $(document).ready(function() {
 												<c:when
 													test="${bvo.member.id == sessionScope.mvo.id||sessionScope.mvo.memberType=='강사'}">
 													<a
-														href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${bvo.boardNo }">
+														href="${pageContext.request.contextPath}/DispatcherServlet?command=qnashowContent&boardNo=${bvo.boardNo }">
 												<img src="${pageContext.request.contextPath}/img/lock.jpg" width="18" height="18" />
 														${bvo.title} 
 													</a>
@@ -76,7 +76,7 @@ $(document).ready(function() {
 										</c:when>
 										<c:otherwise>
 											<a
-												href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${bvo.boardNo }">
+												href="${pageContext.request.contextPath}/DispatcherServlet?command=qnashowContent&boardNo=${bvo.boardNo }">
 												${bvo.title}</a>
 										</c:otherwise>
 										</c:choose></td>
@@ -100,7 +100,7 @@ $(document).ready(function() {
 	 -->
 						<c:if test="${pb.previousPageGroup}">
 							<a
-								href="DispatcherServlet?command=QNAboardlist&pageNo=${pb.startPageOfPageGroup-1}">
+								href="DispatcherServlet?command=qnaboardlist&pageNo=${pb.startPageOfPageGroup-1}">
 								<!-- <img src="img/left_arrow_btn.gif"> --> ◀&nbsp;
 							</a>
 						</c:if>
@@ -115,7 +115,7 @@ $(document).ready(function() {
 							end="${pb.endPageOfPageGroup}">
 							<c:choose>
 								<c:when test="${pb.nowPage!=i}">
-									<a href="DispatcherServlet?command=QNAboardlist&pageNo=${i}">${i}</a>
+									<a href="DispatcherServlet?command=qnaboardlist&pageNo=${i}">${i}</a>
 								</c:when>
 								<c:otherwise>
 								${i}
@@ -131,7 +131,7 @@ $(document).ready(function() {
 	 -->
 						<c:if test="${pb.nextPageGroup}">
 							<a
-								href="DispatcherServlet?command=QNAboardlist&pageNo=${pb.endPageOfPageGroup+1}">
+								href="DispatcherServlet?command=qnaboardlist&pageNo=${pb.endPageOfPageGroup+1}">
 								▶<!-- <img src="img/right_arrow_btn.gif"> -->
 							</a>
 						</c:if>

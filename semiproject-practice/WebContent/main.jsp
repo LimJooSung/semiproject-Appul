@@ -105,7 +105,7 @@
 														<c:when
 															test="${qvo.member.id == sessionScope.mvo.id||sessionScope.mvo.memberType=='강사'}">
 															<a
-																href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${qvo.boardNo }">
+																href="${pageContext.request.contextPath}/DispatcherServlet?command=qnashowContent&boardNo=${qvo.boardNo }">
 																<img src="${pageContext.request.contextPath}/img/lock.jpg"
 																width="18" height="18" />
 																${qvo.title} 
@@ -133,7 +133,7 @@
 					</div>
 					<div class="panel-footer" align="center">
 						<a class="btn btn-default"
-							href="DispatcherServlet?command=QNAboardlist" role="button">게시판으로
+							href="DispatcherServlet?command=qnaboardlist" role="button">게시판으로
 							이동 &raquo;</a>
 					</div>
 				</div>

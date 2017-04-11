@@ -42,7 +42,7 @@
 			httpRequest = getXMLHttpRequest();
 			httpRequest.onreadystatechange = checkFunc;
 			httpRequest.open("POST",
-					"DispatcherServlet?command=QNACommentUpdateAction", true);
+					"DispatcherServlet?command=qnaCommentUpdateAction", true);
 			httpRequest.setRequestHeader('Content-Type',
 					'application/x-www-form-urlencoded;charset=utf-8');
 			httpRequest.send(param);

@@ -12,6 +12,10 @@ import controller.inst.board.InstShowContentNotHitController;
 import controller.inst.board.InstUpdatePostingController;
 import controller.inst.board.InstUpdateViewController;
 import controller.inst.board.InstWritePostingController;
+import controller.proposal.board.ProCommentDeleteController;
+import controller.proposal.board.ProCommentUpdateController;
+import controller.proposal.board.ProCommentUpdateViewController;
+import controller.proposal.board.ProCommentWriteController;
 import controller.proposal.board.ProDeletePostingController;
 import controller.proposal.board.ProPostingListController;
 import controller.proposal.board.ProSearchController;
@@ -20,6 +24,10 @@ import controller.proposal.board.ProShowContentNoHitController;
 import controller.proposal.board.ProUpdatePostingController;
 import controller.proposal.board.ProUpdatePostingViewController;
 import controller.proposal.board.ProWriteController;
+import controller.qna.board.QNACommentDeleteController;
+import controller.qna.board.QNACommentUpdateController;
+import controller.qna.board.QNACommentUpdateViewController;
+import controller.qna.board.QNACommentWriteController;
 import controller.qna.board.QNADeletePostingController;
 import controller.qna.board.QNAPostingListController;
 import controller.qna.board.QNASearchController;
@@ -102,37 +110,37 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 		} else if (command.equals("proSearch")) {
 			controller = new ProSearchController();
 		} else if (command.equals("proCommentWrite")) {
-			controller = new InstCommentWriteController();
+			controller = new ProCommentWriteController();
 		} else if (command.equals("proCommentDelete")) {
-			controller = new InstCommentDeleteController();
+			controller = new ProCommentDeleteController();
 		} else if (command.equals("proCommentUpdateView")) {
-			controller = new InstCommentUpdateViewController();
+			controller = new ProCommentUpdateViewController();
 		} else if (command.equals("proCommentUpdateAction")) {
-			controller = new InstCommentUpdateController();
-		} else if (command.equals("QNAboardlist")) { // QnA 게시판 컨트롤러
+			controller = new ProCommentUpdateController();
+		} else if (command.equals("qnaboardlist")) { // qna 게시판 컨트롤러
 			controller = new QNAPostingListController();
-		} else if (command.equals("QNAwrite")) {
+		} else if (command.equals("qnawrite")) {
 			controller = new QNAWriteController();
-		} else if (command.equals("QNAshowContentNotHit")) {
+		} else if (command.equals("qnashowContentNotHit")) {
 			controller = new QNAShowContentNoHitController();
-		} else if (command.equals("QNAshowContent")) {
+		} else if (command.equals("qnashowContent")) {
 			controller = new QNAShowContentController();
-		} else if (command.equals("QNAdeletePosting")) {
+		} else if (command.equals("qnadeletePosting")) {
 			controller = new QNADeletePostingController();
-		} else if (command.equals("QNAupdatePostingView")) {
+		} else if (command.equals("qnaupdatePostingView")) {
 			controller = new QNAUpdatePostingViewController();
-		} else if (command.equals("QNAupdatePosting")) {
+		} else if (command.equals("qnaupdatePosting")) {
 			controller = new QNAUpdatePostingController();
-		} else if (command.equals("QNAsearch")) {
+		} else if (command.equals("qnasearch")) {
 			controller = new QNASearchController();
-		} else if (command.equals("QnACommentWrite")) {
-			controller = new InstCommentWriteController();
-		} else if (command.equals("QnACommentDelete")) {
-			controller = new InstCommentDeleteController();
-		} else if (command.equals("QnACommentUpdateView")) {
-			controller = new InstCommentUpdateViewController();
-		} else if (command.equals("QnACommentUpdateAction")) {
-			controller = new InstCommentUpdateController();
+		} else if (command.equals("qnaCommentWrite")) {
+			controller = new QNACommentWriteController();
+		} else if (command.equals("qnaCommentDelete")) {
+			controller = new QNACommentDeleteController();
+		} else if (command.equals("qnaCommentUpdateView")) {
+			controller = new QNACommentUpdateViewController();
+		} else if (command.equals("qnaCommentUpdateAction")) {
+			controller = new QNACommentUpdateController();
 		}
 		return controller;
 	}

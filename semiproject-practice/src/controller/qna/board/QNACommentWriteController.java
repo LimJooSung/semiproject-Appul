@@ -9,7 +9,7 @@ import model.member.MemberVO;
 import model.qna.board.QnACommentDAO;
 import model.qna.board.QnACommentVO;
 
-public class QnACommentWriteController implements Controller {
+public class QNACommentWriteController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session=request.getSession(false);
@@ -26,7 +26,7 @@ public class QnACommentWriteController implements Controller {
 		System.out.println("라이트 런트롤러");
 		vo.setMember((MemberVO) session.getAttribute("mvo"));
 		QnACommentDAO.getInstance().postingQnAComment(vo);
-		String path = "redirect:DispatcherServlet?command=QnAShowContentNotHit&boardNo=" + vo.getBoardNo();
+		String path = "redirect:DispatcherServlet?command=qnaShowContentNotHit&boardNo=" + vo.getBoardNo();
 		System.out.println("중간점건");
 		return path;
 	}

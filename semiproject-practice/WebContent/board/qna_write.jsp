@@ -46,7 +46,7 @@
 				<div class="panel-body">
  				<!-- </form> -->
 				<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form">
-					<input type="hidden" name="command" value="QNAwrite">
+					<input type="hidden" name="command" value="qnawrite">
 					<table class="table">
 						<tbody>
 							<tr> 

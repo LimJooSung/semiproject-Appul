@@ -53,7 +53,7 @@
             var param="comment_board="+board+"&comment_id="+id+"&comment_content="+content;
             httpRequest = getXMLHttpRequest();
             httpRequest.onreadystatechange = checkFunc;
-            httpRequest.open("POST", "DispatcherServlet?command=proCommentWrite", true);    
+            httpRequest.open("POST", "DispatcherServlet?command=proCommentWrite", true);  
             httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8'); 
             httpRequest.send(param);
         }
