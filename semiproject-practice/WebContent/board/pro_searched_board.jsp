@@ -17,30 +17,21 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$("#searchBtn")
-								.click(
-										function() {
-											var searchTxt = document
-													.getElementById("searchTxt").value;
-											if (searchTxt == "") {
-												alert("검색어를 입력하세요.");
-												return;
-											} else {
-												var type = document
-														.getElementById("search").value;
-												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type="
-														+ type
-														+ "&searchTxt="
-														+ searchTxt;
-											}
-										});
-						$("#fa").click(function() {
-							alert($("#search").serialize());
-						});
-					});
+$(document).ready(function() {
+	$("#searchBtn").click(function() {
+		var searchTxt = document.getElementById("searchTxt").value;
+		if (searchTxt == "") {
+			alert("검색어를 입력하세요.");
+			return;
+		} else {
+			var type = document.getElementById("search").value;
+			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=instSearch&type=" + type + "&searchTxt=" + searchTxt;
+		}
+	});
+	$("#fa").click(function() {
+		alert($("#search").serialize());
+	});
+});
 </script>
 </head>
 <body>
@@ -73,14 +64,15 @@
 															test="${bvo.member.id == sessionScope.mvo.id||sessionScope.mvo.memberType=='강사'}">
 															<a
 																href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
-																<img src="${pageContext.request.contextPath}/img/lock.jpg"
-																width="18" height="18" />
-																${bvo.title} 
+																<img
+																src="${pageContext.request.contextPath}/img/lock.jpg"
+																width="18" height="18" /> ${bvo.title}
 															</a>
 														</c:when>
 
 														<c:otherwise>
-											 <img src="${pageContext.request.contextPath}/img/lock.jpg"
+															<img
+																src="${pageContext.request.contextPath}/img/lock.jpg"
 																width="18" height="18" />
 											 ${bvo.title}												
 											 

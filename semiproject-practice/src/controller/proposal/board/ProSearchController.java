@@ -36,6 +36,7 @@ public class ProSearchController implements Controller {
 			list = dao.getSearchedProPostingListByWriter(pagingBean, searchTxt);
 		}
 		ListVO vo = new ListVO(list, pagingBean);
+		System.out.println(vo);
 		request.setAttribute("lvo", vo);
 		request.setAttribute("type", type);
 		request.setAttribute("searchTxt", searchTxt);
