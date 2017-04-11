@@ -304,7 +304,7 @@ public class ProBoardDAO {
 	      ResultSet rs = null;
 	      ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 	      try {
-	         con = getConnection();
+	         con = getConnection();  
 	         String sql="select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from("
 	         		+ "select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,hit,secret, to_char("
 	         		+ "time_posted, 'YYYY.MM.DD') as time_posted from proposal_board where title like ?) ib, member m "

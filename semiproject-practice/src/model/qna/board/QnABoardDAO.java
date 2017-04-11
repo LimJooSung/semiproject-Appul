@@ -19,7 +19,7 @@ public class QnABoardDAO {
 
 	private QnABoardDAO() {
 		dataSource = DataSourceManager.getInstance().getDataSource();
-	}
+	}   
 
 	public static QnABoardDAO getInstance() {
 		return dao;
