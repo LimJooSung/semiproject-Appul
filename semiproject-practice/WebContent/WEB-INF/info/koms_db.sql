@@ -79,9 +79,11 @@ create table proposal_board(
 create table proposal_comment(
    proposal_comment_no      varchar2(100) primary key,
    proposal_board_no         varchar2(100) not null,
-   id varchar2(100) not null,
+   id 						varchar2(100) not null,
+   name				   		varchar2(100) not null,
    time_posted                  date,
    content                        clob,
+   parent              number,      -- number(?)
    constraint fk_proposal_board_no foreign key(proposal_board_no) references proposal_board(proposal_board_no)
    ,constraint fk_id_proposal_comment foreign key(id) references member(id)
    )
@@ -104,10 +106,12 @@ create table qna_comment(
    qna_comment_no      varchar2(100) primary key,
    qna_board_no         varchar2(100) not null,
    id                  varchar2(100) not null,
+   name				   varchar2(100) not null,
    time_posted            date,
    content                  clob,
+   parent              number default 0,      -- number(?)
    constraint fk_id_qna_comment foreign key(id) references member(id),
-   constraint fk_qna_board_no foreign key(qna_board_no) references qna_board(qna_board_no)
+   constraint fk_qna_board_no foreign key(qna_board_no) references qna_board(qna_board_no) ON DELETE CASCADE
 )
 
 -- 강사 게시판 테이블
@@ -168,11 +172,12 @@ create table inst_comment(
    inst_comment_no      varchar2(100) primary key,
    inst_board_no         varchar2(100) not null,
    id                  varchar2(100) not null,
+   name				   varchar2(100) not null,
    time_posted            date,
    content                  clob,
-   rating                  number default(5),      -- number(?)
+   parent              number default 0,      -- number(?)
    constraint fk_id_inst_comment foreign key(id) references member(id),
-   constraint fk_inst_board_no foreign key(inst_board_no) references inst_board(inst_board_no)
+   constraint fk_inst_board_no foreign key(inst_board_no) references inst_board(inst_board_no) ON DELETE CASCADE
 )
 
 select inst.* from(

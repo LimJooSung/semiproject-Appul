@@ -30,12 +30,12 @@ import controller.qna.board.QNAUpdatePostingViewController;
 import controller.qna.board.QNAWriteController;
 
 public class HandlerMapping { // Singleton Pattern으로 구현
-		private static HandlerMapping instance = new HandlerMapping();
+	private static HandlerMapping instance = new HandlerMapping();
 
 	private HandlerMapping() {
 	}
 
-		public static HandlerMapping getInstance() {
+	public static HandlerMapping getInstance() {
 		return instance;
 	}
 		
