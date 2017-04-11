@@ -29,8 +29,8 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=proposalList">건의사항 게시판</a></li>
-						<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaList">QnA 게시판</a></li>
+						<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=proList">건의사항 게시판</a></li>
+						<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist">QnA 게시판</a></li>
 						<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=instList">강사 게시판</a></li>
 					</ul>
 				</li>

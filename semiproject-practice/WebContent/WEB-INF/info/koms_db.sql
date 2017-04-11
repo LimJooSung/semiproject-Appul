@@ -64,7 +64,7 @@ create table selecting_group(
 
 -- 건의사항 게시판 테이블
 create table proposal_board(
-   proposal_board_no      varchar2(100) primary key,
+   proposal_board_no      number primary key,
    id                           varchar2(100) not null,
    title                        varchar2(100) not null,
    content                     clob,
@@ -77,8 +77,8 @@ create table proposal_board(
 
 -- 건의사항 게시판 댓글 테이블
 create table proposal_comment(
-   proposal_comment_no      varchar2(100) primary key,
-   proposal_board_no         varchar2(100) not null,
+   proposal_comment_no      number primary key,
+   proposal_board_no         number not null,
    id 						varchar2(100) not null,
    name				   		varchar2(100) not null,
    time_posted                  date,
@@ -90,7 +90,7 @@ create table proposal_comment(
 
 -- QnA 게시판 테이블
 create table qna_board(
-   qna_board_no      varchar2(100) primary key,
+   qna_board_no      number primary key,
    id                     varchar2(100) not null,
    title                  varchar2(100) not null,
    content               clob,
@@ -103,8 +103,8 @@ create table qna_board(
 
 -- QnA 게시판 댓글 테이블
 create table qna_comment(
-   qna_comment_no      varchar2(100) primary key,
-   qna_board_no         varchar2(100) not null,
+   qna_comment_no      number primary key,
+   qna_board_no         number not null,
    id                  varchar2(100) not null,
    name				   varchar2(100) not null,
    time_posted            date,
@@ -116,7 +116,7 @@ create table qna_comment(
 
 -- 강사 게시판 테이블
 create table inst_board(
-   inst_board_no      varchar2(100) primary key,
+   inst_board_no      number primary key,
    id                     varchar2(100) not null,
    title                  varchar2(100) not null,
    content               clob,
@@ -169,8 +169,8 @@ values(qna_board_seq.nextval, 'java', '연습3', '연습이다3', sysdate);
 
 -- 강사 게시판 댓글 테이블
 create table inst_comment(
-   inst_comment_no      varchar2(100) primary key,
-   inst_board_no         varchar2(100) not null,
+   inst_comment_no      number primary key,
+   inst_board_no         number not null,
    id                  varchar2(100) not null,
    name				   varchar2(100) not null,
    time_posted            date,
@@ -262,3 +262,10 @@ select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name fro
            hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
            from inst_board where title like '%연습%'
            ) ib, member m where ib.id = m.id and rnum between 1 and 20
+           
+           
+           select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(
+           select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, id, 
+           hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
+           from inst_board where title like '%연습%'
+            ) ib, member m where ib.id = m.id and rnum between 1 and 20

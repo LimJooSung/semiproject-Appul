@@ -142,12 +142,9 @@
 									<td>작성자 | &nbsp;${requestScope.bvo.member.name }</td>
 									<td>작성일 | &nbsp;${requestScope.bvo.timePosted }</td>
 									<td>
-										<form
-											action="${pageContext.request.contextPath}/DispatcherServlet"
-											id="fileCheck" name="">
+										<form action="${pageContext.request.contextPath}/DispatcherServlet" id="fileCheck" name="">
 											<input type="hidden" name="command" value="instDownload">
-											<input type="hidden" name="boardNo"
-												value="${requestScope.bvo.boardNo }">
+											<input type="hidden" name="boardNo" value="${requestScope.bvo.boardNo }">
 											파&nbsp;&nbsp;&nbsp;일 | <a href="#">&nbsp;${requestScope.bvo.attachedFile }</a>
 										</form>
 									</td>
@@ -215,21 +212,16 @@
 
 					<div class="panel-footer" align="right">
 						<c:if test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
-							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=instUpdateView&boardNo=${requestScope.bvo.boardNo }">
-								<img src="${pageContext.request.contextPath}/img/modify_btn.jpg"
-								border="0">
+							<a href="${pageContext.request.contextPath}/DispatcherServlet?command=instUpdateView&boardNo=${requestScope.bvo.boardNo }">
+								<img src="${pageContext.request.contextPath}/img/modify_btn.jpg" border="0">
 							</a>
-							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=instDeletePosting&boardNo=${requestScope.bvo.boardNo }"
+							<a href="${pageContext.request.contextPath}/DispatcherServlet?command=instDeletePosting&boardNo=${requestScope.bvo.boardNo }"
 								id="deleteBtn"> <img
 								src="${pageContext.request.contextPath}/img/delete_btn.jpg"
 								border="0"></a>
 						</c:if>
-						<a
-							href="${pageContext.request.contextPath}/DispatcherServlet?command=instList">
-							<img src="${pageContext.request.contextPath}/img/list_btn.jpg"
-							border="0">
+						<a href="${pageContext.request.contextPath}/DispatcherServlet?command=instList">
+							<img src="${pageContext.request.contextPath}/img/list_btn.jpg" border="0">
 						</a>
 					</div>
 				</div>

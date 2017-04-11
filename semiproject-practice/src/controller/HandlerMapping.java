@@ -5,6 +5,7 @@ import controller.inst.board.InstCommentUpdateController;
 import controller.inst.board.InstCommentUpdateViewController;
 import controller.inst.board.InstCommentWriteController;
 import controller.inst.board.InstDeletePostingController;
+import controller.inst.board.InstDownloadController;
 import controller.inst.board.InstPostingListController;
 import controller.inst.board.InstSearchController;
 import controller.inst.board.InstShowContentController;
@@ -83,6 +84,8 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 			controller = new InstUpdateViewController();
 		} else if (command.equals("instUpdatePosting")) {
 			controller = new InstUpdatePostingController();
+		} else if (command.equals("instDownload")) {
+			controller = new InstDownloadController();
 		} else if (command.equals("instSearch")) {
 			controller = new InstSearchController();
 		} else if (command.equals("InstCommentWrite")) {

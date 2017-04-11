@@ -51,7 +51,7 @@ public class ProBoardDAO {
 			con=getConnection(); 
 			StringBuilder sql = new StringBuilder();
 	         sql.append("select b.proposal_board_no, b.title, b.id, b.hit, b.time_posted, m.mem_name,b.secret from(");
-	         sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,secret, ");
+	         sql.append("select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id,secret, ");
 	         sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	         sql.append("from proposal_board");
 	         sql.append(") b, member m where b.id = m.id and rnum between ? and ?");
@@ -250,7 +250,7 @@ public class ProBoardDAO {
 	         con=getConnection(); // SELECT count(*) FROM inst_board WHERE title LIKE '%연습%'
 	         if (type.equals("title")) {
 	            sql.append("select count(*) from(");
-	               sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id, ");
+	               sql.append("select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id, ");
 	               sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	               sql.append("from proposal_board where title like ?");
 	               sql.append(") ib, member m where ib.id = m.id");
@@ -262,7 +262,7 @@ public class ProBoardDAO {
 	            }
 	         } else if (type.equals("titleAndContent")) {
 	            sql.append("select count(*) from(");
-	               sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id, ");
+	               sql.append("select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id, ");
 	               sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	               sql.append("from proposal_board where title like ? or content like ?");
 	               sql.append(") ib, member m where ib.id = m.id");
@@ -275,7 +275,7 @@ public class ProBoardDAO {
 	            }
 	         } else if (type.equals("writer")) {
 	            sql.append("select count(*) from(");
-	            sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, ib.proposal_board_no, ib.title, ib.content, ib.id, ");
+	            sql.append("select row_number() over(order by proposal_board_no desc) rnum, ib.proposal_board_no, ib.title, ib.content, ib.id, ");
 	            sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
 	            sql.append("from proposal_board ib, member m where ib.id = m.id and m.mem_name like ?");
 	            sql.append(") tb");
@@ -306,7 +306,7 @@ public class ProBoardDAO {
 	      try {
 	         con = getConnection();  
 	         String sql="select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from("
-	         		+ "select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,hit,secret, to_char("
+	         		+ "select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id,hit,secret, to_char("
 	         		+ "time_posted, 'YYYY.MM.DD') as time_posted from proposal_board where title like ?) ib, member m "
 	         		+ "where ib.id = m.id and rnum between ? and ?";
             pstmt = con.prepareStatement(sql);
@@ -346,7 +346,7 @@ public class ProBoardDAO {
 	         con = getConnection();
 	           StringBuilder sql = new StringBuilder();
 	           sql.append("select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(");
-	            sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, proposal_board_no, title, id,secret, ");
+	            sql.append("select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id,secret, ");
 	            sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	            sql.append("from proposal_board where title like ? or content like ?");
 	            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
@@ -388,7 +388,7 @@ public class ProBoardDAO {
 	         con = getConnection();
 	           StringBuilder sql = new StringBuilder();
 	           sql.append("select tb.rnum, tb.proposal_board_no, tb.title, tb.content, tb.id, tb.hit, tb.time_posted, tb.mem_name,tb.secret from(");
-	            sql.append("select row_number() over(order by to_number(proposal_board_no) desc) rnum, ib.proposal_board_no, ib.title, ib.content, ib.id,ib.secret, ");
+	            sql.append("select row_number() over(order by proposal_board_no desc) rnum, ib.proposal_board_no, ib.title, ib.content, ib.id,ib.secret, ");
 	            sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
 	            sql.append("from proposal_board ib, member m where ib.id = m.id and m.mem_name like ?");
 	            sql.append(") tb where rnum between ? and ?");

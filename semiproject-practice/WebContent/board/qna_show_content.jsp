@@ -121,7 +121,7 @@
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8" align="center">
 				<div class="panel panel-info">
-					<div class="panel-heading" align="center">QnA게시글 상세보기</div>
+					<div class="panel-heading" align="center">QnA 게시글 상세보기</div>
 					<div class="panel-body">
 						<table class="table">
 							<tbody>

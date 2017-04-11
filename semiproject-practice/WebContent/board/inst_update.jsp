@@ -51,8 +51,7 @@ $(document).ready(function() {
 				<div class="panel panel-warning">
 					<div class="panel-heading" align="center">강사 게시글 수정</div>
 					<div class="panel-body" align="center">
-						<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form">
-							<input type="hidden" name="command" value="instUpdatePosting">
+						<form action="${pageContext.request.contextPath}/DispatcherServlet?command=instUpdatePosting" method="post" name="write_form" enctype="multipart/form-data">
 							<input type="hidden" name="boardNo" value="${requestScope.bvo.boardNo }">
 							<table class="table">
 								<tbody>
@@ -68,7 +67,7 @@ $(document).ready(function() {
 											${requestScope.bvo.member.name}
 										</td>
 										<td></td>
-										<td colspan="2"><input type="file">${requestScope.bvo.attachedFile }</td>
+										<td colspan="2"><input type="file" name="attachedFile">${requestScope.bvo.attachedFile }</td>
 									</tr>
 									<tr>
 										<td colspan="4" align="center">&nbsp;&nbsp; 
