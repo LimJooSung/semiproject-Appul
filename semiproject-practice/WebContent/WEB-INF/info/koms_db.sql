@@ -1,37 +1,30 @@
 -- drop table
-drop table free_comment;
 drop table proposal_comment;
 drop table qna_comment;
 drop table inst_comment;
-drop table free_board;
 drop table proposal_board;
 drop table qna_board;
 drop table inst_board;
 drop table selecting_presenter;
 drop table selecting_group;
-drop table attendance;
 drop table member;
 
 
 
 -- drop sequence
 drop sequence id_seq;
-drop sequence free_board_seq;
 drop sequence proposal_board_seq;
 drop sequence qna_board_seq;
 drop sequence inst_board_seq;
-drop sequence free_comment_seq;
 drop sequence proposal_comment_seq;
 drop sequence qna_comment_seq;
 drop sequence inst_comment_seq;
 
 -- create sequence
 create sequence id_seq;
-create sequence free_board_seq;
 create sequence proposal_board_seq;
 create sequence qna_board_seq;
 create sequence inst_board_seq;
-create sequence free_comment_seq;
 create sequence proposal_comment_seq;
 create sequence qna_comment_seq;
 create sequence inst_comment_seq;
@@ -66,39 +59,6 @@ create table selecting_group(
 	group_no 			number not null,
 	selecting_date	date,	
 	constraint fk_id_group foreign key(id) references member(id)
-)
-
--- 출결기록 테이블
-create table attendance(
-	attend_date			varchar2(100),
-	id							varchar2(100),
-	attendance_state	varchar2(100) not null,
-	constraint pk_attend primary key(attend_date, id),	-- 복합키
-	constraint fk_id_attend foreign key(id) references member(id)
-)
-
--- 자유게시판 테이블
-create table free_board(
-   free_board_no      varchar2(100) primary key,
-   id                     varchar2(100) not null,
-   title                  varchar2(100) not null,
-   content               clob,
-   time_posted         date,
-   file_name            varchar2(100) not null,
-   hit                  number default(0),
-    secret                     char(1) default('N'),      -- 'Y' or 'N'으로 쓸 예정(?)
-   constraint fk_id_free_board foreign key(id) references member(id)
-)
-
--- 자유게시판 댓글 테이블
-create table free_comment(
-   free_comment_no      varchar2(100) primary key,
-   free_board_no         varchar2(100) not null,
-   id                  varchar2(100) not null,
-   time_posted            date,
-   content                  clob,
-   constraint fk_id_free_comment foreign key(id) references member(id),
-   constraint fk_free_board_no foreign key(free_board_no) references free_board(free_board_no)
 )
 
 -- 건의사항 게시판 테이블
@@ -287,7 +247,12 @@ hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted from proposal_board where
 
 select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(
 select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id,hit,secret, to_char(
-				time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like '%1%') ib, member m
+				time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like '%연습%' or content like '%연습%') ib, member m
 					where ib.id = m.id and rnum between 1 and 20
 
 
+select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(
+           select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, id, 
+           hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
+           from inst_board where title like '%연습%'
+           ) ib, member m where ib.id = m.id and rnum between 1 and 20

@@ -14,7 +14,6 @@ public class ProBoardVO extends BoardVO {
 			MemberVO member) {
 		super(boardNo, title, content, timePosted, hits, attachedFile, member);
 	}
-	
 
 	public String getSecret() {
 		return secret;
