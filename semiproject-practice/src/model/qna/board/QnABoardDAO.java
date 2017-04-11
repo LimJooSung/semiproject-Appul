@@ -332,7 +332,7 @@ public class QnABoardDAO {
 		try {
 			con = getConnection();
 			String sql = "select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from("
-					+ "select row_number() over(order by to_number(qna_board_no) asc) rnum, qna_board_no, title, id,hit,secret, to_char("
+					+ "select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id,hit,secret, to_char("
 					+ "time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like ?) ib, member m "
 					+ "where ib.id = m.id and rnum between ? and ?";
 			pstmt = con.prepareStatement(sql);
@@ -372,10 +372,9 @@ public class QnABoardDAO {
 	         con = getConnection();
 	           StringBuilder sql = new StringBuilder();
 	           sql.append("select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(");
-	            sql.append("select row_number() over(order by to_number(qna_board_no) asc) rnum, qna_board_no, title, id,secret, ");
-	            sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
-	            sql.append("from qna_board where title like ? or content like ?");
-	            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
+	            sql.append("select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id,hit,secret, to_char( ");
+	            sql.append("time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like ? or content like ?) ib, member m ");
+	            sql.append("where ib.id = m.id and rnum between ? and ?");
 	         pstmt = con.prepareStatement(sql.toString());
 	         pstmt.setString(1, "%" + searchTxt + "%");
 	         pstmt.setString(2, "%" + searchTxt + "%");

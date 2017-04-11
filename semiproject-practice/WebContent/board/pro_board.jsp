@@ -16,21 +16,30 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-function writeList(){
-	location.href="${pageContext.request.contextPath}/board/pro_write.jsp";
-}
-$(document).ready(function() {
-	$("#searchBtn").click(function() {
-		var searchTxt = document.getElementById("searchTxt").value;
-		if (searchTxt == "") {
-			alert("검색어를 입력하세요.");
-			return;
-		} else {
-			var type = document.getElementById("search").value;
-			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type=" + type + "&searchTxt=" + searchTxt;
-		}
-	});
-});
+	function writeList() {
+		location.href = "${pageContext.request.contextPath}/board/pro_write.jsp";
+	}
+	$(document)
+			.ready(
+					function() {
+						$("#searchBtn")
+								.click(
+										function() {
+											var searchTxt = document
+													.getElementById("searchTxt").value;
+											if (searchTxt == "") {
+												alert("검색어를 입력하세요.");
+												return;
+											} else {
+												var type = document
+														.getElementById("search").value;
+												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type="
+														+ type
+														+ "&searchTxt="
+														+ searchTxt;
+											}
+										});
+					});
 </script>
 </head>
 <body>
@@ -54,38 +63,41 @@ $(document).ready(function() {
 							</thead>
 							<tbody>
 								<c:forEach var="bvo" items="${requestScope.lvo.list}">
-								<tr>
-										
+									<tr>
+
 										<td align="center">${bvo.boardNo }</td>
-										<td align="center">
-										<c:choose>
+										<td align="center"><c:choose>
 												<c:when test="${bvo.secret =='Y'}">
 													<c:choose>
 														<c:when
 															test="${bvo.member.id == sessionScope.mvo.id||sessionScope.mvo.memberType=='강사'}">
-															<a href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
-																<img src="${pageContext.request.contextPath}/img/lock.jpg"
-																width="18" height="18" />
-																${bvo.title}</a>
+															<a
+																href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
+																<img
+																src="${pageContext.request.contextPath}/img/lock.jpg"
+																width="18" height="18" /> ${bvo.title}
+															</a>
 														</c:when>
-														
-											<c:otherwise>
-											<img src="${pageContext.request.contextPath}/img/lock.jpg"
+
+														<c:otherwise>
+															<img
+																src="${pageContext.request.contextPath}/img/lock.jpg"
 																width="18" height="18" />
 											 ${bvo.title}												
 											
 											 </c:otherwise>
-											
+
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<a href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
+													<a
+														href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
 														${bvo.title}</a>
 												</c:otherwise>
 											</c:choose></td>
-										<td  align="center">${bvo.member.name }</td>
-										<td  align="center">${bvo.timePosted }</td>
-										<td  align="center">${bvo.hits }</td>
+										<td align="center">${bvo.member.name }</td>
+										<td align="center">${bvo.timePosted }</td>
+										<td align="center">${bvo.hits }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -106,11 +118,11 @@ $(document).ready(function() {
 									<a href="DispatcherServlet?command=proList&pageNo=${pageNo}">${pageNo}</a>
 								</c:when>
 								<c:otherwise>
-	${pageNo}
-	</c:otherwise>
+								${pageNo}
+								</c:otherwise>
 							</c:choose>
-	&nbsp;
-	</c:forEach>
+						&nbsp;
+						</c:forEach>
 						<c:if test="${pb.nextPageGroup}">
 							<a
 								href="DispatcherServlet?command=proList&pageNo=${pb.endPageOfPageGroup+1}">▶</a>
@@ -119,16 +131,15 @@ $(document).ready(function() {
 					<div align="right">
 						<a href="#"><img class="action"
 							src="${pageContext.request.contextPath}/img/write_btn.jpg"
-							onclick="writeList()"></a>
-						<br><br>
+							onclick="writeList()"></a> <br>
+						<br>
 					</div>
 					<div class="panel-footer" align="center">
 						<select id="search">
 							<option value="title">제목</option>
 							<option value="titleAndContent">제목+내용</option>
 							<option value="writer">작성자</option>
-						</select>
-						<input type="text" id="searchTxt" placeholder="Search" size="30">
+						</select> <input type="text" id="searchTxt" placeholder="Search" size="30">
 						<button type="button" id="searchBtn" class="btn btn-default">검색</button>
 					</div>
 				</div>

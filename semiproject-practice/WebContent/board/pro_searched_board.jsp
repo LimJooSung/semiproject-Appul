@@ -25,7 +25,7 @@ $(document).ready(function() {
 			return;
 		} else {
 			var type = document.getElementById("search").value;
-			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=instSearch&type=" + type + "&searchTxt=" + searchTxt;
+			location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type=" + type + "&searchTxt=" + searchTxt;
 		}
 	});
 	$("#fa").click(function() {
