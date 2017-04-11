@@ -21,6 +21,8 @@ public class ProShowContentNoHitController implements Controller{
 		ArrayList<ProCommentVO> cvo =ProCommentDAO.getInstance().getProPostingCommentList(vo.getBoardNo());
 		request.setAttribute("cvo", cvo);
 		request.setAttribute("bvo", vo);
+		ArrayList<ProCommentVO> cvo =ProCommentDAO.getInstance().getProPostingCommentList(vo.getBoardNo());
+		request.setAttribute("cvo", cvo);
 		return "board/pro_show_content.jsp";
 	}
 
