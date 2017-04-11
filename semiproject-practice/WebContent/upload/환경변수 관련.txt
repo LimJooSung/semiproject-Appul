@@ -1,0 +1,23 @@
+프로젝트 목표 & 취지 정리
+
+시스템 목표 등
+
+아이템 토론
+
+GUI - 부트스트랩
+
+
+
+시스템에서 환경변수에서 jdk 경로를 path에 넣어줘야함
+
+이클립스에서 탐색기에 넣어둔 파일(ex. ojdbc6.jar)을 인식하지 못할 때 --> 경로가 일치하지 않아서일 수 있으므로
+이클립스 - preference - java - installed jre - add - standardVM - jre 잡아주기
+
+
+
+
+
+
+
+
+---- 부트스트랩 ~ alerts까지

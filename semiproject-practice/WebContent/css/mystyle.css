@@ -1,0 +1,79 @@
+/* Remove the navbar's default rounded borders and increase the bottom margin */
+.navbar {
+	margin-bottom: 50px;
+	border-radius: 0;
+}
+
+/* Remove the jumbotron's default bottom margin */
+.jumbotron {
+	margin-bottom: 0;
+}
+/* 폰트 바꾸기 */
+body, table, div, p {
+	font-family: inherit;
+}
+
+/* Add a gray background color and some padding to the footer */
+/* footer {
+	background-color: #F2F2F2;
+	padding: 15px;
+} */
+
+body {
+	background-color: #FFFFFF;
+}
+
+table {
+	table-layout: fixed;
+}
+
+th {
+	text-align: center;
+}
+
+th, td {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 70px;
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
