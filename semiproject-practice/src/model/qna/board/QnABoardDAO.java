@@ -234,15 +234,16 @@ public class QnABoardDAO {
 	 * @param vo
 	 * @throws SQLException
 	 */
-	public void updatePosting(BoardVO vo) throws SQLException {
+	public void updatePosting(QnABoardVO vo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = getConnection();
-			pstmt = con.prepareStatement("update qna_board set title=?,content=? where qna_board_no=?");
+			pstmt = con.prepareStatement("update qna_board set title=?,content=?, secret=? where qna_board_no=?");
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
-			pstmt.setInt(3, vo.getBoardNo());
+			pstmt.setString(3, vo.getSecret());
+			pstmt.setInt(4, vo.getBoardNo());
 			pstmt.executeUpdate();
 		} finally {
 			closeAll(pstmt, con);

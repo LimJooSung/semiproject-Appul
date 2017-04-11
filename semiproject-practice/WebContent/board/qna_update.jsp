@@ -53,6 +53,14 @@
 										<td colspan="4">제&nbsp;&nbsp;&nbsp;목 | 
 											<c:forEach begin="0" end="7">&nbsp;</c:forEach>
 											<input type="text" name="title" value=${requestScope.bvo.title } size="71">
+											<c:choose>
+											<c:when test="${bvo.secret =='Y'}">
+											<input type="checkbox" name="secret" value="Y" checked>비밀글
+											</c:when>
+											<c:otherwise>
+											<input type="checkbox" name="secret" value="Y">비밀글
+											</c:otherwise>											
+											</c:choose>
 										</td>
 									</tr>
 									<tr>

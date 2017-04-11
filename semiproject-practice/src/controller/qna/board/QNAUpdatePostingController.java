@@ -20,7 +20,7 @@ public class QNAUpdatePostingController implements Controller {
 		int no = Integer.parseInt(request.getParameter("boardNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		BoardVO vo = new QnABoardVO();
+		QnABoardVO vo = new QnABoardVO();
 		vo.setBoardNo(no);
 		vo.setTitle(title);
 		vo.setContent(content);

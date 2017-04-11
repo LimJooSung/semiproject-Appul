@@ -38,6 +38,7 @@
 								<tr>
 									<td>글번호 | &nbsp;${requestScope.bvo.boardNo }</td>
 									<td>제&nbsp;&nbsp;&nbsp;목 | &nbsp;${requestScope.bvo.title}
+			
 									</td>
 									<td>조회수 | &nbsp;${requestScope.bvo.hits }</td>
 								</tr>
