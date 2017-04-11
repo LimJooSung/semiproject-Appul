@@ -70,6 +70,8 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 			controller = new UpdateController();
 		} else if (command.equals("updateView")) {
 			controller = new UpdateViewController();
+		} else if (command.equals("delete")) {
+			controller = new DeleteController();
 		} else if (command.equals("instList")) { // 강사 게시판 컨트롤러
 			controller = new InstPostingListController();
 		} else if (command.equals("instShowContent")) {

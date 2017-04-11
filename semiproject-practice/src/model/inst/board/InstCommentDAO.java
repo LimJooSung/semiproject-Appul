@@ -151,4 +151,23 @@ public class InstCommentDAO {
 		}
 	}
 
+	public int getTotalCommentCount(int boardNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalCommentCount = 0;
+		try {
+			con = getConnection();
+			String sql = "select count(*) from inst_comment where inst_board_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalCommentCount = rs.getInt(1);
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalCommentCount;
+	}
 }

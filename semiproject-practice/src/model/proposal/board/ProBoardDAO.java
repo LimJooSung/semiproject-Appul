@@ -63,6 +63,7 @@ public class ProBoardDAO {
 			//select no,title,time_posted,hits,id,name
 			while(rs.next()){		
 				ProBoardVO bvo=new ProBoardVO();
+				int totalCommentCount = ProCommentDAO.getInstance().getTotalCommentCount(rs.getInt("proposal_board_no"));
 				bvo.setBoardNo(rs.getInt(1));
 				bvo.setTitle(rs.getString(2));
 				bvo.setTimePosted(rs.getString(5));
@@ -72,6 +73,7 @@ public class ProBoardDAO {
 				mvo.setId(rs.getString(3));
 				mvo.setName(rs.getString(6));
 				bvo.setMember(mvo);
+				bvo.setTotalCommentCount(totalCommentCount);
 				list.add(bvo);			
 			}		
 			//System.out.println(list);
@@ -316,6 +318,7 @@ public class ProBoardDAO {
 	         rs = pstmt.executeQuery();
 	         while (rs.next()) {
 	            ProBoardVO vo = new ProBoardVO();
+	            int totalCommentCount = ProCommentDAO.getInstance().getTotalCommentCount(rs.getInt("proposal_board_no"));
 	            vo.setBoardNo(rs.getInt("proposal_board_no"));
 	            vo.setTitle(rs.getString("title"));
 	            vo.getMember().setId(rs.getString("id"));
@@ -323,6 +326,7 @@ public class ProBoardDAO {
 	            vo.setHits(rs.getInt("hit"));
 	            vo.setTimePosted(rs.getString("time_posted"));
 	            vo.setSecret(rs.getString("secret"));
+	            vo.setTotalCommentCount(totalCommentCount);
 	            list.add(vo);
 	         }
 	      } finally {
@@ -358,6 +362,7 @@ public class ProBoardDAO {
 	         rs = pstmt.executeQuery();
 	         while (rs.next()) {
 	        	 ProBoardVO vo = new ProBoardVO();
+	        	 int totalCommentCount = ProCommentDAO.getInstance().getTotalCommentCount(rs.getInt("proposal_board_no"));
 	            vo.setBoardNo(rs.getInt("proposal_board_no"));
 	            vo.setTitle(rs.getString("title"));
 	            vo.getMember().setId(rs.getString("id"));
@@ -365,6 +370,7 @@ public class ProBoardDAO {
 	            vo.setHits(rs.getInt("hit"));
 	            vo.setTimePosted(rs.getString("time_posted"));
 	            vo.setSecret(rs.getString("secret"));
+	            vo.setTotalCommentCount(totalCommentCount);
 	            list.add(vo);
 	         }
 	      } finally {
@@ -399,6 +405,8 @@ public class ProBoardDAO {
 	         rs = pstmt.executeQuery();
 	         while (rs.next()) {
 	        	ProBoardVO vo = new ProBoardVO();
+	        	int totalCommentCount = ProCommentDAO.getInstance().getTotalCommentCount(rs.getInt("proposal_board_no"));
+	        	System.out.println(totalCommentCount);
 	            vo.setBoardNo(rs.getInt("proposal_board_no"));
 	            vo.setTitle(rs.getString("title"));
 	            vo.getMember().setId(rs.getString("id"));
@@ -406,6 +414,7 @@ public class ProBoardDAO {
 	            vo.setHits(rs.getInt("hit"));
 	            vo.setTimePosted(rs.getString("time_posted"));
 	            vo.setSecret(rs.getString("secret"));
+	            vo.setTotalCommentCount(totalCommentCount);
 	            list.add(vo);
 	         }
 	      } finally {

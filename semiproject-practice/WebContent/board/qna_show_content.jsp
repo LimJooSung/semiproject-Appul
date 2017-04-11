@@ -139,6 +139,25 @@
 								</tr>
 							</tbody>
 						</table>
+						<div align="right">
+							<c:if test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
+								<a
+									href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaupdatePostingView&boardNo=${requestScope.bvo.boardNo }">
+									<img src="${pageContext.request.contextPath}/img/modify_btn.jpg"
+									border="0">
+								</a>
+								<a
+									href="${pageContext.request.contextPath}/DispatcherServlet?command=qnadeletePosting&boardNo=${requestScope.bvo.boardNo }"
+									id="deleteBtn"> <img
+									src="${pageContext.request.contextPath}/img/delete_btn.jpg"
+									border="0"></a>
+							</c:if>
+							<a
+								href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist">
+								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"
+								border="0">
+							</a>
+						</div>
 					</div>
 					
 					

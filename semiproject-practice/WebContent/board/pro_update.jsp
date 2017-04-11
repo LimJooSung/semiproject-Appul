@@ -42,7 +42,7 @@
 			<div class="col-sm-2"></div>
 			<div class="col-sm-8">
 				<div class="panel panel-success">
-					<div class="panel-heading" align="center">QnA 게시글 수정</div>
+					<div class="panel-heading" align="center">건의사항 게시글 수정</div>
 					<div class="panel-body" align="center">
 						<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form">
 							<input type="hidden" name="command" value="proUpdatePosting">

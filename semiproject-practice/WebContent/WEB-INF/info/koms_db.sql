@@ -269,3 +269,6 @@ select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name fro
            hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
            from inst_board where title like '%연습%'
             ) ib, member m where ib.id = m.id and rnum between 1 and 20
+            
+            
+select count(*) from inst_comment where inst_board_no=15

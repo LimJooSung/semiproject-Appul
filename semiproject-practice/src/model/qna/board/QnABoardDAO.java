@@ -70,6 +70,7 @@ public class QnABoardDAO {
 			// select no,title,time_posted,hits,id,name
 			while (rs.next()) {
 				QnABoardVO bvo = new QnABoardVO();
+				int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
 				bvo.setBoardNo(rs.getInt(1));
 				bvo.setTitle(rs.getString(2));
 				bvo.setTimePosted(rs.getString(3));
@@ -79,6 +80,7 @@ public class QnABoardDAO {
 				mvo.setId(rs.getString(5));
 				mvo.setName(rs.getString(6));
 				bvo.setMember(mvo);
+				bvo.setTotalCommentCount(totalCommentCount);
 				list.add(bvo);
 			}
 		} finally {
@@ -341,6 +343,7 @@ public class QnABoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				QnABoardVO vo = new QnABoardVO();
+				int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
 				vo.setBoardNo(rs.getInt("qna_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
@@ -348,6 +351,7 @@ public class QnABoardDAO {
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
 				vo.setSecret(rs.getString("secret"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -382,6 +386,7 @@ public class QnABoardDAO {
 	         rs = pstmt.executeQuery();
 	         while (rs.next()) {
 	        	 QnABoardVO vo = new QnABoardVO();
+	        	 int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
 	            vo.setBoardNo(rs.getInt("qna_board_no"));
 	            vo.setTitle(rs.getString("title"));
 	            vo.getMember().setId(rs.getString("id"));
@@ -389,6 +394,7 @@ public class QnABoardDAO {
 	            vo.setHits(rs.getInt("hit"));
 	            vo.setTimePosted(rs.getString("time_posted"));
 	            vo.setSecret(rs.getString("secret"));
+	            vo.setTotalCommentCount(totalCommentCount);
 	            list.add(vo);
 	         }
 	      } finally {
@@ -422,7 +428,8 @@ public ArrayList<BoardVO> getSearchedQnAPostingListByWriter(PagingBean pagingBea
         pstmt.setInt(3, pagingBean.getEndRowNumber());
         rs = pstmt.executeQuery();
         while (rs.next()) {
-       	QnABoardVO vo = new QnABoardVO();
+	       	QnABoardVO vo = new QnABoardVO();
+	       	int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
            vo.setBoardNo(rs.getInt("qna_board_no"));
            vo.setTitle(rs.getString("title"));
            vo.getMember().setId(rs.getString("id"));
@@ -430,6 +437,7 @@ public ArrayList<BoardVO> getSearchedQnAPostingListByWriter(PagingBean pagingBea
            vo.setHits(rs.getInt("hit"));
            vo.setTimePosted(rs.getString("time_posted"));
            vo.setSecret(rs.getString("secret"));
+           vo.setTotalCommentCount(totalCommentCount);
            list.add(vo);
         }
      } finally {

@@ -60,12 +60,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -98,12 +100,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -137,12 +141,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -175,12 +181,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
