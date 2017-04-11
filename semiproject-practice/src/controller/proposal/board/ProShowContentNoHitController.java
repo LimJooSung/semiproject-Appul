@@ -13,7 +13,7 @@ public class ProShowContentNoHitController implements Controller{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int boardNo=Integer.parseInt(request.getParameter("boardNo"));		
 		// 개별 게시물 조회  
-		BoardVO vo = ProBoardDAO.getInstance().getPostingByNo(boardNo);	
+		BoardVO vo = ProBoardDAO.getInstance().getProPostingByNo(boardNo);	
 		request.setAttribute("bvo", vo);
 		return "board/pro_show_content.jsp";
 	}

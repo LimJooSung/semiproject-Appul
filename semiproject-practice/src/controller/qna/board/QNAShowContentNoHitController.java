@@ -11,7 +11,7 @@ public class QNAShowContentNoHitController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int no = Integer.parseInt(request.getParameter("boardNo"));
-		BoardVO vo = QnABoardDAO.getInstance().getPostingByNo(no);	
+		BoardVO vo = QnABoardDAO.getInstance().getQnAPostingByNo(no);	
 		request.setAttribute("bvo", vo);
 		return "/board/qna_show_content.jsp";
 	}

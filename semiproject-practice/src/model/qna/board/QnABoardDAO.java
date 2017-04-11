@@ -119,7 +119,7 @@ public class QnABoardDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public QnABoardVO getPostingByNo(int no) throws SQLException {
+	public QnABoardVO getQnAPostingByNo(int no) throws SQLException {
 		QnABoardVO bvo = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;

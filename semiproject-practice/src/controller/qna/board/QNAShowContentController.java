@@ -1,5 +1,7 @@
 package controller.qna.board;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import model.qna.board.QnABoardDAO;
 import model.qna.board.QnABoardVO;
+import model.qna.board.QnACommentDAO;
+import model.qna.board.QnACommentVO;
 
 public class QNAShowContentController implements Controller {
 
@@ -21,9 +25,10 @@ public class QNAShowContentController implements Controller {
 		System.out.println(no);
 		QnABoardDAO.getInstance().updateHit(no);
 		// 개별 게시물 조회  
-		QnABoardVO vo = QnABoardDAO.getInstance().getPostingByNo(no);	
+		QnABoardVO vo = QnABoardDAO.getInstance().getQnAPostingByNo(no);	
 		request.setAttribute("bvo", vo);
-		System.out.println(vo);
+		ArrayList<QnACommentVO> cvo =QnACommentDAO.getInstance().getQnAPostingCommentList(vo.getBoardNo());
+		request.setAttribute("cvo", cvo);
 		return "board/qna_show_content.jsp";
 	}
 }

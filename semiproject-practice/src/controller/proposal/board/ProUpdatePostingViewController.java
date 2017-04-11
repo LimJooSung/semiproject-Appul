@@ -12,7 +12,7 @@ public class ProUpdatePostingViewController implements Controller{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			int boardNo=Integer.parseInt(request.getParameter("boardNo"));
-			BoardVO vo = ProBoardDAO.getInstance().getPostingByNo(boardNo);		
+			BoardVO vo = ProBoardDAO.getInstance().getProPostingByNo(boardNo);		
 			request.setAttribute( "bvo", vo);
 			return "board/pro_update.jsp";
 	}

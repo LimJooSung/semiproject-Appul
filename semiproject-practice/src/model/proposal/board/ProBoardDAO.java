@@ -110,7 +110,7 @@ public class ProBoardDAO {
      * @return
      * @throws SQLException
      */
-	public ProBoardVO getPostingByNo(int no) throws SQLException{
+	public ProBoardVO getProPostingByNo(int no) throws SQLException{
 		ProBoardVO bvo=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;

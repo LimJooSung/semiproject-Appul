@@ -23,9 +23,11 @@ public class QnACommentWriteController implements Controller {
 		vo.setBoardNo(boardNo);
 		vo.setContent(id);
 		vo.setContent(content);
+		System.out.println("라이트 런트롤러");
 		vo.setMember((MemberVO) session.getAttribute("mvo"));
 		QnACommentDAO.getInstance().postingQnAComment(vo);
 		String path = "redirect:DispatcherServlet?command=QnAShowContentNotHit&boardNo=" + vo.getBoardNo();
+		System.out.println("중간점건");
 		return path;
 	}
 }
