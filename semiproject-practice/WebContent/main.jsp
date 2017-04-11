@@ -98,7 +98,7 @@
 									end="5">
 									<tr>
 										<td align="center">
-											<%-- <a href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${qvo.boardNo }">
+											<%-- <a href="${pageContext.request.contextPath}/DispatcherServlet?command=qnashowContent&boardNo=${qvo.boardNo }">
 											 ${qvo.title }</a> --%> <c:choose>
 												<c:when test="${qvo.secret =='Y'}">
 													<c:choose>
@@ -119,7 +119,7 @@
 												</c:when>
 												<c:otherwise>
 													<a
-														href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${qvo.boardNo }">
+														href="${pageContext.request.contextPath}/DispatcherServlet?command=qnashowContent&boardNo=${qvo.boardNo }">
 														${qvo.title}</a>
 												</c:otherwise>
 											</c:choose>
@@ -172,7 +172,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<div class="container">
 		<div class="row"></div>

@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Bootstrap Example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -145,80 +144,70 @@
 					
 					<div class="comment-footer" align="left">
 						<c:if test="${requestScope.cvo != null}">
+							<hr>
 							<c:forEach var="comment" items="${requestScope.cvo}">
 								<tr>
 									<!--  아이디, 작성날짜 -->
 									<td width="150">
-										<div>${comment.member.name}<font size="2"
-												color="lightgray">${comment.timePosted}</font>
+										<div>
+											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
+											[${comment.member.name}]<font size="2" color="lightgray"> ${comment.timePosted}</font>
 										</div>
 									</td>
 									<!--  본문내용 -->
 									<td width="550">
-										<div class="text_wrapper">${comment.content}</div>
-									</td>
-									<!--  버튼 -->
-									<td width="100">
-										<div id="btn" style="text-align: left;">
-											<a href="#">[답변]</a>
-											<!--  댓글 작성자만 수정, 삭제 가능하도록 -->
+										<div class="text_wrapper">
+											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
+											${comment.content}
 											<c:if test="${comment.member.id == sessionScope.mvo.id }">
-												<a href="#" onclick="cmUpdateOpen(${comment.commentNo})">[수정]</a>
-												<a href="#" onclick="cmDeleteOpen(${comment.commentNo})">[삭제]</a>
+												<div align="right"> 
+													<a href="#" onclick="cmUpdateOpen(${comment.commentNo})">[수정]</a>
+													<a href="#" onclick="cmDeleteOpen(${comment.commentNo})">[삭제]</a>
+													<c:forEach begin="0" end="2">&nbsp;</c:forEach>
+												</div>
 											</c:if>
 										</div>
+									</td>
+								</tr>
+								<hr>
 							</c:forEach>
 						</c:if>
 					</div>
-					
+					<br>
+
 					<!-- 로그인 했을 경우만 댓글 작성가능 -->
 					<c:if test="${sessionScope.mvo.id !=null }">
 						<form id="writeCommentForm">
-							<input type="hidden" name="comment_board"
-								value="${requestScope.bvo.boardNo}"> <input
-								type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
+							<input type="hidden" name="comment_board" value="${requestScope.bvo.boardNo}"> 
+							<input type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
 
+							<div class="panel-footer">
 							<!-- 본문 작성 -->
 							<tr>
 								<td width="550">
 									<div>
-										<textarea name="comment_content" rows="4" cols="70"></textarea>
+										<textarea name="comment_content" rows="2" cols="80"></textarea>
 									</div>
 								</td>
 							<tr>
 								<!-- 댓글 등록 버튼 -->
 								<td width="100">
 									<div id="btn" style="text-align: center;">
-										<p>
-											<a href="#" onclick="writeCmt()">[댓글등록]</a>
-										</p>
+										<!-- <a href="#" onclick="writeCmt()">[댓글등록]</a> -->
+										<input type="button" value="댓글등록" onclick="writeCmt()">
 									</div>
 								</td>
+							</div>
 						</form>
 					</c:if>
-					
-					<div class="panel-footer" align="right">
-						<c:if test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
-							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaupdatePostingView&boardNo=${requestScope.bvo.boardNo }"><img
-								src="${pageContext.request.contextPath}/img/modify_btn.jpg"
-								border="0"></a>
-							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=qnadeletePosting&boardNo=${requestScope.bvo.boardNo }"
-								id="deleteBtn"><img
-								src="${pageContext.request.contextPath}/img/delete_btn.jpg"
-								border="0"></a>
-						</c:if>
-						<a
-							href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist"><img
-							src="${pageContext.request.contextPath}/img/list_btn.jpg"
-							border="0"></a>
-					</div>
 				</div>
 			</div>
 			<div class="col-sm-2"></div>
 		</div>
 	</div>
+	<div class="container">
+		<div class="row"></div>
+	</div>
+	<c:import url="/layout/footer.jsp"></c:import>
 </body>
-<c:import url="/layout/footer.jsp"></c:import>
 </html>

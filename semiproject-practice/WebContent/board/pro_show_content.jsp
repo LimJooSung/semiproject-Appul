@@ -1,14 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<script src="//code.jquery.com/jquery.min.js"></script>
+<title>show content</title>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#deleteBtn").click(function() {
@@ -132,77 +136,67 @@
 					</div>
 					
 					
-					<div class ="comment-footer" align="left">
-						<c:if test= "${requestScope.cvo != null}">
-							<c:forEach var = "comment" items="${requestScope.cvo}">
+					<div class="comment-footer" align="left">
+						<c:if test="${requestScope.cvo != null}">
+							<hr>
+							<c:forEach var="comment" items="${requestScope.cvo}">
 								<tr>
 									<!--  아이디, 작성날짜 -->
 									<td width="150">
-										<div>${comment.member.name}<font size="2" color="lightgray">${comment.timePosted}</font>
+										<div>
+											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
+											[${comment.member.name}]<font size="2" color="lightgray"> ${comment.timePosted}</font>
 										</div>
 									</td>
 									<!--  본문내용 -->
 									<td width="550">
 										<div class="text_wrapper">
+											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
 											${comment.content}
+											<c:if test="${comment.member.id == sessionScope.mvo.id }">
+												<div align="right"> 
+													<a href="#" onclick="cmUpdateOpen(${comment.commentNo})">[수정]</a>
+													<a href="#" onclick="cmDeleteOpen(${comment.commentNo})">[삭제]</a>
+													<c:forEach begin="0" end="2">&nbsp;</c:forEach>
+												</div>
+											</c:if>
 										</div>
 									</td>
-									<!--  버튼 -->
-									<td width="100">
-										<div id="btn" style="text-align:left;">
-											<a href="#">[답변]</a>
-									<!--  댓글 작성자만 수정, 삭제 가능하도록 -->
-									<c:if test="${comment.member.id == sessionScope.mvo.id }">
-										<a href="#" onclick="cmUpdateOpen(${comment.commentNo})">[수정]</a>
-										<a href="#" onclick="cmDeleteOpen(${comment.commentNo})">[삭제]</a>
-									</c:if>
-									</div>
+								</tr>
+								<hr>
 							</c:forEach>
 						</c:if>
 					</div>
-					
-						
+					<br>
+
 					<!-- 로그인 했을 경우만 댓글 작성가능 -->
 					<c:if test="${sessionScope.mvo.id !=null }">
-					<form id="writeCommentForm">
-						<input type="hidden" name="comment_board" value="${requestScope.bvo.boardNo}">
-						<input type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
-						
-						<!-- 본문 작성 -->
-						<tr><td width="550">
-							<div>
-								<textarea name="comment_content" rows="4" cols="70"></textarea>
+						<form id="writeCommentForm">
+							<input type="hidden" name="comment_board" value="${requestScope.bvo.boardNo}"> 
+							<input type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
+
+							<div class="panel-footer">
+							<!-- 본문 작성 -->
+							<tr>
+								<td width="550">
+									<div>
+										<textarea name="comment_content" rows="2" cols="80"></textarea>
+									</div>
+								</td>
+							<tr>
+								<!-- 댓글 등록 버튼 -->
+								<td width="100">
+									<div id="btn" style="text-align: center;">
+										<!-- <a href="#" onclick="writeCmt()">[댓글등록]</a> -->
+										<input type="button" value="댓글등록" onclick="writeCmt()">
+									</div>
+								</td>
 							</div>
-						</td><tr>
-						<!-- 댓글 등록 버튼 -->
-						<td width="100">
-							<div id="btn" style="text-align:center;">
-							<p><a href="#" onclick="writeCmt()">[댓글등록]</a></p>  
-							</div>
-						</td>
-					</form>
+						</form>
 					</c:if>
-					
-					
-					<div class="panel-footer" align="right">
-						<c:if test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
-							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=proUpdateView&boardNo=${requestScope.bvo.boardNo }"><img
-								src="${pageContext.request.contextPath}/img/modify_btn.jpg"
-								border="0"> </a>
-							<a
-								href="${pageContext.request.contextPath}/DispatcherServlet?command=proDeletePosting&boardNo=${requestScope.bvo.boardNo }"
-								id="deleteBtn"><img
-								src="${pageContext.request.contextPath}/img/delete_btn.jpg"
-								border="0"></a>
-						</c:if>
-						<a
-							href="${pageContext.request.contextPath}/DispatcherServlet?command=proList"><img
-							src="${pageContext.request.contextPath}/img/list_btn.jpg"
-							border="0"></a>
-					</div>
 				</div>
 			</div>
+			<div class="col-sm-2"></div>
 		</div>
 	</div>
 	<div class="container">
