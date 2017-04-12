@@ -60,7 +60,7 @@ public class MemberDAO {
 		PreparedStatement pstmt=null;		
 		try{
 			con=dataSource.getConnection();
-			String sql = "insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES (?, ?, ?, ?, ?, ?, member_Seq.nextval)";
+			String sql = "insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES (?, ?, ?, ?, ?, ?, id_seq.nextval)";
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPassword());
@@ -155,7 +155,7 @@ public class MemberDAO {
 			pstmt.setString(2, dateOfBirth);	
 			rs=pstmt.executeQuery();		
 			while(rs.next()){ 
-				vo=new MemberVO(name,dateOfBirth,rs.getString(1));
+				vo=new MemberVO(rs.getString(1), name, dateOfBirth);
 			   // id=rs.getString("id"); 
 			   }
 		}finally{

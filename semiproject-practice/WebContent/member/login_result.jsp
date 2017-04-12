@@ -18,7 +18,7 @@
 <c:otherwise>
 		<script type="text/javascript">
 			alert("${sessionScope.mvo.name}님 로그인 고맙습니다!");
-			location.href="${pageContext.request.contextPath}/main.jsp";
+			location.href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList";
 		</script>		
 </c:otherwise>
 </c:choose>

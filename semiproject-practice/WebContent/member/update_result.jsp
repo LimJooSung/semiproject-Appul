@@ -13,13 +13,13 @@
 <c:when test="${sessionScope.mvo==null}">
 	<script type="text/javascript">
 			alert("수정 실패!");
-			location.href="${pageContext.request.contextPath}/login.jsp";
+			location.href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList";
 		</script>
 </c:when>
 <c:otherwise>
 		<script type="text/javascript">
 			alert("${sessionScope.mvo.id}님 수정 고맙습니다! ${sessionScope.mvo.name} ${sessionScope.mvo.dateOfBirth} ${sessionScope.mvo.gender} ${sessionScope.mvo.memberType}");
-			location.href="${pageContext.request.contextPath}/main.jsp";
+			location.href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList";
 		</script>		
 </c:otherwise>
 </c:choose>
