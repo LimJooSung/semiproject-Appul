@@ -277,7 +277,7 @@ table.type03 {
         <tr>
             <th scope="row">Gender</th>
             <td>
-            <input type="text" name="gender" id="gender" class="form-control"  value="<%=vo.getGender() %>" readonly>           
+            <input type="text"  class="form-control"  value="<%=vo.getGender() %>" readonly>           
                 <input type="radio" name="gender" id="gender" value="Female" > Female
                 <input type="radio" name="gender" id="gender" value="Male"> Male
             </td>
@@ -286,7 +286,7 @@ table.type03 {
         <tr>
             <th scope="row">Types of students</th>
             <td>
-            <input type="text" name="memberType" id="memberType" class="form-control"  value="<%=vo.getMemberType() %>" readonly>
+            <input type="text"  class="form-control"  value="<%=vo.getMemberType() %>" readonly>
                  <input type="radio" name="memberType" id="memberType" value="IT student"> IT student
                 <input type="radio" name="memberType" id="memberType" value="None IT student"> None IT student
             </td>

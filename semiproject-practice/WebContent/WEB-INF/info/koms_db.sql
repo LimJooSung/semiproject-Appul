@@ -38,8 +38,12 @@ create table member(
    gender         varchar2(100) not null,
    birth_date    varchar2(100) not null,
    mem_type      varchar2(100) not null,
+   getout		 char(1) default('N'),
    mem_number number not null
 )
+select * from member
+select id,password,mem_name,gender,birth_date,mem_type,getout from member where id='java' and password='1234'and getout='N';
+insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES ('java', '1234', '강정호', '남', '1970-01-01', '일반학생', id_Seq.nextval);
 insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) 
 values ('java', '1234', '강정호', '남', '1970-01-01', '일반학생', 1);
 insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) 
@@ -72,7 +76,7 @@ create table proposal_board(
    file_name                  varchar2(100),
    hit                        number default(0),
     secret               char(1) default('n'),    -- 'Y' or 'N'으로 쓸 예정(?)
-   constraint fk_id_proposal_board foreign key(id) references member(id)
+   constraint fk_id_proposal_board foreign key(id) references member(id) ON DELETE CASCADE
 )
 
 -- 건의사항 게시판 댓글 테이블
@@ -84,7 +88,7 @@ create table proposal_comment(
    time_posted                  date,
    content                        clob,
    parent              number,      -- number(?)
-   constraint fk_proposal_board_no foreign key(proposal_board_no) references proposal_board(proposal_board_no)
+   constraint fk_proposal_board_no foreign key(proposal_board_no) references proposal_board(proposal_board_no) ON DELETE CASCADE
    ,constraint fk_id_proposal_comment foreign key(id) references member(id)
    )
 
