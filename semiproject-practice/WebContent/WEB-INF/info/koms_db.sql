@@ -56,11 +56,13 @@ create table selecting_presenter(
 
 -- 조 선정 테이블
 create table selecting_group(
-	id						varchar2(100) primary key,
-	group_no 			number not null,
-	selecting_date	date,	
-	constraint fk_id_group foreign key(id) references member(id)
+	id varchar2(100) not null,
+	selecting_group_count number not null,
+	group_no number not null,
+	constraint fk_id_group foreign key(id) references member(id),
+	primary key (id, selecting_group_count)
 )
+
 
 -- 건의사항 게시판 테이블
 create table proposal_board(
