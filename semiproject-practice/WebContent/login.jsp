@@ -93,7 +93,7 @@ div.container {
         <input type="submit" class="btn btn-lg btn-primary btn-block" 
         style="width: 500px; height: 50px;" value="Sign In" onClick="return checkLogin()">
         
-        <a href="/board/register.jsp" class="btn btn-lg btn-primary btn-block" type="button"
+        <a href="register.jsp" class="btn btn-lg btn-primary btn-block" type="button"
         style="width: 500px; height: 50px;" >Sign Up</a>
         <a onClick="checkFindId()">Forgot ID?</a>
         
