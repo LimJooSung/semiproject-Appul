@@ -30,7 +30,7 @@
 	});
 
 	function writeList() {
-		location.href = "${pageContext.request.contextPath}/board/pro_write.jsp";
+		location.href = "${pageContext.request.contextPath}/board/qna_write.jsp";
 	}
 	$(document)
 			.ready(
@@ -122,7 +122,7 @@
 				   	    hint)   startPageOfPageGroup-1 하면 됨 		 
 	 -->
 						<c:if test="${pb.previousPageGroup}">
-							<a href="DispatcherServlet?command=instSearch&pageNo=${pb.startPageOfPageGroup-1}">
+							<a href="DispatcherServlet?command=qnaSearch&pageNo=${pb.startPageOfPageGroup-1}">
 								<!-- <img src="img/left_arrow_btn.gif"> --> ◀&nbsp;
 							</a>
 						</c:if>
@@ -136,7 +136,7 @@
 						<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 							<c:choose>
 								<c:when test="${pb.nowPage!=i}">
-									<a href="DispatcherServlet?command=instSearch&pageNo=${i}&type=${requestScope.type}&searchTxt=${requestScope.searchTxt}">${i}</a>
+									<a href="DispatcherServlet?command=qnasearch&pageNo=${i}&type=${requestScope.type}&searchTxt=${requestScope.searchTxt}">${i}</a>
 								</c:when>
 								<c:otherwise>
 								${i}
@@ -151,7 +151,7 @@
 				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
 	 -->
 						<c:if test="${pb.nextPageGroup}">
-							<a href="DispatcherServlet?command=instSearch&pageNo=${pb.endPageOfPageGroup+1}">
+							<a href="DispatcherServlet?command=qnasearch&pageNo=${pb.endPageOfPageGroup+1}">
 								▶<!-- <img src="img/right_arrow_btn.gif"> -->
 							</a>
 						</c:if>
@@ -161,7 +161,7 @@
 					
 							<a href="${pageContext.request.contextPath}/board/qna_write.jsp"><img src="${pageContext.request.contextPath}/img/write_btn.jpg" border="0"></a>
 							
-					<a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">
+					<a href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist">
 								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"	border="0">
 							</a>
 							<c:forEach begin="0" end="5">&nbsp;</c:forEach>

@@ -75,7 +75,7 @@ div.container {
 	
       <form class="formSignin" method="post" action="${pageContext.request.contextPath}/DispatcherServlet">
       <input type="hidden" name="command" value="login">
-      	<font size="5" color="#F6358A">KOMS</font>
+      	<font size="5" color="#F6358A">KOMS. v.145</font>
         <h2 class="form-signin-heading">Please Sign In</h2>
         <label for="inputId" class="sr-only" >ID</label>
         <input type="text" id="id" class="form-control" placeholder="ID" required autofocus
@@ -93,7 +93,7 @@ div.container {
         <input type="submit" class="btn btn-lg btn-primary btn-block" 
         style="width: 500px; height: 50px;" value="Sign In" onClick="return checkLogin()">
         
-        <a href="/board/register.jsp" class="btn btn-lg btn-primary btn-block" type="button"
+        <a href="register.jsp" class="btn btn-lg btn-primary btn-block" type="button"
         style="width: 500px; height: 50px;" >Sign Up</a>
         <a onClick="checkFindId()">Forgot ID?</a>
         

@@ -7,6 +7,7 @@ public class UpdateViewController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
 		return "update.jsp";	
 	}
 
