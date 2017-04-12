@@ -22,7 +22,6 @@ drop sequence inst_comment_seq;
 drop sequence mem_number_seq;
 
 -- create sequence
-create sequence id_seq;
 create sequence proposal_board_seq;
 create sequence qna_board_seq;
 create sequence inst_board_seq;
@@ -145,59 +144,8 @@ create table inst_comment(
    constraint fk_id_inst_comment foreign key(id) references member(id),
    constraint fk_inst_board_no foreign key(inst_board_no) references inst_board(inst_board_no) ON DELETE CASCADE
 )
-create table qna_board(
-   qna_board_no      number primary key,
-   id                     varchar2(100) not null,
-   title                  varchar2(100) not null,
-   content               clob,
-   time_posted         date,
-   file_name            varchar2(100),
-   hit                  number default(0),
-    secret               char(1) default('n'),      -- 'Y' or 'N'으로 쓸 예정(?)
-   constraint fk_id_qna_board foreign key(id) references member(id)
-)
 
--- 게시판 게시글 삽입
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습1', '연습이다1', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습2', '연습이다2', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습3', '연습이다3', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습4', '연습이다4', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습5', '연습이다5', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습6', '연습이다6', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습7', '연습이다7', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습8', '연습이다8', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습9', '연습이다9', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습10', '연습이다10', sysdate);
-insert into inst_board(inst_board_no, id, title, content, time_posted)
-values(inst_board_seq.nextval, 'java', '연습11', '연습이다11', sysdate);
 
-insert into proposal_board(proposal_board_no, id, title, content, time_posted)
-values(proposal_board_seq.nextval, 'java', '연습1', '연습이다1', sysdate);
-insert into proposal_board(proposal_board_no, id, title, content, time_posted)
-values(proposal_board_seq.nextval, 'java', '연습2', '연습이다2', sysdate);
-insert into proposal_board(proposal_board_no, id, title, content, time_posted)
-values(proposal_board_seq.nextval, 'java', '연습3', '연습이다3', sysdate);
-insert into proposal_board(proposal_board_no, id, title, content, time_posted)
-values(proposal_board_seq.nextval, 'java', '연습3', '연습이다3', sysdate);
-
-insert into qna_board(qna_board_no, id, title, content, time_posted)
-values(qna_board_seq.nextval, 'java', '연습1', '연습이다1', sysdate);
-insert into qna_board(qna_board_no, id, title, content, time_posted)
-values(qna_board_seq.nextval, 'java', '연습2', '연습이다2', sysdate);
-insert into qna_board(qna_board_no, id, title, content, time_posted)
-values(qna_board_seq.nextval, 'java', '연습3', '연습이다3', sysdate);
-insert into qna_board(qna_board_no, id, title, content, time_posted)
-values(qna_board_seq.nextval, 'java', '연습3', '연습이다3', sysdate);
 
 				
 -- member 테이블 값 삽입
@@ -314,7 +262,49 @@ insert into selecting_presenter(id, cnt_presentation) values('java34', 3);
 insert into selecting_presenter(id, cnt_presentation) values('java35', 4);
 insert into selecting_presenter(id, cnt_presentation) values('java36', 4);
 
+select * from inst_board
 
+-- 게시판 게시글 삽입
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java01', '연습1', '연습이다1', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java01', '연습2', '연습이다2', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java01', '연습3', '연습이다3', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java02', '연습4', '연습이다4', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java02', '연습5', '연습이다5', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java02', '연습6', '연습이다6', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java03', '연습7', '연습이다7', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java03', '연습8', '연습이다8', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java03', '연습9', '연습이다9', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java04', '연습10', '연습이다10', sysdate);
+insert into inst_board(inst_board_no, id, title, content, time_posted)
+values(inst_board_seq.nextval, 'java04', '연습11', '연습이다11', sysdate);
+
+insert into proposal_board(proposal_board_no, id, title, content, time_posted)
+values(proposal_board_seq.nextval, 'java05', '연습1', '연습이다1', sysdate);
+insert into proposal_board(proposal_board_no, id, title, content, time_posted)
+values(proposal_board_seq.nextval, 'java05', '연습2', '연습이다2', sysdate);
+insert into proposal_board(proposal_board_no, id, title, content, time_posted)
+values(proposal_board_seq.nextval, 'java05', '연습3', '연습이다3', sysdate);
+insert into proposal_board(proposal_board_no, id, title, content, time_posted)
+values(proposal_board_seq.nextval, 'java06', '연습3', '연습이다3', sysdate);
+
+insert into qna_board(qna_board_no, id, title, content, time_posted)
+values(qna_board_seq.nextval, 'java07', '연습1', '연습이다1', sysdate);
+insert into qna_board(qna_board_no, id, title, content, time_posted)
+values(qna_board_seq.nextval, 'java07', '연습2', '연습이다2', sysdate);
+insert into qna_board(qna_board_no, id, title, content, time_posted)
+values(qna_board_seq.nextval, 'java07', '연습3', '연습이다3', sysdate);
+insert into qna_board(qna_board_no, id, title, content, time_posted)
+values(qna_board_seq.nextval, 'java08', '연습3', '연습이다3', sysdate);
 
 
 
@@ -414,3 +404,13 @@ select * from SELECTING_PRESENTER;
 
 select m.id, m.mem_name, s.cnt_presentation, m.mem_number from member m, selecting_presenter s 
 			where m.id = s.id  and s.cnt_presentation=(select min(cnt_presentation) from selecting_presenter)
+			
+			
+			
+select * from inst_Board
+
+select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(
+            select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, 
+            hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
+            from inst_board
+            ) ib, member m where ib.id = m.id and rnum between 1 and 10

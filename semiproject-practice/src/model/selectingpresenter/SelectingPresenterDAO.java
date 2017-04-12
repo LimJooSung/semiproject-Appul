@@ -47,7 +47,7 @@ public class SelectingPresenterDAO {
 			con=getConnection(); 
 			StringBuilder sql=new StringBuilder();
 			sql.append("select m.id, m.mem_name, s.cnt_presentation, m.mem_number from member m, selecting_presenter s ");
-			sql.append("where m.id = s.id  and s.cnt_presentation=(select min(cnt_presentation) from selecting_presenter)");
+			sql.append("where m.id = s.id  and s.cnt_presentation=(select min(cnt_presentation) from selecting_presenter) and m.getout='N'");
 			
 			pstmt=con.prepareStatement(sql.toString());			
 			rs=pstmt.executeQuery();	
@@ -95,7 +95,7 @@ public class SelectingPresenterDAO {
 		try{
 			con=getConnection(); 
 			StringBuilder sql=new StringBuilder();
-			sql.append("select mem_name, cnt_presentation, mem_number  from member m, selecting_presenter s where m.id=s.id");
+			sql.append("select mem_name, cnt_presentation, mem_number  from member m, selecting_presenter s where m.id=s.id and m.getout='N'");
 			pstmt=con.prepareStatement(sql.toString());			
 			rs=pstmt.executeQuery();	
 			while(rs.next()){					
