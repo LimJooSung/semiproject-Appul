@@ -175,7 +175,7 @@ $(document)
 						<a href="#"><img class="action"
 							src="${pageContext.request.contextPath}/img/write_btn.jpg"
 							onclick="writeList()"></a>
-							<a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">
+							<a href="${pageContext.request.contextPath}/DispatcherServlet?command=proList">
 								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"	border="0">
 							</a>
 							<c:forEach begin="0" end="5">&nbsp;</c:forEach>

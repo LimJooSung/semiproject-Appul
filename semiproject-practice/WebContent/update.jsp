@@ -225,7 +225,7 @@ table.type03 {
     <div class="container">
 	
 	<form name="formUpdate" id="formUpdate" class="formUpdate" method="post" action="${pageContext.request.contextPath}/DispatcherServlet" onsubmit="return checkForm()">
-	<font size="5" color="#F6358A">KOMS</font>
+	<!--  <font size="5" color="#F6358A">KOMS</font>-->
 	<input type="hidden" name="command" value="update">
     <h2 class="form-signup-heading">회원 정보 수정</h2>
 

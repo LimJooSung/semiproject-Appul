@@ -45,7 +45,7 @@
 											} else {
 												var type = document
 														.getElementById("search").value;
-												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type="
+												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=instSearch&type="
 														+ type
 														+ "&searchTxt="
 														+ searchTxt;
@@ -138,7 +138,6 @@
 						<div align="right">
 					<c:if test="${sessionScope.mvo.memberType == '강사' }">
 							<a href="${pageContext.request.contextPath}/board/inst_write_board.jsp"><img src="${pageContext.request.contextPath}/img/write_btn.jpg" border="0"></a>
-							<c:forEach begin="0" end="5">&nbsp;</c:forEach>
 					</c:if>
 					<a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">
 								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"	border="0">

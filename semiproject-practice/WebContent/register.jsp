@@ -215,7 +215,7 @@ table.type03 {
     <div class="container">
 	
 	<form name="formSignup" id="formSignup"  class="formSignup" method="post" action="${pageContext.request.contextPath}/DispatcherServlet" onsubmit="return checkForm()">
-	<font size="5" color="#F6358A">KOMS</font>
+	<font size="5" color="#F6358A">KOMS. v.145</font>
 	<input type="hidden" name="command" value="register">
     <h2 class="form-signup-heading">Please Sign Up</h2>
 
