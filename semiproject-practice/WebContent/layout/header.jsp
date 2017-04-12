@@ -25,7 +25,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">Home</a></li>
 				<li><a href="#">조 선정</a></li>
-				<li><a href="#">발표자 선정</a></li>
+				<li><a href="${pageContext.request.contextPath}/sel_presenter.jsp">발표자 선정</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">

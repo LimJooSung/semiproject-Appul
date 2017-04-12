@@ -46,7 +46,7 @@
 											} else {
 												var type = document
 														.getElementById("search").value;
-												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type="
+												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=qnasearch&type="
 														+ type
 														+ "&searchTxt="
 														+ searchTxt;

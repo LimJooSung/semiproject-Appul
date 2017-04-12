@@ -16,9 +16,9 @@ public class MemberVO {
    public MemberVO() {
       super();
    }
-   public MemberVO(String id) {
+   public MemberVO(String memberName) {
 		super();
-		this.id = id;
+		this.name = memberName;
    }
    public MemberVO( String name, String dateOfBirth) {
 		super();

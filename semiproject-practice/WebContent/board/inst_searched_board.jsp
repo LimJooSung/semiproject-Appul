@@ -45,7 +45,7 @@
 											} else {
 												var type = document
 														.getElementById("search").value;
-												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type="
+												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=instSearch&type="
 														+ type
 														+ "&searchTxt="
 														+ searchTxt;
