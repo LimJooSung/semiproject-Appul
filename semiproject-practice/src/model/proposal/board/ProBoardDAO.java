@@ -352,7 +352,7 @@ public class ProBoardDAO {
 	         con = getConnection();
 	           StringBuilder sql = new StringBuilder();
 	           sql.append("select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(");
-	            sql.append("select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id,secret, ");
+	            sql.append("select row_number() over(order by proposal_board_no asc) rnum, proposal_board_no, title, id,secret, ");
 	            sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	            sql.append("from proposal_board where title like ? or content like ?");
 	            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
