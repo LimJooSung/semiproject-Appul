@@ -23,7 +23,6 @@ public class SelectingPresenterController implements Controller{
 		ArrayList<SelectingPresenterVO> allMemberList = SelectingPresenterDAO.getInstance().getAllPresenterList();
 		SelectingPresenterVO presenter = SelectingPresenterService.getInstance().selectingPresenter(presenterList);
 		
-		
 		JSONObject obj = new JSONObject();
 		obj.put("id", presenter.getMemberVO().getId());
 		obj.put("name", presenter.getMemberVO().getName());

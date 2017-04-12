@@ -95,7 +95,7 @@ public class SelectingPresenterDAO {
 		try{
 			con=getConnection(); 
 			StringBuilder sql=new StringBuilder();
-			sql.append("select mem_name, cnt_presentation, mem_number  from member m, selecting_presenter s where m.id=s.id and m.getout='N'");
+			sql.append("select mem_name, cnt_presentation, mem_number from member m, selecting_presenter s where m.id=s.id and m.getout='N'");
 			pstmt=con.prepareStatement(sql.toString());			
 			rs=pstmt.executeQuery();	
 			while(rs.next()){					
