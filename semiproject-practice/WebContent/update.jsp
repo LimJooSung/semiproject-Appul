@@ -219,6 +219,7 @@ table.type03 {
 
   <body style="font-weight:bold;">
 <% MemberVO vo=(MemberVO)session.getAttribute("mvo"); 
+	System.out.println(vo);
 	if(vo!=null){
 %>
     <div class="container">

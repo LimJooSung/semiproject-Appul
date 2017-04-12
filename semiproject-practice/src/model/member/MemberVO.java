@@ -87,5 +87,7 @@ public class MemberVO {
    public String toString() {
       return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", gender=" + gender
             + ", dateOfBirth=" + dateOfBirth + ", memberType=" + memberType + "]";
+  
    }
+
 }
