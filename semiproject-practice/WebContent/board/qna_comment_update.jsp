@@ -28,7 +28,6 @@
 
 	function checkValue() {
 		var form = document.forms[0];
-		alert(form);
 		// 전송할 값을 변수에 담는다.    
 		var comment_num = "${cvo.commentNo}";
 		var comment_content = form.comment_content.value
@@ -67,7 +66,6 @@
 		<br> <b><font size="5" color="gray">댓글수정</font></b>
 		<hr size="1" width="550">
 		<br>
-
 		<div id="commentUpdateForm">
 			<form name="updateInfo" target="parentForm">
 				<textarea rows="7" cols="70" name="comment_content">${cvo.content}</textarea>

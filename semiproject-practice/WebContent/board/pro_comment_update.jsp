@@ -28,7 +28,6 @@
 
 	function checkValue() {
 		var form = document.forms[0];
-		alert(form);
 		// 전송할 값을 변수에 담는다.    
 		var comment_num = "${cvo.commentNo}";
 		var comment_content = form.comment_content.value

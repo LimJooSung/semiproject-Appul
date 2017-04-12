@@ -60,7 +60,6 @@
         else
         {    
             var param="comment_board="+board+"&comment_id="+id+"&comment_content="+content;
-            alert("등록할까요?");
             httpRequest = getXMLHttpRequest();
             httpRequest.onreadystatechange = checkFunc;
             httpRequest.open("POST", "DispatcherServlet?command=qnaCommentWrite", true);    
