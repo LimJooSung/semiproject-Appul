@@ -13,11 +13,12 @@ public class LoginController implements Controller {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		MemberVO mvo = MemberDAO.getInstance().login(id, password);
-		if (mvo != null) {
-			HttpSession session = request.getSession();
+		System.out.println(mvo);
+		
+		if(mvo!=null){
+			HttpSession session=request.getSession();
 			session.setAttribute("mvo", mvo);			
 		}
-		System.out.println(mvo.toString());
 		return "redirect:member/login_result.jsp";
 	}
 }

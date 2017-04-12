@@ -1,7 +1,7 @@
-<%@page import="model.member.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@page import="model.member.MemberVO"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,8 +62,8 @@
 %>
 <input type="hidden" name="command" value="delete">
 <fieldset>
-		<legend>가위바위보 게임을 이겨야 탈퇴 할수 있습니다</legend>
-		<form name="frm1" method="post" action="${pageContext.request.contextPath}/DispatcherServlet" onsubmit="return checkForm()">
+		<legend>가위바위보 게임을 이겨야만 탈퇴 할수 있습니다!</legend>
+		<form name="frm1" method="post" action="${pageContext.request.contextPath}/DispatcherServlet">
 			<label for="gawi">가위</label>
 			<input type="radio" name="gbb" id="gawi" value="1" onclick="gbba();" />
 			
