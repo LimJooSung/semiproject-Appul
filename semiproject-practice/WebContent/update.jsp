@@ -1,7 +1,7 @@
 <%@page import="model.member.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <%@page import="model.member.MemberVO"%>
 <!DOCTYPE html>
 <html lang="en">
   <head >
@@ -25,7 +25,7 @@
   $('#chpass').keyup(function(){
    if($('#password').val()!=$('#chpass').val()){
     $('font[id=check]').text('');
-    $('font[id=check]').html("Password incorrect");
+    $('font[id=check]').html("Password incorrect!");
     return false;
    }else{
     $('font[id=check]').text('');
@@ -34,8 +34,8 @@
    return true;
   }); //#chpass.keyup
  });
- </script>
- <!--  
+
+/* 
  <script type="text/javascript">
  function checkPassword(password){
 
@@ -67,9 +67,9 @@
 	   $('#password').focus();
 	   return false;
 	}
- </script> -->
+ */
  
- <script type="text/javascript">
+
  $(document).ready(function(){      
      $("#id").keyup(function(){
         var id= $(this).val();
@@ -83,7 +83,7 @@
            $.ajax({
               type:"post",
               url:"${pageContext.request.contextPath}/DispatcherServlet?command=idcheck&id=" + id,
-              data:$("#form-update").serialize(),
+              data:$("#formUpdate").serialize(),
               success:function(data){
             	 
            
@@ -97,84 +97,53 @@
         }
      });
  });
-     </script>
-     <script type="text/javascript">
-     var xhr;
-     var checkFlag;//중복확인하여 사용가능여부를 true,false 로 저장 
-     //회원가입전 인증여부를 확인한다
-     var f=document.form-update;
-     function checkForm(){
-      
-      if(!f.password.value){
-    		alert("비밀번호를 입력하세요.");
-    		return false;
-    	}
-    	
-    	// 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
-    	if(f.password.value != f.chpass.value){
-    		alert("비밀번호를 동일하게 입력하세요.");
-    		return false;
-    	}	
-    	
-    	if(!f.name.value){
-    		alert("이름을 입력하세요.");
-    		return false;
-    	}
-    	
-    	if(!f.dateOfBirth.value){
-    		alert("생년월일을 입력하세요.");
-    		return false;
-    	}
-    	
-    	if(isNaN(f.dateOfBirth.value)){
-    		alert("생년월일은 숫자만 입력가능합니다.");
-    		return false;
-    	}
-    	
-    	if(!f.gender.value){
-    		alert("성별을 선택하세요.");
-    		return false;
-    	}
-    	
-    	if(!f.memberType.value){
-    		alert("전공과목을 선택하세요.");
-    		return false;
-    	}
-      
-     } 
-     
-     function checkQuit() {
-    	    window.open("member/game.jsp", "_blank", "toolbar=yes,resizable=yes,top=300,left=300,width=300,height=200");
-    	}
-     
-</script>
-
-<!--   <script type="text/javascript">
  
-function checkPassword(id,password){
-	if(!/^[a-zA-Z0-9]{10,15}$/.test(password)){
-	alert('숫자와 영문자 조합으로 10~15자리를 사용해야 합니다.');
-	return false;
-	}
-	var checkNumber = password.search(/[0-9]/g);
-	var checkEnglish = password.search(/[a-z]/ig);
+ function checkForm(){
+	 var f=document.formUpdate;
 
-	if(checkNumber <0 || checkEnglish <0){
-	alert("숫자와 영문자를 혼용하여야 합니다.");
-	return false;
+	if(f.password.value != f.chpass.value){
+		alert("비밀번호를 동일하게 입력하세요.");
+		return false;
+	}	 	
+    if(isNaN(f.dateOfBirth.value)){
+		alert("생년월일은 숫자만 입력가능합니다.");
+		return false;
+	}   
+    if(! f.gender.value){
+		alert("성별을 선택하세요.");
+		return false;
 	}
-	if(/(\w)\1\1\1/.test(password)){
-	alert('444같은 문자를 4번 이상 사용하실 수 없습니다.');
-	return false;
+    if(! f.memberType.value){
+		alert("전공을 선택하세요.");
+		return false;
 	}
-	if(password.search(id) > -1){
-	alert("비밀번호에 아이디가 포함되었습니다.");
-	return false;
+    if (f.password.value.length < 4 || f.password.value.length > 10){
+        alert("4자이상 10자이하만 가능합니다.");
+        return false;
+    }
+    if (f.id.value.indexOf(" ")>=0){
+        alert("아이디에 공백을 사용할 수 없습니다.");
+        return false;
+    }
+    if (f.password.value.indexOf(" ")>=0){
+        alert("비밀번호에 공백을 사용할 수 없습니다.");
+        return false;
+    }
+    if (f.name.value.indexOf(" ")>=0){
+        alert("이름에 공백을 사용할 수 없습니다.");
+        return false;
+    }
+    if (f.dateOfBirth.value.indexOf(" ")>=0){
+        alert("생년월일에 공백을 사용할 수 없습니다.");
+        return false;
+    }
+ } 
+ 
+ function checkQuit() {
+	    window.open("member/game.jsp", "_blank", "toolbar=yes,resizable=yes,top=300,left=300,width=300,height=200");
 	}
-	return true;
-	} 
-
-</script> -->
+ 
+     </script>
 
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -254,7 +223,7 @@ table.type03 {
 %>
     <div class="container">
 	
-	<form name="form-update" class="form-update" method="post" action="${pageContext.request.contextPath}/DispatcherServlet" onsubmit="return checkForm()">
+	<form name="formUpdate" id="formUpdate" class="formUpdate" method="post" action="${pageContext.request.contextPath}/DispatcherServlet" onsubmit="return checkForm()">
 	<font size="5" color="#F6358A">KOMS</font>
 	<input type="hidden" name="command" value="update">
     <h2 class="form-signup-heading">회원 정보 수정</h2>
@@ -280,7 +249,7 @@ table.type03 {
                     <input type="password" name="password" id="password" class="form-control" required="required" value="<%=vo.getPassword() %>">
                     <br />
                     <font> Password2</font>
-                    <input type="password" name="chpass" id="chpass" class="form-control">
+                    <input type="password" name="chpass" id="chpass" class="form-control" required="required">
                     <font id="check" size="2" color="red"></font> 
                     
                     <br />
@@ -327,10 +296,10 @@ table.type03 {
  
     
     <table class="type03">
-       <tr><td> <input type="submit"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" onClick="checkPassword()" value="Update"> </td>
-        <td><input type="reset"  class="btn btn-lg btn-primary btn-block"  style="width: 100px; height: 50px;" value="Reset" onClick="javascript:document.form-update.reset()"> </td>
+       <tr><td> <input type="submit"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" value="Update"> </td>
+         <!--  <td><input type="reset"  name="reset" id="reset" class="btn btn-lg btn-primary btn-block"  style="width: 100px; height: 50px;" value="Reset" onClick="javascript:document.formUpdate.reset()"> </td>-->
         <td> <input type="button"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" onClick="checkQuit()" value="탈퇴"> </td>
-        <td><a href="DispatcherServlet?command=mainList" type="button"  class="btn btn-lg btn-primary btn-block"  onClick="alert('Main page')" style="width: 100px; height: 50px;">Cancel</a> </td></tr>
+        <td><a href="index.jsp" type="button"  class="btn btn-lg btn-primary btn-block"  onClick="alert('Main page')" style="width: 100px; height: 50px;">Cancel</a> </td></tr>
     </table>
     
 

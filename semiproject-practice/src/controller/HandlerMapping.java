@@ -152,6 +152,8 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 			controller = new QNACommentUpdateViewController();
 		} else if (command.equals("qnaCommentUpdateAction")) {
 			controller = new QNACommentUpdateController();
+		}else if(command.equals("findid")){
+			controller = new FindIdController();
 		}
 		return controller;
 	}

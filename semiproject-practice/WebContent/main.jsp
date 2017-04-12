@@ -1,3 +1,4 @@
+<%@page import="model.member.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -19,6 +20,9 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<% MemberVO vo=(MemberVO)session.getAttribute("mvo"); 
+	if(vo!=null){
+%>
 	<jsp:include page="/layout/header.jsp" />
 	<div class="container">
 		<div class="row">
@@ -183,5 +187,11 @@
 		<div class="row"></div>
 	</div>
 	<jsp:include page="/layout/footer.jsp" />
+	<%}else{ %>
+		<script type="text/javascript">
+			alert("로그인하세요!");
+			location.href="${pageContext.request.contextPath}/login.jsp";
+		</script>
+<%} %>
 </body>
 </html>

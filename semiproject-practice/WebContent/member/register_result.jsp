@@ -10,15 +10,15 @@
 <body>
 <c:choose>
 <c:when test="${sessionScope.mvo==null}">
-	<script type="text/javascript">
-			alert("회원가입 실패!");
-			location.href="${pageContext.request.contextPath}/login.jsp";
+	<script type="text/javascript">			
+	alert("회원가입 실패!");
+	location.href="${pageContext.request.contextPath}/login.jsp";
 		</script>
 </c:when>
 <c:otherwise>
 		<script type="text/javascript">
-			alert("${sessionScope.mvo.name}님 회원가입 고맙습니다!");
-			location.href="${pageContext.request.contextPath}/index.jsp";
+		alert("${sessionScope.mvo.name}님 회원가입 고맙습니다!");
+		location.href="${pageContext.request.contextPath}/main.jsp";
 		</script>		
 </c:otherwise>
 </c:choose>

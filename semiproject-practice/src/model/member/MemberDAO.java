@@ -41,13 +41,13 @@ public class MemberDAO {
 		ResultSet rs=null;
 		try{
 			con=dataSource.getConnection();
-			String sql="select mem_name, mem_type from member where id=? and password=?";
+			String sql="select mem_name from member where id=? and password=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
 			rs=pstmt.executeQuery();
 			if(rs.next()){
-				vo=new MemberVO(id,rs.getString("mem_name"),rs.getString("mem_type"));
+				vo=new MemberVO(id,null,rs.getString(1));
 			}
 		}finally{
 			closeAll(rs, pstmt,con);
@@ -60,7 +60,7 @@ public class MemberDAO {
 		PreparedStatement pstmt=null;		
 		try{
 			con=dataSource.getConnection();
-			String sql = "insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES (?, ?, ?, ?, ?, ?, id_seq.nextval)";
+			String sql = "insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES (?, ?, ?, ?, ?, ?, member_Seq.nextval)";
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPassword());
@@ -125,7 +125,7 @@ public class MemberDAO {
 	}
 	
 	public void delete(String id) throws SQLException{
-		System.out.println("탈퇴할 사람 아이디 " +  id);
+		System.out.println("delete " +  id);
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try{
@@ -138,6 +138,35 @@ public class MemberDAO {
 			closeAll(pstmt,con);
 		}
 	}
+	
+	public MemberVO findid(String name, String dateOfBirth) throws SQLException{
+		MemberVO vo=null;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		//String id=null;
+		try{
+			con=dataSource.getConnection();
+			String sql=
+				"select id from member where mem_name=? and birth_date=?";
+			pstmt=con.prepareStatement(sql);			
+
+			pstmt.setString(1, name);
+			pstmt.setString(2, dateOfBirth);	
+			rs=pstmt.executeQuery();		
+			while(rs.next()){ 
+				vo=new MemberVO(name,dateOfBirth,rs.getString(1));
+			   // id=rs.getString("id"); 
+			   }
+		}finally{
+			closeAll(rs,pstmt,con);
+		}
+		//return id;
+		return vo;
+	}
+
+	
+	
 }
 
 
