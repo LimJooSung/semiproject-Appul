@@ -18,9 +18,9 @@ public class ProShowContentNoHitController implements Controller{
 		int boardNo=Integer.parseInt(request.getParameter("boardNo"));		
 		// 개별 게시물 조회  
 		BoardVO vo = ProBoardDAO.getInstance().getProPostingByNo(boardNo);	
-		request.setAttribute("bvo", vo);
 		ArrayList<ProCommentVO> cvo =ProCommentDAO.getInstance().getProPostingCommentList(vo.getBoardNo());
 		request.setAttribute("cvo", cvo);
+		request.setAttribute("bvo", vo);
 		return "board/pro_show_content.jsp";
 	}
 

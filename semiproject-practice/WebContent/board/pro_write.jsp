@@ -31,8 +31,7 @@
 		f.submit();
 	}
 	function cancel() {
-		var f = document.write_form;
-		f.reset();
+		location.href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist"
 	}
 </script>
 </head>

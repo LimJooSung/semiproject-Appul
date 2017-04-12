@@ -151,10 +151,12 @@
 							</tbody>
 						</table>
 						<div align="right">
-							<c:if test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
+							<c:if
+								test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
 								<a
 									href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaupdatePostingView&boardNo=${requestScope.bvo.boardNo }">
-									<img src="${pageContext.request.contextPath}/img/modify_btn.jpg"
+									<img
+									src="${pageContext.request.contextPath}/img/modify_btn.jpg"
 									border="0">
 								</a>
 								<a
@@ -170,8 +172,8 @@
 							</a>
 						</div>
 					</div>
-					
-					
+
+
 					<div class="comment-footer" align="left">
 						<c:if test="${requestScope.cvo != null}">
 							<hr>
@@ -181,7 +183,8 @@
 									<td width="150">
 										<div>
 											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
-											[${comment.member.name}]<font size="2" color="lightgray"> ${comment.timePosted}</font>
+											[${comment.member.name}]<font size="2" color="lightgray">
+												${comment.timePosted}</font>
 										</div>
 									</td>
 									<!--  본문내용 -->
@@ -190,7 +193,7 @@
 											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
 											${comment.content}
 											<c:if test="${comment.member.id == sessionScope.mvo.id }">
-												<div align="right"> 
+												<div align="right">
 													<a href="#" onclick="cmUpdateOpen(${comment.commentNo})">[수정]</a>
 													<a href="#" onclick="cmDeleteOpen(${comment.commentNo})">[삭제]</a>
 													<c:forEach begin="0" end="2">&nbsp;</c:forEach>
@@ -208,25 +211,28 @@
 					<!-- 로그인 했을 경우만 댓글 작성가능 -->
 					<c:if test="${sessionScope.mvo.id !=null }">
 						<form id="writeCommentForm">
-							<input type="hidden" name="comment_board" value="${requestScope.bvo.boardNo}"> 
-							<input type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
+							<input type="hidden" name="comment_board"
+								value="${requestScope.bvo.boardNo}"> <input
+								type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
 
 							<div class="panel-footer">
-							<!-- 본문 작성 -->
-							<tr>
-								<td width="550">
-									<div>
-										<textarea name="comment_content" rows="2" cols="80"></textarea>
-									</div>
-								</td>
-							<tr>
-								<!-- 댓글 등록 버튼 -->
-								<td width="100">
-									<div id="btn" style="text-align: center;">
-										<!-- <a href="#" onclick="writeCmt()">[댓글등록]</a> -->
-										<input type="button" value="댓글등록" onclick="writeCmt()">
-									</div>
-								</td>
+								<!-- 본문 작성 -->
+								<tr>
+									<td width="550">
+										<div>
+											<textarea name="comment_content" rows="2" cols="80"></textarea>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<!-- 댓글 등록 버튼 -->
+									<td width="100">
+										<div id="btn" style="text-align: center;">
+											<!-- <a href="#" onclick="writeCmt()">[댓글등록]</a> -->
+											<input type="button" value="댓글등록" onclick="writeCmt()">
+										</div>
+									</td>
+								</tr>
 							</div>
 						</form>
 					</c:if>

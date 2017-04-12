@@ -29,8 +29,9 @@
 		f.submit();
 	}
 	function cancel() {
-		var f = document.write_form;
-		f.reset();
+				
+		location.href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist"
+		
 	}
 </script>
 </head>
@@ -73,7 +74,7 @@
 							<tr>
 								<td colspan="4" align="center">
 									<a href="#"><img src="${pageContext.request.contextPath}/img/write_btn.jpg" alt="글입력" onclick="content_submit()"></a>
-									<a href="#"><img class="action" src="${pageContext.request.contextPath}/img/cancel.gif" onclick="cancel()"></a>
+									<a href="#"><img src="${pageContext.request.contextPath}/img/cancel.gif" onclick="cancel()"></a>
 								</td>
 							</tr>
 						</tbody>

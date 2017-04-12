@@ -124,23 +124,22 @@ $(document).ready(function() {
 							</c:choose>
 							&nbsp;
 						</c:forEach>
-						<!-- 
-			step3 1) 다음 페이지 그룹이 있으면 이미지(img/right_arrow_btn.gif) 보여준다. 
-				   		페이징빈의 nextPageGroup 이용 
-				   2)  이미지에 이전 그룹의 마지막 페이지번호를 링크한다. 
-				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
-	 -->
+						
 						<c:if test="${pb.nextPageGroup}">
 							<a
 								href="DispatcherServlet?command=qnaboardlist&pageNo=${pb.endPageOfPageGroup+1}">
-								▶<!-- <img src="img/right_arrow_btn.gif"> -->
+								▶
 							</a>
 						</c:if>
 					</p>
+					<!--글쓰기버튼과 목록버튼  -->
 					<div align="right">
 						<a href="${pageContext.request.contextPath}/board/qna_write.jsp"><img
 							src="${pageContext.request.contextPath}/img/write_btn.jpg"
 							border="0"></a>
+							<a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">
+								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"	border="0">
+							</a>
 						<c:forEach begin="0" end="5">&nbsp;</c:forEach>
 					</div>
 					<br>
