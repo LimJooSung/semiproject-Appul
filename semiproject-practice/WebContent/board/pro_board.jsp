@@ -130,12 +130,17 @@
 								href="DispatcherServlet?command=proList&pageNo=${pb.endPageOfPageGroup+1}">▶</a>
 						</c:if>
 					</p>
+					<!--글쓰기 버튼과 목록버튼  -->
 					<div align="right">
 						<a href="#"><img class="action"
 							src="${pageContext.request.contextPath}/img/write_btn.jpg"
-							onclick="writeList()"></a> <br>
-						<br>
+							onclick="writeList()"></a>
+							<a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">
+								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"	border="0">
+							</a>
+							<c:forEach begin="0" end="5">&nbsp;</c:forEach>
 					</div>
+					<br>
 					<div class="panel-footer" align="center">
 						<select id="search">
 							<option value="title">제목</option>
