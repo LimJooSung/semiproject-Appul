@@ -119,12 +119,12 @@
 					<div class="panel-body">
 						<table class="table">
 							<tbody>
-								<tr>
+							<tr>
+								<td>글번호 |
+										&nbsp;${requestScope.bvo.boardNo }</td>
 									<td>제&nbsp;&nbsp;&nbsp;목 | &nbsp;${requestScope.bvo.title}
 									</td>
 									<td>조회수 | &nbsp;${requestScope.bvo.hits }</td>
-									<td>평&nbsp;&nbsp;&nbsp;점 |
-										&nbsp;${requestScope.bvo.avgRating }</td>
 								</tr>
 								<tr>
 									<td>작성자 | &nbsp;${requestScope.bvo.member.name }</td>

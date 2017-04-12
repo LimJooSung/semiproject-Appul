@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,14 +11,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta charset="UTF-8">
+<script src="//code.jquery.com/jquery.min.js"></script>
 <title>show content</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/board.css" type="text/css">
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#deleteBtn").click(function() {
 			return confirm("정말 삭제 하시겠습니까?");
-		}); // click
+		});	// click
 		$("#fileCheck").click(function() {
 			if (confirm("다운로드 하시겠습니까?")) {
 				$("#fileCheck").submit();
@@ -25,7 +25,7 @@
 				return;
 			}
 		}); 
-	}); // ready
+	});	// ready
 
     var httpRequest = null;
     // httpRequest 객체 생성
@@ -47,19 +47,15 @@
     }
     
     // 댓글 등록
-    function writeCmt()
-    {
+    function writeCmt() {
         var form = document.getElementById("writeCommentForm");
         var board = form.comment_board.value
         var id = form.comment_id.value
         var content = form.comment_content.value;
-        if(!content)
-        {
+        if(!content) {
             alert("내용을 입력하세요.");
             return false;
-        }
-        else
-        {    
+        } else  {    
             var param="comment_board="+board+"&comment_id="+id+"&comment_content="+content;
             httpRequest = getXMLHttpRequest();
             httpRequest.onreadystatechange = checkFunc;
@@ -111,7 +107,6 @@
         }
     }	
 </script>
-
 </head>
 <body>
 	<c:import url="/layout/header.jsp"></c:import>
@@ -125,14 +120,15 @@
 						<table class="table">
 							<tbody>
 								<tr>
-									<td>글번호 | &nbsp;${requestScope.bvo.boardNo }</td>
+								<td>글번호 |
+										&nbsp;${requestScope.bvo.boardNo }</td>
 									<td>제&nbsp;&nbsp;&nbsp;목 | &nbsp;${requestScope.bvo.title}
 									</td>
 									<td>조회수 | &nbsp;${requestScope.bvo.hits }</td>
 								</tr>
 								<tr>
 									<td>작성자 | &nbsp;${requestScope.bvo.member.name }</td>
-									<td colspan="2">작성일 | &nbsp;${requestScope.bvo.timePosted }</td>
+									<td>작성일 | &nbsp;${requestScope.bvo.timePosted }</td>
 									<td>
 										<form
 											action="${pageContext.request.contextPath}/DispatcherServlet"
@@ -143,7 +139,7 @@
 											파&nbsp;&nbsp;&nbsp;일 |  <a href="#">&nbsp;${requestScope.bvo.attachedFile }</a>
 											</c:if>
 										</form>
-									</td>	
+									</td>
 								</tr>
 								<tr>
 									<td colspan="3"><pre>${requestScope.bvo.content}</pre></td>
@@ -151,12 +147,10 @@
 							</tbody>
 						</table>
 						<div align="right">
-							<c:if
-								test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
+							<c:if test="${sessionScope.mvo.id == requestScope.bvo.member.id }">
 								<a
 									href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaupdatePostingView&boardNo=${requestScope.bvo.boardNo }">
-									<img
-									src="${pageContext.request.contextPath}/img/modify_btn.jpg"
+									<img src="${pageContext.request.contextPath}/img/modify_btn.jpg"
 									border="0">
 								</a>
 								<a
@@ -173,7 +167,6 @@
 						</div>
 					</div>
 
-
 					<div class="comment-footer" align="left">
 						<c:if test="${requestScope.cvo != null}">
 							<hr>
@@ -183,8 +176,7 @@
 									<td width="150">
 										<div>
 											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
-											[${comment.member.name}]<font size="2" color="lightgray">
-												${comment.timePosted}</font>
+											[${comment.member.name}]<font size="2" color="lightgray"> ${comment.timePosted}</font>
 										</div>
 									</td>
 									<!--  본문내용 -->
@@ -193,7 +185,7 @@
 											<c:forEach begin="0" end="2">&nbsp;</c:forEach>
 											${comment.content}
 											<c:if test="${comment.member.id == sessionScope.mvo.id }">
-												<div align="right">
+												<div align="right"> 
 													<a href="#" onclick="cmUpdateOpen(${comment.commentNo})">[수정]</a>
 													<a href="#" onclick="cmDeleteOpen(${comment.commentNo})">[삭제]</a>
 													<c:forEach begin="0" end="2">&nbsp;</c:forEach>
@@ -211,28 +203,25 @@
 					<!-- 로그인 했을 경우만 댓글 작성가능 -->
 					<c:if test="${sessionScope.mvo.id !=null }">
 						<form id="writeCommentForm">
-							<input type="hidden" name="comment_board"
-								value="${requestScope.bvo.boardNo}"> <input
-								type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
+							<input type="hidden" name="comment_board" value="${requestScope.bvo.boardNo}"> 
+							<input type="hidden" name="comment_id" value="${sessionScope.mvo.id}">
 
 							<div class="panel-footer">
-								<!-- 본문 작성 -->
-								<tr>
-									<td width="550">
-										<div>
-											<textarea name="comment_content" rows="2" cols="80"></textarea>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<!-- 댓글 등록 버튼 -->
-									<td width="100">
-										<div id="btn" style="text-align: center;">
-											<!-- <a href="#" onclick="writeCmt()">[댓글등록]</a> -->
-											<input type="button" value="댓글등록" onclick="writeCmt()">
-										</div>
-									</td>
-								</tr>
+							<!-- 본문 작성 -->
+							<tr>
+								<td width="550">
+									<div>
+										<textarea name="comment_content" rows="2" cols="80"></textarea>
+									</div>
+								</td>
+							<tr>
+								<!-- 댓글 등록 버튼 -->
+								<td width="100">
+									<div id="btn" style="text-align: center;">
+										<!-- <a href="#" onclick="writeCmt()">[댓글등록]</a> -->
+										<input type="button" value="댓글등록" onclick="writeCmt()">
+									</div>
+								</td>
 							</div>
 						</form>
 					</c:if>

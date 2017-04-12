@@ -31,7 +31,7 @@
 		f.submit();
 	}
 	function cancel() {
-		location.href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist"
+		location.href="${pageContext.request.contextPath}/DispatcherServlet?command=proList"
 	}
 </script>
 </head>
