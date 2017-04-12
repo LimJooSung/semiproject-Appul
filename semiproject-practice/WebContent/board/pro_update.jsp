@@ -15,6 +15,11 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css" type="text/css">
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#test").click(function(){
+		$("#update").serialize();
+	}); //click
+});//ready
 	function content_submit() {
 		var f = document.write_form;
 		if (f.title.value == "") {
@@ -44,7 +49,7 @@
 				<div class="panel panel-success">
 					<div class="panel-heading" align="center">건의사항 게시글 수정</div>
 					<div class="panel-body" align="center">
-						<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form">
+						<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form"  enctype="multipart/form-data">
 							<input type="hidden" name="command" value="proUpdatePosting">
 							<input type="hidden" name="boardNo" value="${requestScope.bvo.boardNo }">
 							<table class="table">
@@ -69,7 +74,7 @@
 											${requestScope.bvo.member.name}
 										</td>
 										<td></td>
-										<td colspan="2"><input type="file">${requestScope.bvo.attachedFile }</td>
+										<td colspan="2"><input type="file" name="attachedFile">${requestScope.bvo.attachedFile }</td>
 									</tr>
 									<tr>
 										<td colspan="4" align="center">&nbsp;&nbsp; 

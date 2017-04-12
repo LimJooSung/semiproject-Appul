@@ -12,9 +12,10 @@ import model.inst.board.InstBoardDAO;
 import model.inst.board.InstBoardVO;
 
 public class InstUpdatePostingController implements Controller {
+
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session=request.getSession(false);
+		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("mvo") == null) {
 			return "redirect:login.jsp";
 		}
@@ -27,23 +28,16 @@ public class InstUpdatePostingController implements Controller {
 			e.printStackTrace();
 		}
 		String attachedFile = multi.getFilesystemName("attachedFile");
-		String title = multi.getParameter("title"); 
-		String content = multi.getParameter("content"); 
+		String title = multi.getParameter("title");
+		String content = multi.getParameter("content");
 		int boardNo = Integer.parseInt(multi.getParameter("boardNo"));
 		InstBoardVO vo = new InstBoardVO();
 		vo.setBoardNo(boardNo);
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setAttachedFile(attachedFile);
-		InstBoardDAO.getInstance().updatePosting(vo);			
+		InstBoardDAO.getInstance().updatePosting(vo);
 		String path = "redirect:DispatcherServlet?command=instShowContentNotHit&boardNo=" + vo.getBoardNo();
 		return path;
 	}
 }
-
-
-
-
-
-
-

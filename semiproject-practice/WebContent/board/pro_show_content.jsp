@@ -18,6 +18,13 @@
 		$("#deleteBtn").click(function() {
 			return confirm("정말 삭제 하시겠습니까?");
 		}); // click
+		$("#fileCheck").click(function() {
+			if (confirm("다운로드 하시겠습니까?")) {
+				$("#fileCheck").submit();
+			} else {
+				return;
+			}
+		}); 
 	}); // ready
 	
 
@@ -127,6 +134,17 @@
 								<tr>
 									<td>작성자 | &nbsp;${requestScope.bvo.member.name }</td>
 									<td colspan="2">작성일 | &nbsp;${requestScope.bvo.timePosted }</td>
+									<td>
+										<form
+											action="${pageContext.request.contextPath}/DispatcherServlet"
+											id="fileCheck" name="">
+											<input type="hidden" name="command" value="proDownload">
+											<input type="hidden" name="boardNo" value="${requestScope.bvo.boardNo }">
+											<c:if test="${requestScope.bvo.attachedFile != null}">
+											파&nbsp;&nbsp;&nbsp;일 |  <a href="#">&nbsp;${requestScope.bvo.attachedFile }</a>
+											</c:if>
+										</form>
+									</td>
 								</tr>
 								<tr>
 									<td colspan="3"><pre>${requestScope.bvo.content}</pre></td>

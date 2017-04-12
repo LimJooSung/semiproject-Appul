@@ -225,11 +225,12 @@ public class ProBoardDAO {
 		PreparedStatement pstmt=null;
 		try{
 			con=getConnection();
-			pstmt=con.prepareStatement("update proposal_board set title=?,content=?,secret=? where PROPOSAL_BOARD_NO=?");
+			pstmt=con.prepareStatement("update proposal_board set title=?,content=?,file_name=?,secret=? where PROPOSAL_BOARD_NO=?");
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
-			pstmt.setString(3, vo.getSecret());
-			pstmt.setInt(4, vo.getBoardNo());	
+			pstmt.setString(3, vo.getAttachedFile());
+			pstmt.setString(4, vo.getSecret());
+			pstmt.setInt(5, vo.getBoardNo());	
 			pstmt.executeUpdate();			
 		}finally{
 			closeAll(pstmt,con);

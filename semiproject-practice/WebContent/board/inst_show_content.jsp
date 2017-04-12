@@ -134,9 +134,10 @@
 											action="${pageContext.request.contextPath}/DispatcherServlet"
 											id="fileCheck" name="">
 											<input type="hidden" name="command" value="instDownload">
-											<input type="hidden" name="boardNo"
-												value="${requestScope.bvo.boardNo }">
-											파&nbsp;&nbsp;&nbsp;일 | <a href="#">&nbsp;${requestScope.bvo.attachedFile }</a>
+											<input type="hidden" name="boardNo" value="${requestScope.bvo.boardNo }">
+											<c:if test="${requestScope.bvo.attachedFile != null}">
+											파&nbsp;&nbsp;&nbsp;일 |  <a href="#">&nbsp;${requestScope.bvo.attachedFile }</a>
+											</c:if>
 										</form>
 									</td>
 								</tr>

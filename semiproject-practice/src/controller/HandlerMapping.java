@@ -18,6 +18,7 @@ import controller.proposal.board.ProCommentUpdateController;
 import controller.proposal.board.ProCommentUpdateViewController;
 import controller.proposal.board.ProCommentWriteController;
 import controller.proposal.board.ProDeletePostingController;
+import controller.proposal.board.ProDownloadController;
 import controller.proposal.board.ProPostingListController;
 import controller.proposal.board.ProSearchController;
 import controller.proposal.board.ProShowContentController;
@@ -30,6 +31,7 @@ import controller.qna.board.QNACommentUpdateController;
 import controller.qna.board.QNACommentUpdateViewController;
 import controller.qna.board.QNACommentWriteController;
 import controller.qna.board.QNADeletePostingController;
+import controller.qna.board.QNADownloadController;
 import controller.qna.board.QNAPostingListController;
 import controller.qna.board.QNASearchController;
 import controller.qna.board.QNAShowContentController;
@@ -112,6 +114,8 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 			controller = new ProUpdatePostingViewController();
 		} else if (command.equals("proUpdatePosting")) {
 			controller = new ProUpdatePostingController();
+		} else if (command.equals("proDownload")) {
+			controller = new ProDownloadController();
 		} else if (command.equals("proSearch")) {
 			controller = new ProSearchController();
 		} else if (command.equals("proCommentWrite")) {
@@ -136,6 +140,8 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 			controller = new QNAUpdatePostingViewController();
 		} else if (command.equals("qnaupdatePosting")) {
 			controller = new QNAUpdatePostingController();
+		} else if (command.equals("qnaDownload")) {
+			controller = new QNADownloadController();
 		} else if (command.equals("qnasearch")) {
 			controller = new QNASearchController();
 		} else if (command.equals("qnaCommentWrite")) {

@@ -1,19 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/mystyle.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta charset="UTF-8">
 <title>show content</title>
 <link rel="stylesheet"
@@ -23,8 +18,14 @@
 		$("#deleteBtn").click(function() {
 			return confirm("정말 삭제 하시겠습니까?");
 		}); // click
+		$("#fileCheck").click(function() {
+			if (confirm("다운로드 하시겠습니까?")) {
+				$("#fileCheck").submit();
+			} else {
+				return;
+			}
+		}); 
 	}); // ready
-	
 
     var httpRequest = null;
     // httpRequest 객체 생성
@@ -132,6 +133,17 @@
 								<tr>
 									<td>작성자 | &nbsp;${requestScope.bvo.member.name }</td>
 									<td colspan="2">작성일 | &nbsp;${requestScope.bvo.timePosted }</td>
+									<td>
+										<form
+											action="${pageContext.request.contextPath}/DispatcherServlet"
+											id="fileCheck" name="">
+											<input type="hidden" name="command" value="qnaDownload">
+											<input type="hidden" name="boardNo" value="${requestScope.bvo.boardNo }">
+											<c:if test="${requestScope.bvo.attachedFile != null}">
+											파&nbsp;&nbsp;&nbsp;일 |  <a href="#">&nbsp;${requestScope.bvo.attachedFile }</a>
+											</c:if>
+										</form>
+									</td>	
 								</tr>
 								<tr>
 									<td colspan="3"><pre>${requestScope.bvo.content}</pre></td>
