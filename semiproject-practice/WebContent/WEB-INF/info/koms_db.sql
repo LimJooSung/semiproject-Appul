@@ -9,7 +9,7 @@ drop table selecting_presenter;
 drop table selecting_group;
 drop table member;
 
-
+select * from member;
 
 -- drop sequence
 drop sequence id_seq;

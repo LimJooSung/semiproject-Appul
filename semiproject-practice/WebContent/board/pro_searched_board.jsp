@@ -32,6 +32,31 @@ $(document).ready(function() {
 		alert($("#search").serialize());
 	});
 });
+
+function writeList() {
+	location.href = "${pageContext.request.contextPath}/board/pro_write.jsp";
+}
+$(document)
+		.ready(
+				function() {
+					$("#searchBtn")
+							.click(
+									function() {
+										var searchTxt = document
+												.getElementById("searchTxt").value;
+										if (searchTxt == "") {
+											alert("검색어를 입력하세요.");
+											return;
+										} else {
+											var type = document
+													.getElementById("search").value;
+											location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type="
+													+ type
+													+ "&searchTxt="
+													+ searchTxt;
+										}
+									});
+				});
 </script>
 </head>
 <body>
@@ -143,7 +168,19 @@ $(document).ready(function() {
 								▶<!-- <img src="img/right_arrow_btn.gif"> -->
 							</a>
 						</c:if>
+						
 					</p>
+										<!--글쓰기 버튼과 목록버튼  -->
+					<div align="right">
+						<a href="#"><img class="action"
+							src="${pageContext.request.contextPath}/img/write_btn.jpg"
+							onclick="writeList()"></a>
+							<a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">
+								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"	border="0">
+							</a>
+							<c:forEach begin="0" end="5">&nbsp;</c:forEach>
+					</div>
+					<br>
 					<div class="panel-footer" align="center">
 						<select id="search" name="type">
 							<option value="title">제목</option>

@@ -73,7 +73,7 @@ $(document).ready(function() {
 											${requestScope.bvo.member.name}
 										</td>
 										<td></td>
-										<td colspan="2"><input type="file"  name="attachedFile">${requestScope.bvo.attachedFile }</td>
+										<td colspan="2"><input type="file"  name="attachedFile" ></td>
 									</tr>
 									<tr>
 										<td colspan="4" align="center">&nbsp;&nbsp; 

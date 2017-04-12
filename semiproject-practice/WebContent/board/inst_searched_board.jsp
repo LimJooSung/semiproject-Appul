@@ -28,6 +28,30 @@
 			alert($("#search").serialize());
 		});
 	});
+	function writeList() {
+		location.href = "${pageContext.request.contextPath}/board/pro_write.jsp";
+	}
+	$(document)
+			.ready(
+					function() {
+						$("#searchBtn")
+								.click(
+										function() {
+											var searchTxt = document
+													.getElementById("searchTxt").value;
+											if (searchTxt == "") {
+												alert("검색어를 입력하세요.");
+												return;
+											} else {
+												var type = document
+														.getElementById("search").value;
+												location.href = "${pageContext.request.contextPath}/DispatcherServlet?command=proSearch&type="
+														+ type
+														+ "&searchTxt="
+														+ searchTxt;
+											}
+										});
+					});
 </script>
 </head>
 <body>
@@ -111,12 +135,17 @@
 						</c:if>
 					</p>
 					<!-- 강사인 경우에만 쓸 수 있게 -->
-					<c:if test="${sessionScope.mvo.memberType == '강사' }">
 						<div align="right">
+					<c:if test="${sessionScope.mvo.memberType == '강사' }">
 							<a href="${pageContext.request.contextPath}/board/inst_write_board.jsp"><img src="${pageContext.request.contextPath}/img/write_btn.jpg" border="0"></a>
 							<c:forEach begin="0" end="5">&nbsp;</c:forEach>
-						</div><br>
 					</c:if>
+					<a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">
+								<img src="${pageContext.request.contextPath}/img/list_btn.jpg"	border="0">
+							</a>
+							<c:forEach begin="0" end="5">&nbsp;</c:forEach>
+						</div>
+						<br>
 					<div class="panel-footer" align="center">
 						<select id="search" name="type">
 							<option value="title">제목</option>
