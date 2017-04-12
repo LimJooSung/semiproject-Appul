@@ -92,7 +92,9 @@
 												<c:otherwise>
 													<a
 														href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${bvo.boardNo }">
-														${bvo.title}</a>
+														${bvo.title}
+														<c:if test="${bvo.totalCommentCount != 0}">[${bvo.totalCommentCount }]</c:if>
+														</a>
 												</c:otherwise>
 											</c:choose></td>
 										<td align="center">${bvo.member.name }</td>

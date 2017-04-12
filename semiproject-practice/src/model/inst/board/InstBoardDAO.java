@@ -50,7 +50,7 @@ public class InstBoardDAO {
 			con = getConnection();
 	        StringBuilder sql = new StringBuilder();
             sql.append("select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(");
-            sql.append("select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, id, ");
+            sql.append("select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, ");
             sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
             sql.append("from inst_board");
             sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
@@ -60,12 +60,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -87,7 +89,7 @@ public class InstBoardDAO {
 			con = getConnection();
 	        StringBuilder sql = new StringBuilder();
 	        sql.append("select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(");
-            sql.append("select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, id, ");
+            sql.append("select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, ");
             sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
             sql.append("from inst_board where title like ?");
             sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
@@ -98,12 +100,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -125,7 +129,7 @@ public class InstBoardDAO {
 			con = getConnection();
 	        StringBuilder sql = new StringBuilder();
 	        sql.append("select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(");
-            sql.append("select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, id, ");
+            sql.append("select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, ");
             sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
             sql.append("from inst_board where title like ? or content like ?");
             sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
@@ -137,12 +141,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -164,7 +170,7 @@ public class InstBoardDAO {
 			con = getConnection();
 	        StringBuilder sql = new StringBuilder();
 	        sql.append("select tb.rnum, tb.inst_board_no, tb.title, tb.content, tb.id, tb.hit, tb.time_posted, tb.mem_name from(");
-            sql.append("select row_number() over(order by to_number(inst_board_no) desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ");
+            sql.append("select row_number() over(order by inst_board_no desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ");
             sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
             sql.append("from inst_board ib, member m where ib.id = m.id and m.mem_name like ?");
             sql.append(") tb where rnum between ? and ?");
@@ -175,12 +181,14 @@ public class InstBoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new InstBoardVO();
+				int totalCommentCount = InstCommentDAO.getInstance().getTotalCommentCount(rs.getInt("inst_board_no"));
 				vo.setBoardNo(rs.getInt("inst_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
 				vo.getMember().setName(rs.getString("mem_name"));
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -301,11 +309,12 @@ public class InstBoardDAO {
 		PreparedStatement pstmt = null;
 		try {
 			con=getConnection();
-			String sql = "update inst_board set title=?, content=? where inst_board_no=?";
+			String sql = "update inst_board set title=?, content=?, file_name=? where inst_board_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
-			pstmt.setInt(3, vo.getBoardNo());		
+			pstmt.setString(3, vo.getAttachedFile());
+			pstmt.setInt(4, vo.getBoardNo());		
 			pstmt.executeUpdate();			
 		} finally {
 			closeAll(pstmt, con);
@@ -349,7 +358,7 @@ public class InstBoardDAO {
 			con=getConnection(); // SELECT count(*) FROM inst_board WHERE title LIKE '%연습%'
 			if (type.equals("title")) {
 				sql.append("select count(*) from(");
-	            sql.append("select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, id, ");
+	            sql.append("select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, ");
 	            sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	            sql.append("from inst_board where title like ?");
 	            sql.append(") ib, member m where ib.id = m.id");
@@ -361,7 +370,7 @@ public class InstBoardDAO {
 				}
 			} else if (type.equals("titleAndContent")) {
 				sql.append("select count(*) from(");
-	            sql.append("select row_number() over(order by to_number(inst_board_no) desc) rnum, inst_board_no, title, id, ");
+	            sql.append("select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, ");
 	            sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	            sql.append("from inst_board where title like ? or content like ?");
 	            sql.append(") ib, member m where ib.id = m.id");
@@ -374,7 +383,7 @@ public class InstBoardDAO {
 				}
 			} else if (type.equals("writer")) {
 				sql.append("select count(*) from(");
-				sql.append("select row_number() over(order by to_number(inst_board_no) desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ");
+				sql.append("select row_number() over(order by inst_board_no desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ");
 				sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
 				sql.append("from inst_board ib, member m where ib.id = m.id and m.mem_name like ?");
 				sql.append(") tb");

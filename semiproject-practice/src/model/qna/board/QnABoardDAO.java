@@ -58,7 +58,7 @@ public class QnABoardDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT b.qna_board_no, b.title, b.time_posted, b.hit, b.id, m.mem_name,b.secret FROM(");
-			sql.append("SELECT row_number() over(order by to_number(qna_board_no) desc) as rnum, qna_board_no, title, hit, secret,");
+			sql.append("SELECT row_number() over(order by qna_board_no desc) as rnum, qna_board_no, title, hit, secret,");
 			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, id FROM ");
 			sql.append("qna_board ");
 			sql.append(") b, member m where b.id=m.id and rnum between ? and ? ");
@@ -70,6 +70,7 @@ public class QnABoardDAO {
 			// select no,title,time_posted,hits,id,name
 			while (rs.next()) {
 				QnABoardVO bvo = new QnABoardVO();
+				int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
 				bvo.setBoardNo(rs.getInt(1));
 				bvo.setTitle(rs.getString(2));
 				bvo.setTimePosted(rs.getString(3));
@@ -79,6 +80,7 @@ public class QnABoardDAO {
 				mvo.setId(rs.getString(5));
 				mvo.setName(rs.getString(6));
 				bvo.setMember(mvo);
+				bvo.setTotalCommentCount(totalCommentCount);
 				list.add(bvo);
 			}
 		} finally {
@@ -270,7 +272,7 @@ public class QnABoardDAO {
 			if (type.equals("title")) {
 				sql.append("select count(*) from(");
 				sql.append(
-						"select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id, ");
+						"select row_number() over(order by qna_board_no desc) rnum, qna_board_no, title, id, ");
 				sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 				sql.append("from qna_board where title like ?");
 				sql.append(") ib, member m where ib.id = m.id");
@@ -283,7 +285,7 @@ public class QnABoardDAO {
 			} else if (type.equals("titleAndContent")) {
 				sql.append("select count(*) from(");
 				sql.append(
-						"select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id, ");
+						"select row_number() over(order by qna_board_no desc) rnum, qna_board_no, title, id, ");
 				sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 				sql.append("from qna_board where title like ? or content like ?");
 				sql.append(") ib, member m where ib.id = m.id");
@@ -297,7 +299,7 @@ public class QnABoardDAO {
 			} else if (type.equals("writer")) {
 				sql.append("select count(*) from(");
 				sql.append(
-						"select row_number() over(order by to_number(qna_board_no) desc) rnum, ib.qna_board_no, ib.title, ib.content, ib.id, ");
+						"select row_number() over(order by qna_board_no desc) rnum, ib.qna_board_no, ib.title, ib.content, ib.id, ");
 				sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
 				sql.append("from qna_board ib, member m where ib.id = m.id and m.mem_name like ?");
 				sql.append(") tb");
@@ -331,7 +333,7 @@ public class QnABoardDAO {
 		try {
 			con = getConnection();
 			String sql = "select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from("
-					+ "select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id,hit,secret, to_char("
+					+ "select row_number() over(order by qna_board_no desc) rnum, qna_board_no, title, id,hit,secret, to_char("
 					+ "time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like ?) ib, member m "
 					+ "where ib.id = m.id and rnum between ? and ?";
 			pstmt = con.prepareStatement(sql);
@@ -341,6 +343,7 @@ public class QnABoardDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				QnABoardVO vo = new QnABoardVO();
+				int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
 				vo.setBoardNo(rs.getInt("qna_board_no"));
 				vo.setTitle(rs.getString("title"));
 				vo.getMember().setId(rs.getString("id"));
@@ -348,6 +351,7 @@ public class QnABoardDAO {
 				vo.setHits(rs.getInt("hit"));
 				vo.setTimePosted(rs.getString("time_posted"));
 				vo.setSecret(rs.getString("secret"));
+				vo.setTotalCommentCount(totalCommentCount);
 				list.add(vo);
 			}
 		} finally {
@@ -371,7 +375,7 @@ public class QnABoardDAO {
 	         con = getConnection();
 	           StringBuilder sql = new StringBuilder();
 	           sql.append("select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(");
-	            sql.append("select row_number() over(order by to_number(qna_board_no) desc) rnum, qna_board_no, title, id,hit,secret, to_char( ");
+	            sql.append("select row_number() over(order by qna_board_no desc) rnum, qna_board_no, title, id,hit,secret, to_char( ");
 	            sql.append("time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like ? or content like ?) ib, member m ");
 	            sql.append("where ib.id = m.id and rnum between ? and ?");
 	         pstmt = con.prepareStatement(sql.toString());
@@ -382,6 +386,7 @@ public class QnABoardDAO {
 	         rs = pstmt.executeQuery();
 	         while (rs.next()) {
 	        	 QnABoardVO vo = new QnABoardVO();
+	        	 int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
 	            vo.setBoardNo(rs.getInt("qna_board_no"));
 	            vo.setTitle(rs.getString("title"));
 	            vo.getMember().setId(rs.getString("id"));
@@ -389,6 +394,7 @@ public class QnABoardDAO {
 	            vo.setHits(rs.getInt("hit"));
 	            vo.setTimePosted(rs.getString("time_posted"));
 	            vo.setSecret(rs.getString("secret"));
+	            vo.setTotalCommentCount(totalCommentCount);
 	            list.add(vo);
 	         }
 	      } finally {
@@ -412,7 +418,7 @@ public ArrayList<BoardVO> getSearchedQnAPostingListByWriter(PagingBean pagingBea
         con = getConnection();
           StringBuilder sql = new StringBuilder();
           sql.append("select tb.rnum, tb.qna_board_no, tb.title, tb.content, tb.id, tb.hit, tb.time_posted, tb.mem_name,tb.secret from(");
-           sql.append("select row_number() over(order by to_number(qna_board_no) desc) rnum, ib.qna_board_no, ib.title, ib.content, ib.id,ib.secret, ");
+           sql.append("select row_number() over(order by qna_board_no desc) rnum, ib.qna_board_no, ib.title, ib.content, ib.id,ib.secret, ");
            sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
            sql.append("from qna_board ib, member m where ib.id = m.id and m.mem_name like ?");
            sql.append(") tb where rnum between ? and ?");
@@ -422,7 +428,8 @@ public ArrayList<BoardVO> getSearchedQnAPostingListByWriter(PagingBean pagingBea
         pstmt.setInt(3, pagingBean.getEndRowNumber());
         rs = pstmt.executeQuery();
         while (rs.next()) {
-       	QnABoardVO vo = new QnABoardVO();
+	       	QnABoardVO vo = new QnABoardVO();
+	       	int totalCommentCount = QnACommentDAO.getInstance().getTotalCommentCount(rs.getInt("qna_board_no"));
            vo.setBoardNo(rs.getInt("qna_board_no"));
            vo.setTitle(rs.getString("title"));
            vo.getMember().setId(rs.getString("id"));
@@ -430,6 +437,7 @@ public ArrayList<BoardVO> getSearchedQnAPostingListByWriter(PagingBean pagingBea
            vo.setHits(rs.getInt("hit"));
            vo.setTimePosted(rs.getString("time_posted"));
            vo.setSecret(rs.getString("secret"));
+           vo.setTotalCommentCount(totalCommentCount);
            list.add(vo);
         }
      } finally {

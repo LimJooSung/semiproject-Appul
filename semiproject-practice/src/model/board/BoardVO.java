@@ -8,6 +8,7 @@ public abstract class BoardVO {
 	private String content;
 	private String timePosted;
 	private int hits;
+	private int totalCommentCount;	// 게시글 별 댓글갯수
 	private String attachedFile;	// 파일 경로를 저장
 	private MemberVO member = new MemberVO();	// id가 외래키이므로
 	
@@ -69,9 +70,16 @@ public abstract class BoardVO {
 	public void setMember(MemberVO member) {
 		this.member = member;
 	}
+	public int getTotalCommentCount() {
+		return totalCommentCount;
+	}
+	public void setTotalCommentCount(int totalCommentCount) {
+		this.totalCommentCount = totalCommentCount;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", timePosted="
-				+ timePosted + ", hits=" + hits + ", attachedFile=" + attachedFile + ", member=" + member + "]";
+				+ timePosted + ", hits=" + hits + ", totalCommentCount=" + totalCommentCount + ", attachedFile="
+				+ attachedFile + ", member=" + member + "]";
 	}
 }

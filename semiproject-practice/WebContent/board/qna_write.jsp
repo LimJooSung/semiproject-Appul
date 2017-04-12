@@ -87,6 +87,9 @@
 		<div class="col-sm-2"></div>
 	</div>
 </div>
+<div class="container">
+		<div class="row"></div>
+	</div>
 <c:import url="/layout/footer.jsp"></c:import>
 </body>
 </html>

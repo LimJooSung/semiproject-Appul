@@ -62,7 +62,9 @@
 												<c:otherwise>
 													<a
 														href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${pvo.boardNo }">
-														${pvo.title}</a>
+														${pvo.title}
+														<c:if test="${pvo.totalCommentCount != 0}">[${pvo.totalCommentCount }]</c:if>
+														</a>
 												</c:otherwise>
 											</c:choose>
 										</td>
@@ -98,7 +100,7 @@
 									end="5">
 									<tr>
 										<td align="center">
-											<%-- <a href="${pageContext.request.contextPath}/DispatcherServlet?command=QNAshowContent&boardNo=${qvo.boardNo }">
+											<%-- <a href="${pageContext.request.contextPath}/DispatcherServlet?command=qnashowContent&boardNo=${qvo.boardNo }">
 											 ${qvo.title }</a> --%> <c:choose>
 												<c:when test="${qvo.secret =='Y'}">
 													<c:choose>
@@ -119,8 +121,10 @@
 												</c:when>
 												<c:otherwise>
 													<a
-														href="${pageContext.request.contextPath}/DispatcherServlet?command=proShowContent&boardNo=${qvo.boardNo }">
-														${qvo.title}</a>
+														href="${pageContext.request.contextPath}/DispatcherServlet?command=qnashowContent&boardNo=${qvo.boardNo }">
+														${qvo.title}
+														<c:if test="${qvo.totalCommentCount != 0}">[${qvo.totalCommentCount }]</c:if>
+														</a>
 												</c:otherwise>
 											</c:choose>
 										</td>
@@ -156,7 +160,9 @@
 									<tr>
 										<td align="center"><a
 											href="${pageContext.request.contextPath}/DispatcherServlet?command=instShowContent&boardNo=${ivo.boardNo }">
-												${ivo.title }</a></td>
+												${ivo.title }
+												<c:if test="${ivo.totalCommentCount != 0}">[${ivo.totalCommentCount }]</c:if>
+												</a></td>
 										<td align="center">${ivo.member.name }</td>
 										<td align="center">${ivo.timePosted }</td>
 									</tr>
@@ -172,7 +178,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<div class="container">
 		<div class="row"></div>

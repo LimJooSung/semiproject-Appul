@@ -55,7 +55,8 @@
 										<td  align="center">${bvo.boardNo }</td>
 										<td  align="center">
 											<a href="${pageContext.request.contextPath}/DispatcherServlet?command=instShowContent&boardNo=${bvo.boardNo }">
-											 ${bvo.title }</a>
+											 ${bvo.title }
+											 <c:if test="${bvo.totalCommentCount != 0}">[${bvo.totalCommentCount }]</c:if></a>
 											</td>
 										<td  align="center">${bvo.member.name }</td>
 										<td  align="center">${bvo.timePosted }</td>

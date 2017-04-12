@@ -84,6 +84,9 @@
 			</div>
 		</div>
 	</div>
+	<div class="container">
+		<div class="row"></div>
+	</div>
 	<jsp:include page="/layout/footer.jsp" />
 </body>
 </html>
