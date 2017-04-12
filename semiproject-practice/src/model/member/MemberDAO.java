@@ -114,9 +114,9 @@ public class MemberDAO {
 			
 			pstmt.setString(1,vo.getPassword());
 			pstmt.setString(2,vo.getName());
-			pstmt.setString(3, vo.getGender());
-			pstmt.setString(4, vo.getDateOfBirth());	
-			pstmt.setString(5, vo.getMemberType());
+			pstmt.setString(3,vo.getGender());
+			pstmt.setString(4,vo.getDateOfBirth());	
+			pstmt.setString(5,vo.getMemberType());
 			pstmt.setString(6,vo.getId());
 			pstmt.executeUpdate();			
 		}finally{
@@ -155,7 +155,7 @@ public class MemberDAO {
 			pstmt.setString(2, dateOfBirth);	
 			rs=pstmt.executeQuery();		
 			while(rs.next()){ 
-				vo=new MemberVO(name,dateOfBirth,rs.getString(1));
+				vo=new MemberVO(rs.getString(1), name, dateOfBirth);
 			   // id=rs.getString("id"); 
 			   }
 		}finally{

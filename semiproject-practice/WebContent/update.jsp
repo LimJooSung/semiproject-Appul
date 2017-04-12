@@ -293,13 +293,13 @@ table.type03 {
    
     </table>
     
- 
+ <!-- location.href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList"; -->
     
     <table class="type03">
        <tr><td> <input type="submit"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" value="Update"> </td>
          <!--  <td><input type="reset"  name="reset" id="reset" class="btn btn-lg btn-primary btn-block"  style="width: 100px; height: 50px;" value="Reset" onClick="javascript:document.formUpdate.reset()"> </td>-->
         <td> <input type="button"  class="btn btn-lg btn-primary btn-block" style="width: 100px; height: 50px;" onClick="checkQuit()" value="탈퇴"> </td>
-        <td><a href="index.jsp" type="button"  class="btn btn-lg btn-primary btn-block"  onClick="alert('Main page')" style="width: 100px; height: 50px;">Cancel</a> </td></tr>
+        <td><a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList" type="button"  class="btn btn-lg btn-primary btn-block"  onClick="alert('Main page')" style="width: 100px; height: 50px;">Cancel</a> </td></tr>
     </table>
     
 

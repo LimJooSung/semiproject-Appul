@@ -18,6 +18,7 @@ public class UpdateController implements Controller {
 		String gender=request.getParameter("gender");
 		String dateOfBirth=request.getParameter("dateOfBirth");		
 		String memberType=request.getParameter("memberType");
+		System.out.println(dateOfBirth);
 
 		MemberVO vo=new MemberVO(id,password,name,gender,dateOfBirth,memberType);
 		MemberDAO.getInstance().update(vo);
