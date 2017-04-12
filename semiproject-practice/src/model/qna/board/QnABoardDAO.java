@@ -61,7 +61,7 @@ public class QnABoardDAO {
 			sql.append("SELECT row_number() over(order by qna_board_no desc) as rnum, qna_board_no, title, hit, secret,");
 			sql.append("to_char(time_posted,'YYYY.MM.DD') as time_posted, id FROM ");
 			sql.append("qna_board ");
-			sql.append(") b, member m where b.id=m.id and rnum between ? and ? ");
+			sql.append(") b, member m where b.id=m.id and rnum between ? and ? order by rnum asc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, pagingBean.getStartRowNumber());
 			pstmt.setInt(2, pagingBean.getEndRowNumber());
@@ -338,7 +338,7 @@ public class QnABoardDAO {
 			String sql = "select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from("
 					+ "select row_number() over(order by qna_board_no desc) rnum, qna_board_no, title, id,hit,secret, to_char("
 					+ "time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like ?) ib, member m "
-					+ "where ib.id = m.id and rnum between ? and ?";
+					+ "where ib.id = m.id and rnum between ? and ? order by rnum asc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + searchTxt + "%");
 			pstmt.setInt(2, pagingBean.getStartRowNumber());
@@ -380,7 +380,7 @@ public class QnABoardDAO {
 	           sql.append("select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from(");
 	            sql.append("select row_number() over(order by qna_board_no desc) rnum, qna_board_no, title, id,hit,secret, to_char( ");
 	            sql.append("time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like ? or content like ?) ib, member m ");
-	            sql.append("where ib.id = m.id and rnum between ? and ?");
+	            sql.append("where ib.id = m.id and rnum between ? and ? order by rnum asc");
 	         pstmt = con.prepareStatement(sql.toString());
 	         pstmt.setString(1, "%" + searchTxt + "%");
 	         pstmt.setString(2, "%" + searchTxt + "%");
@@ -424,7 +424,7 @@ public ArrayList<BoardVO> getSearchedQnAPostingListByWriter(PagingBean pagingBea
            sql.append("select row_number() over(order by qna_board_no desc) rnum, ib.qna_board_no, ib.title, ib.content, ib.id,ib.secret, ");
            sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
            sql.append("from qna_board ib, member m where ib.id = m.id and m.mem_name like ?");
-           sql.append(") tb where rnum between ? and ?");
+           sql.append(") tb where rnum between ? and ? ");
         pstmt = con.prepareStatement(sql.toString());
         pstmt.setString(1, "%" + searchTxt + "%");
         pstmt.setInt(2, pagingBean.getStartRowNumber());

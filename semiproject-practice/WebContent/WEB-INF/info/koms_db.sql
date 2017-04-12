@@ -399,18 +399,32 @@ select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.s
 					time_posted, 'YYYY.MM.DD') as time_posted from qna_board where title like '%연습%') ib, member m 
 					where ib.id = m.id and rnum between 1 and 10;
 					
+select X.rnum, X.id, X.name, X.content, to_char(X.time_posted, 'yyyy-MM-dd') as createdate
+from ( select rownum as rnum, A.id, A.name, A.content, A.time_posted  
+from ( select id, name, content, time_posted from inst_board order by time_posted) A
+where rownum <= 1) X where X.rnum >= 10
 
+select ib.qna_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from
+(select row_number() over(order by qna_board_no desc) rnum,qna_board_no,title,id,hit,time_posted,secret from qna_board 
+where title like '%연습%' order by time_posted desc) ib, member m where ib.id = m.id and rnum between 1 and 10;
+
+select *from qna_board;
+
+order by time_posted desc;
+					
 select * from SELECTING_PRESENTER;
 
 select m.id, m.mem_name, s.cnt_presentation, m.mem_number from member m, selecting_presenter s 
 			where m.id = s.id  and s.cnt_presentation=(select min(cnt_presentation) from selecting_presenter)
 			
-			
+select ib.rnum,ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(
+select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, 
+hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted from inst_board where title like '%연%') 
+ib, member m where ib.id = m.id and rnum between 1 and 11 order by rnum asc		
 			
 select * from inst_Board
 
 select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(
-            select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, 
-            hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
-            from inst_board
-            ) ib, member m where ib.id = m.id and rnum between 1 and 10
+select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id,hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted from inst_board) ib, 
+member m where ib.id = m.id and rnum between 1 and 10 order by rnum asc
+
