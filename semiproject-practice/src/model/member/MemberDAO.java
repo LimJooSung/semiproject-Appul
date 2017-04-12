@@ -41,7 +41,7 @@ public class MemberDAO {
 		ResultSet rs=null;
 		try{
 			con=dataSource.getConnection();
-			String sql="select id,password,mem_name,gender,birth_date,mem_type from member where id=? and password=?";
+			String sql="select id,password,mem_name,gender,birth_date,mem_type from member where id=? and password=? and getout='N'";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);
@@ -130,9 +130,9 @@ public class MemberDAO {
 		PreparedStatement pstmt=null;
 		try{
 			con=dataSource.getConnection();
-			String sql="delete from member where id=?";
-			pstmt=con.prepareStatement(sql);			
-			pstmt.setString(1,id);
+			String sql="update member set getout='Y' where id=?";
+			pstmt=con.prepareStatement(sql);
+					pstmt.setString(1,id);
 			pstmt.executeUpdate();			
 		}finally{
 			closeAll(pstmt,con);
