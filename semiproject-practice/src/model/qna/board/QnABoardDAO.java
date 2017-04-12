@@ -192,15 +192,16 @@ public class QnABoardDAO {
 			// insert into board_login_inst(no,title,content,id,time_posted)
 			// values(board_login_inst_seq.nextval,?,?,?,sysdate)
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into qna_board(qna_board_no,title,content,id,time_posted,secret)");
+			sql.append("insert into qna_board(qna_board_no,title,content,id,time_posted, file_name,secret)");
 			System.out.println(vo);
 			System.out.println(vo);
-			sql.append("values(qna_board_seq.nextval,?,?,?,sysdate,?)");
+			sql.append("values(qna_board_seq.nextval,?,?,?,sysdate,?,?)");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getMember().getId());
-			pstmt.setString(4, vo.getSecret());
+			pstmt.setString(4, vo.getAttachedFile());
+			pstmt.setString(5, vo.getSecret());
 			pstmt.executeUpdate();
 			pstmt.close();
 			pstmt = con.prepareStatement("select qna_board_seq.currval from dual");

@@ -44,8 +44,7 @@
 				<div class="panel panel-success">
 					<div class="panel-heading" align="center">건의사항 게시글 작성</div>
 					<div class="panel-body" align="center">
-						<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form">
-							<input type="hidden" name="command" value="proWrite">
+						<form action="${pageContext.request.contextPath}/DispatcherServlet?command=proWrite" method="post" name="write_form" enctype="multipart/form-data">
 							<table class="table">
 						<tbody>
 							<tr> 
@@ -62,7 +61,7 @@
 								</td>
 								<td></td>
 								<td colspan="2">
-									<span class="glyphicons glyphicons-file-plus"></span><input type="file">
+									<span class="glyphicons glyphicons-file-plus"></span><input type="file" name="attachedFile">
 							</tr>
 							<tr>
 								<td colspan="4" align="center">&nbsp;&nbsp; 
