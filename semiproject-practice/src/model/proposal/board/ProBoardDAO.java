@@ -121,7 +121,7 @@ public class ProBoardDAO {
 			con=getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql.append("select b.title,to_char(b.time_posted,'YYYY.MM.DD  HH24:MI:SS') as time_posted");
-			sql.append(",b.content,b.hit,b.id,m.MEM_NAME,b.secret");
+			sql.append(",b.content, b.file_name, b.hit,b.id,m.MEM_NAME,b.secret");
 			sql.append(" from proposal_board b,member m");
 			sql.append(" where b.id=m.id and b.PROPOSAL_BOARD_NO=?");		
 			pstmt=con.prepareStatement(sql.toString());
@@ -132,7 +132,8 @@ public class ProBoardDAO {
 				bvo=new ProBoardVO();
 				bvo.setBoardNo(no);
 				bvo.setTitle(rs.getString("title"));
-				bvo.setContent(rs.getString("content"));				
+				bvo.setContent(rs.getString("content"));
+				bvo.setAttachedFile(rs.getString("file_name"));
 				bvo.setHits(rs.getInt("hit"));
 				bvo.setTimePosted(rs.getString("time_posted"));
 				bvo.setSecret(rs.getString("secret"));

@@ -28,10 +28,10 @@ public class ProUpdatePostingController implements Controller {
 			e.printStackTrace();
 		}
 		String attachedFile = multi.getFilesystemName("attachedFile");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String secret = request.getParameter("secret");
+		int boardNo = Integer.parseInt(multi.getParameter("boardNo"));
+		String title = multi.getParameter("title");
+		String content = multi.getParameter("content");
+		String secret = multi.getParameter("secret");
 		ProBoardVO vo = new ProBoardVO();
 		vo.setBoardNo(boardNo);
 		vo.setTitle(title);

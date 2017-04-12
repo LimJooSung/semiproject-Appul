@@ -49,8 +49,7 @@ $(document).ready(function() {
 				<div class="panel panel-success">
 					<div class="panel-heading" align="center">건의사항 게시글 수정</div>
 					<div class="panel-body" align="center">
-						<form action="${pageContext.request.contextPath}/DispatcherServlet" method="post" name="write_form"  enctype="multipart/form-data">
-							<input type="hidden" name="command" value="proUpdatePosting">
+						<form action="${pageContext.request.contextPath}/DispatcherServlet?command=proUpdatePosting" method="post" name="write_form"  enctype="multipart/form-data">
 							<input type="hidden" name="boardNo" value="${requestScope.bvo.boardNo }">
 							<table class="table">
 								<tbody>

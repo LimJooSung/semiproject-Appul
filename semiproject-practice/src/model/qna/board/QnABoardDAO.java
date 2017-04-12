@@ -130,7 +130,7 @@ public class QnABoardDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("select b.title,to_char(b.time_posted,'YYYY.MM.DD  HH24:MI:SS') as time_posted");
-			sql.append(",b.content,b.hit,b.id,m.mem_name,b.secret");
+			sql.append(",b.content, b.file_name, b.hit,b.id,m.mem_name,b.secret");
 			sql.append(" from qna_board b,member m");
 			sql.append(" where b.id=m.id and b.qna_board_no=?");
 			pstmt = con.prepareStatement(sql.toString());
@@ -142,6 +142,7 @@ public class QnABoardDAO {
 				bvo.setBoardNo(no);
 				bvo.setTitle(rs.getString("title"));
 				bvo.setContent(rs.getString("content"));
+				bvo.setAttachedFile(rs.getString("file_name"));
 				bvo.setHits(rs.getInt("hit"));
 				bvo.setTimePosted(rs.getString("time_posted"));
 				bvo.setSecret(rs.getString("secret"));
@@ -241,11 +242,12 @@ public class QnABoardDAO {
 		PreparedStatement pstmt = null;
 		try {
 			con = getConnection();
-			pstmt = con.prepareStatement("update qna_board set title=?,content=?, secret=? where qna_board_no=?");
+			pstmt = con.prepareStatement("update qna_board set title=?,content=?, file_name=?, secret=? where qna_board_no=?");
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
-			pstmt.setString(3, vo.getSecret());
-			pstmt.setInt(4, vo.getBoardNo());
+			pstmt.setString(3, vo.getAttachedFile());
+			pstmt.setString(4, vo.getSecret());
+			pstmt.setInt(5, vo.getBoardNo());
 			pstmt.executeUpdate();
 		} finally {
 			closeAll(pstmt, con);
