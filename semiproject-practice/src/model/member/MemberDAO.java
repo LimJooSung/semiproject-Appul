@@ -102,7 +102,7 @@ public class MemberDAO {
 		try{
 			con=dataSource.getConnection();
 			String sql=
-				"update member set password=?,mem_name=?,gender=?,birth_date=? ,mem_type=? where id=?,getout='N'";
+				"update member set password=?, mem_name=?, gender=?, birth_date=?, mem_type=? where id=? and getout='N'";
 			pstmt=con.prepareStatement(sql);			
 			
 			/*System.out.println("password" + vo.getPassword());

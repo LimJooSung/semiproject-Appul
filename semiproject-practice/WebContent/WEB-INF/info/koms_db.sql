@@ -433,4 +433,4 @@ select m.id, m.mem_name, s.cnt_presentation, m.mem_number from member m, selecti
 where m.id = s.id  and s.cnt_presentation=(select min(cnt_presentation) from selecting_presenter s, member m where m.getout='N' and m.id=s.id)
 
 select * from selecting_presenter
-select * from member where id=''
+select * from member where id='java01'
