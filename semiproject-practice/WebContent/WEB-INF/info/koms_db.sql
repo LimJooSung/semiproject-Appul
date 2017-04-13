@@ -428,3 +428,9 @@ select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name fro
 select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id,hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted from inst_board) ib, 
 member m where ib.id = m.id and rnum between 1 and 10 order by rnum asc
 
+
+select m.id, m.mem_name, s.cnt_presentation, m.mem_number from member m, selecting_presenter s 
+where m.id = s.id  and s.cnt_presentation=(select min(cnt_presentation) from selecting_presenter s, member m where m.getout='N' and m.id=s.id)
+
+select * from selecting_presenter
+select * from member where id=''
