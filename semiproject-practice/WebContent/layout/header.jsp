@@ -10,6 +10,18 @@
 		$("#updateBtn").click(function() {
 			return confirm("회원 정보를 수정 하시겠습니까?");
 		});	// click
+		$("#selectingPresenter").click(function() {
+			if ("${sessionScope.mvo.memberType}" != "강사") {
+				alert("강사만 발표자 선정을 할 수 있습니다.");
+				return false;
+			}
+		});
+		$("#selectingGroup").click(function() {
+			if ("${sessionScope.mvo.memberType}" != "강사") {
+				alert("강사만 발표자 선정을 할 수 있습니다.");
+				return false;
+			}
+		});
 	});	// ready
 </script>
 <nav class="navbar navbar-inverse">
@@ -25,8 +37,8 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">Home</a></li>
-				<li><a href="#">조 선정</a></li>
-				<li><a href="${pageContext.request.contextPath}/sel_presenter.jsp">발표자 선정</a></li>
+				<li><a href="${pageContext.request.contextPath}/sel_group.jsp" id="selectingGroup">조 선정</a></li>
+				<li><a href="${pageContext.request.contextPath}/sel_presenter.jsp" id="selectingPresenter">발표자 선정</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">

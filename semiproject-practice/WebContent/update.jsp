@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="model.member.MemberVO"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
   <head >
@@ -287,8 +288,11 @@ table.type03 {
             <th scope="row">Types of students</th>
             <td>
             <input type="text"  class="form-control"  value="<%=vo.getMemberType() %>" readonly>
-                 <input type="radio" name="memberType" id="memberType" value="IT student"> IT student
-                <input type="radio" name="memberType" id="memberType" value="None IT student"> None IT student
+            	<c:if test="${sessionScope.mvo.memberType != '강사' }">
+	            	<input type="radio" name="memberType" id="memberType" value="우수학생"> IT student
+	                <input type="radio" name="memberType" id="memberType" value="일반학생"> None IT student
+            	</c:if>
+                 
             </td>
         </tr>
    

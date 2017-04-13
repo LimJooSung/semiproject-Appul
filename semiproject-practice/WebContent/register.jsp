@@ -275,8 +275,8 @@ table.type03 {
         <tr>
             <th scope="row">Types of students</th>
             <td>
-                <input type="radio" name="memberType" id="memberType" value="IT student"> IT student
-                <input type="radio" name="memberType" id="memberType" value="None IT student"> None IT student
+                <input type="radio" name="memberType" id="memberType" value="우수학생"> IT student
+                <input type="radio" name="memberType" id="memberType" value="일반학생"> None IT student
             </td>
         </tr>
    

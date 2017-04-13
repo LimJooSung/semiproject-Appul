@@ -172,8 +172,8 @@ public class InstBoardDAO {
 	        sql.append("select tb.rnum, tb.inst_board_no, tb.title, tb.content, tb.id, tb.hit, tb.time_posted, tb.mem_name from(");
             sql.append("select row_number() over(order by inst_board_no desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ");
             sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
-            sql.append("from inst_board ib, member m where ib.id = m.id and m.mem_name like ? order by rnum asc");
-            sql.append(") tb where rnum between ? and ?");
+            sql.append("from inst_board ib, member m where ib.id = m.id and m.mem_name like ?");
+            sql.append(") tb where rnum between ? and ? order by rnum asc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, "%" + searchTxt + "%");
 			pstmt.setInt(2, pagingBean.getStartRowNumber());

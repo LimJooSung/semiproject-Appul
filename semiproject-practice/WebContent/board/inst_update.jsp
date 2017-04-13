@@ -38,8 +38,11 @@ $(document).ready(function() {
 		f.submit();
 	}
 	function cancel() {
-		var f = document.write_form;
-		f.reset();
+		if (confirm("수정을 취소하시겠습니까?")) {
+			location.href="${pageContext.request.contextPath}/DispatcherServlet?command=instList";
+		} else {
+			return false;
+		}
 	}
 </script>
 <body>
