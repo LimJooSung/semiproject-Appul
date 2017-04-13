@@ -423,8 +423,12 @@ hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted from inst_board where tit
 ib, member m where ib.id = m.id and rnum between 1 and 11 order by rnum asc		
 			
 select * from inst_Board
+select * from board_login
 
-select ib.inst_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name from(
-select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id,hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted from inst_board) ib, 
-member m where ib.id = m.id and rnum between 1 and 10 order by rnum asc
+select b.*, m.mem_name from(
+select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted 
+from inst_board) b, member m where b.id = m.id and rnum between 1 and 10 order by rnum asc
 
+select b.*, m.name from(
+select row_number() over(order by no desc) rnum, no, title, hits, to_char(time_posted, 'YYYY.MM.DD') as time_posted, id 
+from board_login) b, board_member m where b.id = m.id and rnum between 1 and 10
