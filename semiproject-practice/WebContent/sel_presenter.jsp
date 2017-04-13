@@ -66,7 +66,7 @@
 	
 	<jsp:include page="/layout/header.jsp" />
 	<div class="container">
-		<h4 align="center">KOSTA 145기 발표 현황</h4>
+		<h4 align="center">KOSTA 145기 발표 현황</h4>${sessionScope.mvo.memberType}
 		<br>
 		<div class="row">
 			<div class="col-sm-4">
