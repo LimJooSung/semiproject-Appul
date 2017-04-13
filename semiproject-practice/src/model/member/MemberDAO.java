@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -166,7 +167,52 @@ public class MemberDAO {
 	}
 
 	
-	
+	public ArrayList<MemberVO> getMemberList(String mode) throws SQLException{
+	      ArrayList<MemberVO> memberList = new ArrayList<MemberVO>();
+	      Connection con=null;
+	      PreparedStatement pstmt=null;
+	      ResultSet rs=null;
+	      
+	      try
+	      {
+	         con=dataSource.getConnection(); 
+	         StringBuilder sql=new StringBuilder();
+	         sql.append("select mem_number, id, mem_name, mem_type, gender ");
+	         
+	         if (mode == "all")
+	         {   
+	            sql.append("from member where mem_type like '%학생' and mem_number >= 1 and mem_number <= 36 order by mem_number");         
+	            pstmt=con.prepareStatement(sql.toString());
+	         }
+	         else
+	         {
+	            sql.append("from member where mem_type = ? and mem_number >= 1 and mem_number <= 36 order by mem_number");
+	            pstmt=con.prepareStatement(sql.toString());
+	            
+	            if (mode.equals("nomal"))
+	               pstmt.setString(1, "일반학생");
+	            else if (mode.equals("high"))
+	               pstmt.setString(1, "우수학생");      
+	         }
+	   
+	         rs=pstmt.executeQuery();
+	         
+	         while (rs.next()){
+	            int memberNumber = rs.getInt("mem_number");
+	            String id = rs.getString("id");
+	            String name = rs.getString("mem_name");
+	            String mem_type = rs.getString("mem_type");
+	            String gender = rs.getString("gender");
+	               
+	            memberList.add(new MemberVO(memberNumber, id, name, mem_type, gender));
+	         }
+	      }
+	      finally
+	      {
+	         closeAll(rs,pstmt,con);
+	      }
+	      return memberList;
+	   }
 }
 
 

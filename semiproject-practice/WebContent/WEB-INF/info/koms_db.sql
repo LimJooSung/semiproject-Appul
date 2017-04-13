@@ -10,6 +10,14 @@ drop table selecting_group;
 drop table member;
 
 select * from member;
+select * from selecting_group;
+delete from selecting_group;
+select mem_number, id, mem_name, mem_type, gender from member where mem_type like '%학생' and mem_number >= 1 and mem_number <= 36 order by mem_number;
+
+select mem_number, id, mem_name, mem_type, gender 
+from member where mem_type = '일반학생' and mem_number >= 1 and mem_number <= 36 order by mem_number
+select mem_number, id, mem_name, mem_type, gender 
+from member where mem_type = '우수학생' and mem_number >= 1 and mem_number <= 36 order by mem_number
 
 -- drop sequence
 drop sequence id_seq;
@@ -61,10 +69,11 @@ create table selecting_presenter(
 
 -- 조 선정 테이블
 create table selecting_group(
-	id						varchar2(100) primary key,
-	group_no 			number not null,
-	selecting_date	date,	
-	constraint fk_id_group foreign key(id) references member(id)
+   id varchar2(100) not null,
+   selecting_group_count number not null,
+   group_no number not null,
+   constraint fk_id_group foreign key(id) references member(id),
+   primary key (id, selecting_group_count)
 )
 
 -- 건의사항 게시판 테이블

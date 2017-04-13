@@ -39,6 +39,7 @@ import controller.qna.board.QNAShowContentNoHitController;
 import controller.qna.board.QNAUpdatePostingController;
 import controller.qna.board.QNAUpdatePostingViewController;
 import controller.qna.board.QNAWriteController;
+import controller.selectingGroup.selectingGroupController;
 import controller.selectingpresent.SelectingPresenterController;
 import controller.selectingpresent.UpdateCntPresentationController;
 
@@ -51,7 +52,7 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 	public static HandlerMapping getInstance() {
 		return instance;
 	}
-		
+
 	/**
 	 * 클라이언트가 요청한 명령에 해당하는 컨트롤러 구현체 생성
 	 * 
@@ -154,12 +155,16 @@ public class HandlerMapping { // Singleton Pattern으로 구현
 			controller = new QNACommentUpdateViewController();
 		} else if (command.equals("qnaCommentUpdateAction")) {
 			controller = new QNACommentUpdateController();
-		} else if(command.equals("findid")){
+		} else if (command.equals("findid")) {
 			controller = new FindIdController();
-		} else if (command.equals("selectingPresenter")) {		// 발표자 선정
+		} else if (command.equals("selectingPresenter")) { // 발표자 선정
 			controller = new SelectingPresenterController();
 		} else if (command.equals("updateCntPresentation")) {
 			controller = new UpdateCntPresentationController();
+		} else if (command.equals("updateCntPresentation")) {
+			controller = new UpdateCntPresentationController();
+		} else if (command.equals("selectingGroup")) {
+			controller = new selectingGroupController();
 		}
 		return controller;
 	}

@@ -37,7 +37,7 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/DispatcherServlet?command=mainList">Home</a></li>
-				<li><a href="#" id="selectingGroup">조 선정</a></li>
+				<li><a href="${pageContext.request.contextPath}/sel_group.jsp" id="selectingGroup">조 선정</a></li>
 				<li><a href="${pageContext.request.contextPath}/sel_presenter.jsp" id="selectingPresenter">발표자 선정</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
