@@ -29,6 +29,7 @@
 				
 				// 1-12번
 				for (var i=0; i<12; i++) {
+					
 					info1+="<tr>";					
 					info1+="<td>"+values[i].memNumber+"</td>";
 					info1+="<td>"+values[i].memberVO.name+"</td>";
@@ -37,7 +38,7 @@
 				}
 				$("#table1").html(info1);
 				
-				// 13-24번
+				 // 13-24번
 				for (var i=12; i<24; i++) {
 					info2+="<tr>";					
 					info2+="<td>"+values[i].memNumber+"</td>";

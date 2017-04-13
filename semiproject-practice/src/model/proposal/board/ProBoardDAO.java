@@ -54,7 +54,7 @@ public class ProBoardDAO {
 	         sql.append("select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id,secret, ");
 	         sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
 	         sql.append("from proposal_board");
-	         sql.append(") b, member m where b.id = m.id and rnum between ? and ?");
+	         sql.append(") b, member m where b.id = m.id and rnum between ? and ? order by rnum asc");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, pagingBean.getStartRowNumber());
 			pstmt.setInt(2, pagingBean.getEndRowNumber());
@@ -312,7 +312,7 @@ public class ProBoardDAO {
 	         String sql="select ib.proposal_board_no, ib.title, ib.id, ib.hit, ib.time_posted, m.mem_name,ib.secret from("
 	         		+ "select row_number() over(order by proposal_board_no desc) rnum, proposal_board_no, title, id,hit,secret, to_char("
 	         		+ "time_posted, 'YYYY.MM.DD') as time_posted from proposal_board where title like ?) ib, member m "
-	         		+ "where ib.id = m.id and rnum between ? and ?";
+	         		+ "where ib.id = m.id and rnum between ? and ? order by rnum asc";
             pstmt = con.prepareStatement(sql);
 	         pstmt.setString(1, "%" + searchTxt + "%");
 	         pstmt.setInt(2, pagingBean.getStartRowNumber());
