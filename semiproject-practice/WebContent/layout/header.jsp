@@ -11,13 +11,13 @@
 			return confirm("회원 정보를 수정 하시겠습니까?");
 		});	// click
 		$("#selectingPresenter").click(function() {
-			if ("${sessionScope.mvo.memberType} != '강사'") {
+			if ("${sessionScope.mvo.memberType}" != "강사") {
 				alert("강사만 발표자 선정을 할 수 있습니다.");
 				return false;
 			}
 		});
 		$("#selectingGroup").click(function() {
-			if ("${sessionScope.mvo.memberType} != '강사'") {
+			if ("${sessionScope.mvo.memberType}" != "강사") {
 				alert("강사만 발표자 선정을 할 수 있습니다.");
 				return false;
 			}

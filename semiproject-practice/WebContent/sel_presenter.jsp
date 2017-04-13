@@ -49,7 +49,7 @@
 				$("#table2").html(info2);
 				
 				// 25-36번
-				for (var i=24; i<35; i++) {
+				for (var i=24; i<values.length; i++) {
 					info3+="<tr>";					
 					info3+="<td>"+values[i].memNumber+"</td>";
 					info3+="<td>"+values[i].memberVO.name+"</td>";
@@ -66,7 +66,7 @@
 	
 	<jsp:include page="/layout/header.jsp" />
 	<div class="container">
-		<h4 align="center">KOSTA 145기 발표 현황</h4>${sessionScope.mvo.memberType}
+		<h4 align="center">KOSTA 145기 발표 현황</h4>
 		<br>
 		<div class="row">
 			<div class="col-sm-4">

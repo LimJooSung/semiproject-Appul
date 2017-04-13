@@ -35,8 +35,11 @@ $(document).ready(function() {
 		f.submit();
 	}
 	function cancel() {
-		var f = document.update_form;
-		f.reset();
+		if (confirm("수정을 취소하시겠습니까?")) {
+			location.href="${pageContext.request.contextPath}/DispatcherServlet?command=qnaboardlist";
+		} else {
+			return false;
+		}
 	}
 </script>
 </head>

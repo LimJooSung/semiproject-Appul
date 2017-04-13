@@ -31,7 +31,11 @@
 		f.submit();
 	}
 	function cancel() {
-		location.href="${pageContext.request.contextPath}/DispatcherServlet?command=proList"
+		if (confirm("작성을 취소하시겠습니까?")) {
+			location.href="${pageContext.request.contextPath}/DispatcherServlet?command=proList";
+		} else {
+			return false;
+		}
 	}
 </script>
 </head>

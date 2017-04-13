@@ -26,8 +26,11 @@
 		f.submit();
 	}
 	function cancel() {
-		
-		location.href="${pageContext.request.contextPath}/DispatcherServlet?command=instList"
+		if (confirm("작성을 취소하시겠습니까?")) {
+			location.href="${pageContext.request.contextPath}/DispatcherServlet?command=instList";
+		} else {
+			return false;
+		}
 	}
 </script>
 </head>
