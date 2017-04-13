@@ -49,7 +49,7 @@
 				$("#table2").html(info2);
 				
 				// 25-36번
-				for (var i=24; i<36; i++) {
+				for (var i=24; i<35; i++) {
 					info3+="<tr>";					
 					info3+="<td>"+values[i].memNumber+"</td>";
 					info3+="<td>"+values[i].memberVO.name+"</td>";

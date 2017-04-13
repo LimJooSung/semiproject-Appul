@@ -60,7 +60,7 @@ public class MemberDAO {
 		PreparedStatement pstmt=null;		
 		try{
 			con=dataSource.getConnection();
-			String sql = "insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES (?, ?, ?, ?, ?, ?, id_Seq.nextval)";
+			String sql = "insert into member (id, password, mem_name, gender, birth_date, mem_type, mem_number) VALUES (?, ?, ?, ?, ?, ?, mem_number_seq.nextval)";
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, vo.getId());
 			pstmt.setString(2, vo.getPassword());
@@ -102,7 +102,7 @@ public class MemberDAO {
 		try{
 			con=dataSource.getConnection();
 			String sql=
-				"update member set password=?,mem_name=?,gender=?,birth_date=? ,mem_type=? where id=?";
+				"update member set password=?,mem_name=?,gender=?,birth_date=? ,mem_type=? where id=?,getout='N'";
 			pstmt=con.prepareStatement(sql);			
 			
 			/*System.out.println("password" + vo.getPassword());

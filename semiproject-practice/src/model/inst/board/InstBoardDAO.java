@@ -92,7 +92,7 @@ public class InstBoardDAO {
             sql.append("select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, ");
             sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
             sql.append("from inst_board where title like ?");
-            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ? order by rnum desc");
+            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ? order by rnum asc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, "%" + searchTxt + "%");
 			pstmt.setInt(2, pagingBean.getStartRowNumber());
@@ -132,7 +132,7 @@ public class InstBoardDAO {
             sql.append("select row_number() over(order by inst_board_no desc) rnum, inst_board_no, title, id, ");
             sql.append("hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted ");
             sql.append("from inst_board where title like ? or content like ?");
-            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ?");
+            sql.append(") ib, member m where ib.id = m.id and rnum between ? and ? order by rnum asc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, "%" + searchTxt + "%");
 			pstmt.setString(2, "%" + searchTxt + "%");
@@ -173,7 +173,7 @@ public class InstBoardDAO {
             sql.append("select row_number() over(order by inst_board_no desc) rnum, ib.inst_board_no, ib.title, ib.content, ib.id, ");
             sql.append("ib.hit, to_char(time_posted, 'YYYY.MM.DD') as time_posted, m.mem_name ");
             sql.append("from inst_board ib, member m where ib.id = m.id and m.mem_name like ?");
-            sql.append(") tb where rnum between ? and ?");
+            sql.append(") tb where rnum between ? and ? order by rnum asc");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, "%" + searchTxt + "%");
 			pstmt.setInt(2, pagingBean.getStartRowNumber());
